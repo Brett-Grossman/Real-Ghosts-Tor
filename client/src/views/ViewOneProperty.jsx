@@ -19,6 +19,8 @@ const ViewOneProperty = () => {
     const [bookmark, setBookmark] = useState({})
     const [isPageBookmarked, setIsPageBookmarked] = useState(false)
 
+    // useEffect get current user from axios
+
     // useEffect pull property from axios, set property and editProperty,
         // with a dependency of property
     useEffect(() => {
