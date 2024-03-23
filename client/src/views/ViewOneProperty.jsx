@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react"
+import {useEffect, useState } from "react"
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -21,6 +21,9 @@ const ViewOneProperty = () => {
 
     // useEffect pull property from axios, set property and editProperty,
         // with a dependency of property
+    useEffect(() => {
+        console.log("ViewOneProperty loaded")
+    },[])
 
     // edited property change handler
 
