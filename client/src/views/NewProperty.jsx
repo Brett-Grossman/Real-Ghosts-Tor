@@ -108,58 +108,82 @@ const NewProperty = () => {
     }
 
     return (
-        <form onSubmit={newPropertyFormSubmission}>
-        {/* property_name: text */}
-        <label htmlFor="property_name">Property Name:</label>
-        <input id="property_name" type="text" name="property_name" value={potentialProperty.property_name} onChange={propertyFormChangeHandler}/>
-        {potentialPropertyErrors.property_name && <p>{potentialPropertyErrors.property_name.message}</p>}
-        {/* property_photo_url: text */}
-        <label htmlFor="property_photo_url">Property Photo URL:</label>
-        <input id="property_photo_url" type="text" name="property_photo_url" value={potentialProperty.property_photo_url}  onChange={propertyFormChangeHandler}/>
-        {potentialPropertyErrors.property_photo_url && <p>{potentialPropertyErrors.property_photo_url.message}</p>}
-        {/* property_photos: [], something */}
-        <label htmlFor="property_photos">Property Photos</label>
-        <input id="property_photos" type="text" name="property_photos" value={potentialProperty.property_photos} onChange={propertyFormChangeHandler}/>
-        {/* asking_price:  number*/}
-        <label htmlFor="asking_price">Asking Price:</label>
-        <input id="asking_price" type="number" name="asking_price" value={potentialProperty.asking_price}  onChange={propertyFormChangeHandler}/>
-        {potentialPropertyErrors.asking_price && <p>Asking Price must be greater than 0</p>}
-        {/* buy_or_rent: true, two buttons*/}
-        <label>Sell or Rent?:</label>
-        <label htmlFor="sell">Sell:</label>
-        <input id="sell" type="radio" name="sell_or_rent" value="true" checked={potentialProperty.sell_or_rent == true} onChange={propertyFormChangeHandler}/>
-        <label htmlFor="rent">Rent:</label>
-        <input id="rent" type="radio" name="sell_or_rent" value="false" checked={potentialProperty.sell_or_rent == false} onChange={propertyFormChangeHandler} />
-        {/* property_type: dropdown */}
-        <label htmlFor="property_type">Property Type:</label>
-        <select id="property_type" name="property_type" value={potentialProperty.property_type} onChange={propertyFormChangeHandler}>
-            <option value="House">House</option>
-            <option value="Apartment">Apartment</option>
-            <option value="Condo">Condo</option>
-            <option value="Townhouse">Townhouse</option>
-        </select>
-        {/* square_footage: number min 1*/}
-        <label htmlFor="square_footage">Square Footage</label>
-        <input id="square_footage" type="number" name="square_footage" value={potentialProperty.square_footage} onChange={propertyFormChangeHandler}/>
-        {potentialPropertyErrors.square_footage && <p>Square Footage must be greater than 0</p>}
-        {/* number_of_beds: number min 1 */}
-        <label htmlFor="number_of_beds">Number of Bedrooms</label>
-        <input id="number_of_beds" type="number" name="number_of_beds" value={potentialProperty.number_of_beds} onChange={propertyFormChangeHandler} />
-        {potentialPropertyErrors.number_of_beds && <p>{potentialPropertyErrors.number_of_beds.message}</p>}
-        {/* number_of_baths: number min 1 */}
-        <label htmlFor="number_of_baths">Number of Bathrooms</label>
-        <input id="number_of_beds" type="number" name="number_of_baths" value={potentialProperty.number_of_baths} onChange={propertyFormChangeHandler} />
-        {potentialPropertyErrors.number_of_baths &&<p>{potentialPropertyErrors.number_of_baths.message}</p>}
-        {/* number_of_ghosts: number min 1 */}
-        <label htmlFor="number_of_ghosts">Number of Ghosts</label>
-        <input id="number_of_ghosts" type="number" name="number_of_ghosts" value={potentialProperty.number_of_ghosts} onChange={propertyFormChangeHandler} />
-        {potentialPropertyErrors.number_of_ghosts && <p>{potentialPropertyErrors.number_of_ghosts.message}</p>}
-        {/* address: text */}
-        <label htmlFor="address">Address</label>
-        <input id="address" type="text" name="address" value={potentialProperty.address} onChange={propertyFormChangeHandler} />
-        {potentialPropertyErrors.address &&<p>{potentialPropertyErrors.address.message}</p>}
-        <button>Post Listing!</button>
-        </form>
+        <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
+            <div>
+            <form onSubmit={newPropertyFormSubmission}>
+                <div className="row">
+                    <div className="col-md-3">
+                        <label htmlFor="property_name">Property Name:</label>
+                        <input id="property_name" type="text" className="form-control"name="property_name" value={potentialProperty.property_name} onChange={propertyFormChangeHandler}/>
+                        {potentialPropertyErrors.property_name && <p>{potentialPropertyErrors.property_name.message}</p>}
+                    </div>
+                    <div className="col-md-4">
+                        <label htmlFor="property_photo_url">Property Photo URL:</label>
+                        <input id="property_photo_url" type="text" className="form-control"name="property_photo_url" value={potentialProperty.property_photo_url}  onChange={propertyFormChangeHandler}/>
+                        {potentialPropertyErrors.property_photo_url && <p>{potentialPropertyErrors.property_photo_url.message}</p>}
+                    </div>
+                    <div className="col-md-3">
+                        <label htmlFor="property_photos">Property Photos</label>
+                        <input id="property_photos" type="text" className="form-control"name="property_photos" value={potentialProperty.property_photos} onChange={propertyFormChangeHandler}/>
+                    </div>
+                    <div className="col-md-2">
+                        <label htmlFor="asking_price">Asking Price:</label>
+                        <input id="asking_price" type="number" className="form-control"name="asking_price" value={potentialProperty.asking_price}  onChange={propertyFormChangeHandler}/>
+                        {potentialPropertyErrors.asking_price && <p>Asking Price must be greater than 0</p>}
+                    </div>
+                    <div className="col-md-2">
+                        <label>Sell or Rent?</label>
+                        <div className="row">
+                            <label htmlFor="sell" >Sell: </label>
+                            <input id="sell" type="radio" name="sell_or_rent" value="true" checked={potentialProperty.sell_or_rent == true} onChange={propertyFormChangeHandler}/>
+                            <label htmlFor="rent">Rent: </label>
+                            <input id="rent" type="radio" name="sell_or_rent" value="false" checked={potentialProperty.sell_or_rent == false} onChange={propertyFormChangeHandler} />
+                        </div>
+                    </div>
+                    <p></p>
+                    <div className="col-md-3">
+                        <label htmlFor="property_type">Property Type:</label>
+                        <select id="property_type" className="form-select"name="property_type" value={potentialProperty.property_type} onChange={propertyFormChangeHandler}>
+                            <option>Select a Property Type</option>
+                            <option value="House">House</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Condo">Condo</option>
+                            <option value="Townhouse">Townhouse</option>
+                        </select>
+                    </div>
+                    <div className="col-md-2">
+                        <label htmlFor="square_footage">Square Footage</label>
+                        <input id="square_footage" type="number" className="form-control"name="square_footage" value={potentialProperty.square_footage} onChange={propertyFormChangeHandler}/>
+                        {potentialPropertyErrors.square_footage && <p>Square Footage must be greater than 0</p>}
+                    </div>
+                    <div className="col-md-2">
+                        <label htmlFor="number_of_beds">Number of Bedrooms</label>
+                        <input id="number_of_beds" type="number" className="form-control"name="number_of_beds" value={potentialProperty.number_of_beds} onChange={propertyFormChangeHandler} />
+                        {potentialPropertyErrors.number_of_beds && <p>{potentialPropertyErrors.number_of_beds.message}</p>}
+                    </div>
+                    <div className="col-md-2">
+                        <label htmlFor="number_of_baths">Number of Bathrooms</label>
+                        <input id="number_of_beds" type="number" className="form-control"name="number_of_baths" value={potentialProperty.number_of_baths} onChange={propertyFormChangeHandler} />
+                        {potentialPropertyErrors.number_of_baths &&<p>{potentialPropertyErrors.number_of_baths.message}</p>}
+                    </div>
+                    <div className="col-md-2">
+                        <label htmlFor="number_of_ghosts">Number of Ghosts</label>
+                        <input id="number_of_ghosts" type="number" className="form-control"name="number_of_ghosts" value={potentialProperty.number_of_ghosts} onChange={propertyFormChangeHandler} />
+                        {potentialPropertyErrors.number_of_ghosts && <p>{potentialPropertyErrors.number_of_ghosts.message}</p>}
+                    </div>
+                    <div className="col-md-4">
+                        <label htmlFor="address">Address</label>
+                        <input id="address" type="text" className="form-control"name="address" value={potentialProperty.address} onChange={propertyFormChangeHandler} />
+                        {potentialPropertyErrors.address &&<p>{potentialPropertyErrors.address.message}</p>}
+                    </div>
+                    
+                </div>
+                <button className="col-md-1 btn btn-primary offset-sm-8">Post Listing!</button>
+            </form>
+            
+            </div>
+
+        </div>
     )
 }
 
