@@ -103,11 +103,15 @@ const NewProperty = () => {
             })
     }
 
+    const toHome = () => navigate(`/all_properties/${currentUserId}`)
+
     if(loading) {
         return <div>Loading...</div>
     }
 
     return (
+        <>
+        <button onClick={() => toHome()}>Home</button>
         <form onSubmit={newPropertyFormSubmission}>
         {/* property_name: text */}
         <label htmlFor="property_name">Property Name:</label>
@@ -160,6 +164,7 @@ const NewProperty = () => {
         {potentialPropertyErrors.address &&<p>{potentialPropertyErrors.address.message}</p>}
         <button>Post Listing!</button>
         </form>
+        </>
     )
 }
 
