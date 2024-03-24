@@ -48,6 +48,12 @@ const ViewAllProperties = () => {
     
     const toNewProperty = () => navigate(`/new_property/${currentUserId}`)
 
+    // link to my account
+    const toMyAccount = () => navigate(`/profiles/${currentUserId}/${currentUserId}`)
+
+    // link to individual property:
+    const toOneProperty = (propertyId) => navigate(`/view_property/${currentUserId}/${propertyId}`)
+
     if(loading) {
         return <div>Loading...</div>
     }
@@ -58,10 +64,9 @@ const ViewAllProperties = () => {
                 {currentUser._id}
                 {currentUser.user_image_url}
                 <p>Hello, {currentUser.username}</p>
-            
+                <button onClick={()=> toMyAccount()}>My Account</button>
                 <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
-                <button onClick={() => logout()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
             <div className="row">
                 <div className="col-md">
@@ -71,6 +76,7 @@ const ViewAllProperties = () => {
                 <div className="column" style={{ border: '2px solid black' }} key={property._id}>
                         <p>Property Number: {index + 1}</p>
                         <p>ID: {property._id}</p>
+                        <button onClick={() => toOneProperty(property._id)}>View Property</button>
                         <p>lister_user_id: {property.lister_user_id}</p>
                         <p>lister_username: {property.lister_username}</p>
                         <p>lister_user_image: {property.lister_user_image}</p>

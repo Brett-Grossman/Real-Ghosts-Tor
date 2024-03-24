@@ -16,9 +16,7 @@ function App() {
         <Route path="/new_property/:currentUserId" element={<NewProperty />} />
         <Route path="/all_properties/:currentUserId" element={<ViewAllProperties /> } />
         <Route path="/view_property/:currentUserId/:propertyId" element={<ViewOneProperty />} />
-        <Route path="/view_property" element={<ViewOneProperty />} />
         <Route path="/profiles/:currentUserId/:otherUserId" element={<UserProfile />} />
-        <Route path="/profiles" element={<UserProfile />} />
       </Routes>
     </BrowserRouter>
     </>
