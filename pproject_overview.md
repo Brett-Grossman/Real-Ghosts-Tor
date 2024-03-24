@@ -16,12 +16,12 @@ Steps:
 
     create 40-50 properties
 
-    view one property page
-    with property info
+    view one property page /
+    with property info /
 
-    edit property form
+    edit property form /
 
-    delete property button with confirmation
+    delete property button with confirmation /
 
     view all properties page filter system
 
@@ -40,6 +40,7 @@ Steps:
 
     BONUS: all properties bookmarked by the user
 
+    BONUS: User Profile
     BONUS: as a buyer:
     list of offers made
 
