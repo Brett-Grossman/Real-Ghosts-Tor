@@ -166,11 +166,9 @@ const ViewAllProperties = () => {
                         ))}
 
                         <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
-                        {property.property_type !== 'Apartment' ? (
-                        <p>asking price: ${property.asking_price}</p>
-                            ) : (
-                            <p>This property has amonthly payment option of ${property.asking_price}.</p>
-                        )}
+                        <p>
+                        {property.sell_or_rent ? `Asking price: $${property.asking_price}` : `This property has monthly payment of $${property.asking_price}`}
+                        </p>
 
                         <p>asking price: {property.asking_price}</p>
                         <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
