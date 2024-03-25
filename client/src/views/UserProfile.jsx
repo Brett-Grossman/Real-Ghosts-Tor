@@ -85,59 +85,46 @@ const UserProfile = () => {
     const toBoughtAndSoldTab = () => setTab("BoughtAndSold")
         
     return (
-        <>
+        <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div className="row " style={{borderBottom: '2px solid black'}}>
-                {otherUser._id}
-                {otherUser.user_image_url}
-                <p>{otherUser.username}'s Profile</p>
-                <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
-                <button onClick={() => toHome()}>Home</button>
-                <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
+                
+                <button className='col-md btn btn-secondary'onClick={() => toHome()}>Home</button>
+                <button className='col-md btn btn-primary offset-sm-1 btn-secondary'onClick={() => logout()}>Log out</button>
+                <button className='col-md offset-md-2 btn btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
+                <p className="fs-2">{otherUser.username}'s Profile</p>
+                <img src={otherUser.user_image_url} style={{height: '100px', width: '120px'}} alt="" />
             </div>
         <div>
-            <button onClick={() => toMyPropertiesTab()}>My Properties</button>
-            <button onClick={() => toBookmarksTab()}>My Bookmarks</button>
-            <button onClick={() => toFinancesTab()}>To My Offers</button>
-            <button onClick={() => toBoughtAndSoldTab()}>To Bought And Sold</button>
+            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}>To My Offers</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtAndSoldTab()}>To Bought And Sold</button>
         </div>
         
         {/* // Tabs with these different components */}
         {tab == "MyProperties" &&
-            <div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
                 {allMyUnsoldProperties.map((property, index) => (
-                    <div key={property._id}>
-                        <p>{index}</p>
-                        <button onClick={() => toOneProperty(property._id)}>View Property</button>
-                        <p>lister_user_id: {property.lister_user_id}</p>
-                        <p>lister_username: {property.lister_username}</p>
-                        <p>lister user image: {property.lister_user_image}</p>
-                        <h1>property name {property.property_name}</h1>
-                        <p>property photo:</p>
-                        <img style={{height: '100px', width: '150px'}}src={property.property_photo_url}/>
-                        <p>asking price: {property.asking_price}</p>
-                        {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
-                        <p>property type {property.property_type}</p>
-                        <p>square footage {property.square_footage}</p>
-                        <p>number of beds {property.number_of_beds}</p>
-                        <p>number of baths {property.number_of_baths}</p>
-                        <p>number of ghosts {property.number_of_ghosts}</p>
-                        <p>address {property.address}</p>
+                    <div key={property._id} className="row" style={{ width: '48%', padding: '10px', marginBottom: '20px' }}>
+                        <div className="shadow-lg" style={{ border: '1px solid black' }}>
+                            <p>{index}</p>
+                            <button className='' style={{backgroundColor: '#C0C0C0'}} onClick={() => toOneProperty(property._id)}>View Property</button>
+                            <p>listing agent: {property.lister_username}</p>
+                            <img src={property.lister_user_image} style={{height: '100px', width: '100px'}} />
+                            <h1>Name {property.property_name}</h1>
+                            <p>Property Photo:</p>
+                            <img style={{height: '100px', width: '150px'}}src={property.property_photo_url}/>
+                            <p>asking price: ${property.asking_price}</p>
+                            {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
+                            <p>property type: {property.property_type}</p>
+                            <p>square footage: {property.square_footage}sq/ft</p>
+                            <p>number of beds: {property.number_of_beds}</p>
+                            <p>number of baths: {property.number_of_baths}</p>
+                            <p>number of ghosts: {property.number_of_ghosts}</p>
+                            <p>{property.address}</p>
+                        </div>
                     </div>
                 ))}
-        {/* // List of all properties posted by the user, ordered by most recent, that haven't been sold */}
-        {/* {allMyPropertiesThatHaventBeenSold.map(())} */}
-            {/* // View property button */}
-            {/* // Name of agent */}
-            {/* // Picture */}
-            {/* // IsSOld banner */}
-            {/* // Asking price */}
-            {/* // Buy or rent */}
-            {/* // Property type */}
-            {/* // Square Feet */}
-            {/* // Num beds */}
-            {/* // Num baths */}
-            {/* // isHaunted */}
-            {/* // Address */}
             </div>
         }
         {tab == "Bookmarks" &&
@@ -185,7 +172,7 @@ const UserProfile = () => {
             {/* // offer amount */}
                 </div>
             }
-        </>
+        </div>
     )
 }
 

@@ -2,9 +2,13 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import RegisterAndLogin from './views/RegisterAndLogin'
 import ViewAllProperties from './views/AllProperties'
 import NewProperty from './views/NewProperty'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import ViewOneProperty from './views/ViewOneProperty'
 import UserProfile from './views/UserProfile'
 import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 function App() {
 

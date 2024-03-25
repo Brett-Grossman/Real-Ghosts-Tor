@@ -129,7 +129,14 @@ const ViewOneProperty = () => {
             })
     }
 
+
     // useEffect containing a fetchOffers /
+
+
+
+
+    // useEffect containing a fetchOffers,
+
 
     // fetchOffers not in a useEffect
     // gets all the offers
@@ -252,6 +259,7 @@ const ViewOneProperty = () => {
                 // setIsPageBookmarked  to true
 
     // logout function
+
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
             .then(() => {
@@ -463,6 +471,9 @@ const ViewOneProperty = () => {
                 </div>
             }
 
+
+
+
     {/* BONUS: make offer window and lists my offer, with edit and delete */}
     {/* window to submit offer */}
     {currentUser !== property.lister_user_id && !myOffer &&
@@ -517,6 +528,7 @@ const ViewOneProperty = () => {
         {/* // Bid button */}
             {/* // bid amount */}
         {/* // Bookmark button */}
+
 
         </div>
     )
