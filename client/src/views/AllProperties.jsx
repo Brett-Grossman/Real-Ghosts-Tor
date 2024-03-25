@@ -33,6 +33,9 @@ const ViewAllProperties = () => {
     const [miniumNumberOfGhosts, setMinimumNumberOfGhosts] = useState(0)
     const [maximumNumberOfGhosts, setMaximumNumberOfGhosts] = useState(0)
 
+    const [allOffers, setAllOffers] = useState([])
+
+    // axios get all offers
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/users/${currentUserId}`)
@@ -73,15 +76,18 @@ const ViewAllProperties = () => {
     const minimumAskingPriceChangehandler = (e) => {
         // const value = e.target.value.trim() !== '' ? parseInt(e.target.value) : 0;
         const value = parseInt(e.target.value)
+        console.log(value)
         setPotentialMinimumAskingPrice(value)
     }
     const maximumAskingPriceChangeHandler = (e) => {
         // const value = e.target.value.trim() !== '' ? parseInt(e.target.value) : 0;
         const value = parseInt(e.target.value)
+        console.log(value)
         setPotentialMaximumAskingPrice(value)
     }
 
-    const functionToSetAskingPrice = () => {
+    const functionToSetAskingPrice = (e) => {
+        e.preventDefault()
         setMinimumAskingPrice(potentialMinimumAskingPrice)
         setMaximumAskingPrice(potentialMaximumAskingPrice)
     }
@@ -124,6 +130,9 @@ const ViewAllProperties = () => {
                 <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
+            </div>
+            <div>
+                All Offers
             </div>
             <div>
                 {/* filter inputs */}

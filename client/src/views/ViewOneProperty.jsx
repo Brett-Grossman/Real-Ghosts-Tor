@@ -13,9 +13,11 @@ const ViewOneProperty = () => {
     const [isEditPropertyPopupOpen, setIsEditPropertyOpen] = useState(false)
     const [allOffersForThisProperty, setAllOffersForThisProperty] = useState([])
     const [pendingDelete, setPendingDelete] = useState(false)
-    const [pendingOffer, setPendingOffer] = useState({})
+    const [pendingOffer, setPendingOffer] = useState({offer_amount: 0})
     const [pendingOfferErrors, setPendingOfferErrors] = useState({})
-    const [myOffer, setMyOffer] = useState({})
+    const [pendingEditOfferErrors, setPendingOfferEditErrors] = useState({})
+    const [myOffer, setMyOffer] = useState(null)
+    const [isOfferEditPopupOpen, setIsOfferEditPopupOpen] = useState(false)
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
     const [winningOffer, setWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
@@ -25,14 +27,16 @@ const ViewOneProperty = () => {
     const [loading, setLoading] = useState(true)
 
     // useEffect get current user from axios
-    useEffect(() => {
+    const fetchUser = async () => {
         console.log("ViewOneProperty.jsx useEffect currentUserId: ", currentUserId)
-        axios.get(`http://localhost:8000/api/users/${currentUserId}`)
-        .then((res) => {
-            console.log("ViewOneProperty.jsx getOneUser currentUserId res.data: ", res.data)
-            setCurrentUser(res.data)
-        })
-    },[])
+        try {
+            const response = await axios.get(`http://localhost:8000/api/users/${currentUserId}`)
+            console.log("ViewOneProperty.jsx getOneUser currentUserId res.data: ", response.data)
+            setCurrentUser(response.data)
+        } catch (err) {
+            console.log("ViewOneProperty.jsx fetchUser catch err: ", err)
+        }
+    }
 
     // useEffect pull property from axios, set property and editProperty,
         // with a dependency of property
@@ -44,6 +48,12 @@ const ViewOneProperty = () => {
             console.log("ViewOneProperty.jsx getOneProperty axios then res.data: ", response.data)
             setProperty(response.data)
             setEditedProperty(response.data)
+            setPendingOffer({...pendingOffer,
+                property_id: response.data._id,
+                property_name: response.data.property_name,
+                lister_id: response.data.lister_user_id,
+                lister_username: response.data.lister_username
+            })
             setLoading(false)
         } catch (err) {
             console.log("ViewOneProperty.jsx getOneProperty axios catch err: ", err)
@@ -51,7 +61,9 @@ const ViewOneProperty = () => {
     }
 
     useEffect(() => {
+        fetchUser()
         fetchProperty()
+        fetchOffers()
     },[])
 
     // edited property change handler
@@ -118,44 +130,123 @@ const ViewOneProperty = () => {
     }
 
 
+    // useEffect containing a fetchOffers /
+
+
 
 
     // useEffect containing a fetchOffers,
+
 
     // fetchOffers not in a useEffect
     // gets all the offers
     // filter allOffersForThisProperty by propertyId
     // subsequent filters myOffersForThisProperty by currentUserId
-    // sets myOffer as myOffersForThisProperty[0]
+    // if [0] exists, sets myOffer as myOffersForThisProperty[0]
+    const fetchOffers = async () => {
+        console.log("VIewOneProperty getAllOffers useEffect")
+        try {
+            const response = await axios.get('http://localhost:8000/api/offers')
+            console.log("ViewOneProperty getAllOffers axioos try response.data: ", response.data)
+            const allOffersForThis = response.data.filter(offer => offer.property_id == propertyId)
+            setAllOffersForThisProperty(allOffersForThis)
+            const justMyOfferForThisProperty  = allOffersForThis.filter(offer => offer.bidder_user_id == currentUserId)
+            if(justMyOfferForThisProperty.length == 1){
+                setMyOffer(justMyOfferForThisProperty[0])
+                setPendingOffer(justMyOfferForThisProperty[0])
+            }
+            console.log("justMyOfferForThisProperty", justMyOfferForThisProperty)
+        } catch (err) {
+            console.log("ViewOneProperty.jsx getAllOffers axios catch err: ", err)
+        }
+    }
 
     // BONUS: pending offer change handler
+    const offerChangeHandler = (e) => {
+        const { name, value } = e.target;
+        setPendingOffer(prevOffer => ({
+            ...prevOffer,
+            [name]: value
+        }))
+        console.log("offerChangeHandler pendingOffer: ", pendingOffer)
+    }
 
     // BONUS: pending offer submission function
         // pass in the property and user states
         // post axios the offer
         // if submission passes
-        // patch editedProperty's offer_ids with the id of the res.data
         // check chat window 6
         // fetchProperty
         // fetchOffers
         // catch display pendingOfferErrors
+    const offerSubmissionForm = (e) => {
+        e.preventDefault()
+        const newOffer = {
+            ...pendingOffer,
+            bidder_user_id: currentUser._id,
+            bidder_username: currentUser.username
+        }
+        console.log("ViewOneProperty.jsx offerSubmissionForm pendingOffer: ", newOffer)
+        axios.post('http://localhost:8000/api/offers', pendingOffer, {withCredentials: true})
+            .then((res) => {
+                console.log("ViewOneProperty.jsx")
+                const newOfferId = res.data._id
+                setEditedProperty(prevProperty => ({
+                    ...prevProperty,
+                    offer_ids: [...prevProperty.offer_ids, newOfferId]
+                }))
+                axios.patch(`http://localhost:8000/api/properties/${propertyId}`,)
+                fetchUser()
+                fetchProperty()
+                fetchOffers()
+            })
+            .catch((err) => {
+                console.log("ViewOneProperty.jsx offerSubmissionForm catch err.response: ", err.response.data.errors)
+                setPendingOfferErrors(err.response.data.errors)
+            })
+    }
 
-    // const setOfferToChange(myOffer)
+    // offer edit window open function
+    const openOfferEditPopup = () => setIsOfferEditPopupOpen(true)
 
-    // BONUS: edit offer change handler
+    const closeEditOfferPopup = () => {
+        setIsOfferEditPopupOpen(false)
+        setPendingOffer(myOffer)
+    }
 
-    // BONUS: editOffer submit handler:
-        // pass in the editedOffer
-        // patch
-        // if submission passes,
-        // fetchOffers
+    const editOfferSubmissionHandler = (e) => {
+        e.preventDefault()
+        const editOffer = ({
+            ...pendingOffer,
+            id: myOffer._id
+        })
+        console.log("editOfferSubmissionHandler pendingOffer._id", editOffer._id)
+        console.log("ViewOneProperty.jsx editOfferSubmissionHandler pendingOffer", editOffer)
+        axios.patch(`http://localhost:8000/api/offers/${editOffer._id}`, editOffer)
+        .then((res) => {
+            console.log("ViewOneProperty.jsx editOfferSubmissionHandler then res.data: ", res.data)
+            fetchProperty()
+            fetchOffers()
+        })
+        .catch((err) => {
+            console.log("ViewOnePropertty.jsx editeeOfferSubmissionHandler err: ", err)
+        })
+    }
 
     // Bonus deleteOffer
         // remove myOffer._id from property.offer_ids
+        // deletebyid the myOffer._id
+        // fetchproperty
+        // fetchoffers
 
-    // BONUS: lister's side accept offer onclick set pending offer to winning offer,
+        
+    // BONUS: lister's side accept offer confirm,
         // axios patch the property with the winning offer info,
         // set in state the property
+
+    // CREATE MULTIPLE OFFERS
+
+    // accept offer popup
 
     // BONUS: bookmark button:
         // filter bookmark by user_id, filter by get bookmarks matching this property
@@ -385,13 +476,45 @@ const ViewOneProperty = () => {
 
     {/* BONUS: make offer window and lists my offer, with edit and delete */}
     {/* window to submit offer */}
-    {/* {myOffer &&
+    {currentUser !== property.lister_user_id && !myOffer &&
         <div>
-            <p>{myOffer.amount}</p>
-            <button onClick={() => editOffer(myOffer)}>Edit</button>
-            <button onClick={() => deleteMyOffer(myOffer._id)}>Delete</button>
+            <form onSubmit={offerSubmissionForm}>
+                <label htmlFor="offer_amount">Offer Amount:</label>
+                <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
+                {pendingOfferErrors.offer_amount ? (<p>error</p>) : ""}
+                <button>Make Offer</button>
+            </form>
         </div>
-        } */}
+    }
+    {currentUser !== property.lister_user_id && myOffer &&
+        <div>
+            <div>
+                <p>My Offer: </p>
+                <p>${myOffer.offer_amount}.00</p>
+                <button onClick={() => openOfferEditPopup()}>Edit</button>
+                <button onClick={() => openDeletOfferPopup()}>Delete</button>
+            </div>
+            {isOfferEditPopupOpen &&
+                <div>edit popup form
+                    <form onSubmit={editOfferSubmissionHandler}>
+                    <label htmlFor="offer_amount">Offer Amount:</label>
+                    <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
+                    {pendingEditOfferErrors.offer_amount ? (<p>error</p>) : ""}
+                    <button>Make Offer</button>
+                </form>
+                    <button onClick={() => closeEditOfferPopup()}>Cancel</button>
+                </div>
+            }
+            {/* {isDeleteOfferPopupOpen &&
+                <div>delete popup
+                    <button onClick={() => closeDeleteOfferPopup()}>Cancel</button>
+                    <button onClick={() => deleteOfferForReal()}>Delete</button>
+                </div>
+            } */}
+
+        </div>
+    }
+
     
     {/* //BONUS: Table of offer if current user == lister user id*/}
         {/* // accept button */}
