@@ -123,7 +123,7 @@ const ViewAllProperties = () => {
     }
     
     return (
-         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
+        <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div className="row " style={{borderBottom: '2px solid black'}}>
                 <p className="fs-2">Hello, {currentUser.username}</p>
             
