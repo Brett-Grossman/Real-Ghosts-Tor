@@ -8,7 +8,31 @@ const ViewAllProperties = () => {
     const { currentUserId } = useParams();
     const [ currentUser, setCurrentUser] = useState({})
     const [loading, setLoading] = useState(true)
-    const [allProperties, setAllProperties] = useState([])
+    const [allPropertiesFiltered, setAllPropertiesFiltered] = useState([])
+    // states for the filter
+    const [potentialMinimumAskingPrice, setPotentialMinimumAskingPrice] = useState('')
+    const [potentialMaximumAskingPrice, setPotentialMaximumAskingPrice] = useState('')
+    const [minimumAskingPrice, setMinimumAskingPrice] = useState(0)
+    const [maximumAskingPrice, setMaximumAskingPrice] = useState(0)
+    const [sellOrRent, setSelllOrRent] = useState(null)
+    const [propertyType, setPropertyType] = useState('')
+    const [potentialMinSquareFootage, setPotentialMinSquareFootage] = useState(0)
+    const [potentialMaxSquareFootage, setPotentialMaxSquareFootage] = useState(0)
+    const [minSquareFootage, setMinSquareFootage] = useState(0)
+    const [maxSquareFootage, setMaxSquareFootage] = useState(0)
+    const [potentialMinNumberOdBeds, setPotentialMinNumberOfBeds] = useState(0)
+    const [potentialMaxNumberOfBeds, setPotentialMaxNumberOfBeds] = useState(0)
+    const [minimumNumberOfBeds, setMinimumNumberOfBeds] = useState(0)
+    const [maximumNumberOfBeds, setMaximumNumberOfBeds] = useState(0)
+    const [potentialMinNumberOfBaths, setPotentialMinNumberOfBaths] = useState(0)
+    const [potentialMaxNumberOfBaths, setPotentialMaxNumberOfBaths] = useState(0)
+    const [minimumNumberOfBaths, setMinimumNumberOfBaths] = useState(0)
+    const [maximumNumberOfBaths, setMaximumNumberOfBaths] = useState(0)
+    const [potentialMinNumberOfGhosts, setPotentialMinNumberOfGhosts] = useState(0)
+    const [potentialMaxNumberOfGhosts, setPotentialMaxNumberOfGhosts] = useState(0)
+    const [miniumNumberOfGhosts, setMinimumNumberOfGhosts] = useState(0)
+    const [maximumNumberOfGhosts, setMaximumNumberOfGhosts] = useState(0)
+
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/users/${currentUserId}`)
@@ -25,15 +49,49 @@ const ViewAllProperties = () => {
         axios.get('http://localhost:8000/api/properties')
         .then((res) => {
             console.log("AllProperties.jsx getAllProperties then res: ", res)
-            setAllProperties(res.data)
+            let filteredProperties = res.data
+            if(minimumAskingPrice !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.asking_price >= minimumAskingPrice)
+            }
+            if(maximumAskingPrice !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.asking_price <= maximumAskingPrice)
+            }
+            setAllPropertiesFiltered(filteredProperties)
+            console.log("potentialMinimumAskingPrice", potentialMinimumAskingPrice)
+            console.log("potentialMaximumAskingPrice", potentialMaximumAskingPrice)
+            console.log("minimumAskingPrice", minimumAskingPrice)
+            console.log("maximumAskingPrice", maximumAskingPrice)
             setLoading(false)
         })
         .catch((err) => {
             console.log("AllProperties.jsx getAllProperties catch err: ", err)
         })
-    },[]) //states go in the dependencies
+    },[minimumAskingPrice,
+    maximumAskingPrice]) //states go in the dependencies
 
     // filter
+    const minimumAskingPriceChangehandler = (e) => {
+        // const value = e.target.value.trim() !== '' ? parseInt(e.target.value) : 0;
+        const value = parseInt(e.target.value)
+        setPotentialMinimumAskingPrice(value)
+    }
+    const maximumAskingPriceChangeHandler = (e) => {
+        // const value = e.target.value.trim() !== '' ? parseInt(e.target.value) : 0;
+        const value = parseInt(e.target.value)
+        setPotentialMaximumAskingPrice(value)
+    }
+
+    const functionToSetAskingPrice = () => {
+        setMinimumAskingPrice(potentialMinimumAskingPrice)
+        setMaximumAskingPrice(potentialMaximumAskingPrice)
+    }
+    
+    const resetAskingPrice = () => {
+        setPotentialMinimumAskingPrice(0)
+        setPotentialMaximumAskingPrice(0)
+        setMinimumAskingPrice(0)
+        setMaximumAskingPrice(0)
+    }
 
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
@@ -68,10 +126,22 @@ const ViewAllProperties = () => {
                 <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
             </div>
+            <div>
+                {/* filter inputs */}
+                <p>Asking Price</p>
+                <form onSubmit={functionToSetAskingPrice}>
+                    <label htmlFor="minium_asking_price">Min:</label>
+                    <input id="minimum_asking_price" type="number" name="minimum_asking_price" value={potentialMinimumAskingPrice} onChange={minimumAskingPriceChangehandler}/>
+                    <label htmlFor="maximum_asking_price">Max</label>
+                    <input id="maximum_asking_price" type="number" name="maximum_asking_price" value={potentialMaximumAskingPrice} onChange={maximumAskingPriceChangeHandler}/>
+                    <button>Submit</button>
+                </form>
+                <button onClick={() => resetAskingPrice()}>Reset</button>
+            </div>
             <div className="row">
                 <div className="col-md">
                 {/* all properties displayed */}
-                {allProperties.map((property, index) =>(
+                {allPropertiesFiltered.map((property, index) =>(
                 
                 <div className="column" style={{ border: '2px solid black' }} key={property._id}>
                         <p>Property Number: {index + 1}</p>
@@ -88,7 +158,7 @@ const ViewAllProperties = () => {
                             <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
                         ))}
                         <p>asking_price: {property.asking_price}</p>
-                        <p>sell_or_rent: {property.sell_or_rent}</p>
+                        {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
                         <p>property_type: {property.property_type}</p>
                         <p>square_footage: {property.square_footage}</p>
                         <p>number_of_beds: {property.number_of_beds}</p>
