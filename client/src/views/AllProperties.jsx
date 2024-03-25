@@ -123,14 +123,13 @@ const ViewAllProperties = () => {
     }
     
     return (
-        <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
+                <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div className="row " style={{borderBottom: '2px solid black'}}>
-                {currentUser._id}
-                {currentUser.user_image_url}
-                <p>Hello, {currentUser.username}</p>
-                <button onClick={()=> toMyAccount()}>My Account</button>
+                <p className="fs-2">Hello, {currentUser.username}</p>
+            
                 <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
+                <button onClick={() => logout()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
             <div>
                 All Offers
@@ -154,18 +153,18 @@ const ViewAllProperties = () => {
                 
                 <div className="column" style={{ border: '2px solid black' }} key={property._id}>
                         <p>Property Number: {index + 1}</p>
-                        <p>ID: {property._id}</p>
-                        <button onClick={() => toOneProperty(property._id)}>View Property</button>
-                        <p>lister_user_id: {property.lister_user_id}</p>
-                        <p>lister_username: {property.lister_username}</p>
-                        <p>lister_user_image: {property.lister_user_image}</p>
-                        <p>property_name: {property.property_name}</p>
-                        <p>property_photo_url: {property.property_photo_url}</p>
+                        <p>lister: {property.lister_username}</p>
+                        
+                        <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
+                        <p>property name: {property.property_name}</p>
+                        <p>property photo:</p> 
+                        <img src={property.property_photo_url} className="col-md-10"/>
                         {/* map all the photos */}
                         <p>Property photos:</p>
                         {property.property_photos.map((photo, index) => (
                             <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
                         ))}
+
                         <p>asking_price: {property.asking_price}</p>
                         {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
                         <p>property_type: {property.property_type}</p>
@@ -173,6 +172,15 @@ const ViewAllProperties = () => {
                         <p>number_of_beds: {property.number_of_beds}</p>
                         <p>number_of_baths: {property.number_of_baths}</p>
                         <p>number_of_ghosts: {property.number_of_ghosts}</p>
+
+                        <p>asking price: {property.asking_price}</p>
+                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+                        <p>property type: {property.property_type}</p>
+                        <p>square footage: {property.square_footage}</p>
+                        <p>number of beds: {property.number_of_beds}</p>
+                        <p>number of baths: {property.number_of_baths}</p>
+                        <p>number of ghosts: {property.number_of_ghosts}</p>
+
                         <p>address: {property.address}</p>
                         <p>isSold: {property.isSold}</p>
                         {/* offer ifs array */}
@@ -189,7 +197,7 @@ const ViewAllProperties = () => {
             <div className="col-md">
             <div className="subcontainer position-fixed" style={{backgroundColor: '#f0f0f0', border: '2px solid black', left: '58%', transform: 'translateX(50%)'}}>
                 <div className='row justify-content-center'>
-                    <p className="fs-3">Filters:</p>
+                    <p className="fs-4">Filters:</p>
                     <div className='col-md-6'>
                         <div className="form-group">
                             <label>Asking Price</label>
