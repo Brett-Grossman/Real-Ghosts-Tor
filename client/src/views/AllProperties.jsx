@@ -38,6 +38,7 @@ const ViewAllProperties = () => {
     // axios get all offers
 
     // A note: push this to GriffinBranch
+    // And another note for me.
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/users/${currentUserId}`)
