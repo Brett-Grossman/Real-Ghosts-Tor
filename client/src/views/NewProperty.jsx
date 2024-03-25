@@ -107,19 +107,22 @@ const NewProperty = () => {
         return <div>Loading...</div>
     }
 
+    const toHome = () => navigate(`/all_properties/${currentUserId}`)
+
     return (
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div>
             <form onSubmit={newPropertyFormSubmission}>
                 <div className="row">
+                    <button className='col-md btn btn-secondary'onClick={() => toHome()}>Home</button>
                     <div className="col-md-3">
                         <label htmlFor="property_name">Property Name:</label>
-                        <input id="property_name" type="text" className="form-control"name="property_name" value={potentialProperty.property_name} onChange={propertyFormChangeHandler}/>
+                        <input id="property_name" type="text" className="form-control" placeholder="Name" name="property_name" value={potentialProperty.property_name} onChange={propertyFormChangeHandler}/>
                         {potentialPropertyErrors.property_name && <p>{potentialPropertyErrors.property_name.message}</p>}
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="property_photo_url">Property Photo URL:</label>
-                        <input id="property_photo_url" type="text" className="form-control"name="property_photo_url" value={potentialProperty.property_photo_url}  onChange={propertyFormChangeHandler}/>
+                        <input id="property_photo_url" type="text" className="form-control" placeholder="Place URL here" name="property_photo_url" value={potentialProperty.property_photo_url}  onChange={propertyFormChangeHandler}/>
                         {potentialPropertyErrors.property_photo_url && <p>{potentialPropertyErrors.property_photo_url.message}</p>}
                     </div>
                     <div className="col-md-3">
@@ -127,7 +130,7 @@ const NewProperty = () => {
                         <input id="property_photos" type="text" className="form-control"name="property_photos" value={potentialProperty.property_photos} onChange={propertyFormChangeHandler}/>
                     </div>
                     <div className="col-md-2">
-                        <label htmlFor="asking_price">Asking Price:</label>
+                        <label htmlFor="asking_price">Asking Price. If rental, How much per month?</label>
                         <input id="asking_price" type="number" className="form-control"name="asking_price" value={potentialProperty.asking_price}  onChange={propertyFormChangeHandler}/>
                         {potentialPropertyErrors.asking_price && <p>Asking Price must be greater than 0</p>}
                     </div>

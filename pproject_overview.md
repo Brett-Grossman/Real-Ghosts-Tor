@@ -7,10 +7,10 @@ and the property offer system, and Brett will handle the CSS
 GitHub Repo: https://github.com/Griffin-Fore/Real-Ghosts-Tor.git
 
 Steps:
-    Create new property page just functionality 
-        fix asking_price and property_type errors
+    Create new property page just functionality /
+        fix asking_price and property_type errors /
 
-    view all properties page just the view all not the filter
+    view all properties page just the view all not the filter /
 
     create 14 users: 4 realtors and 10 other users for making offers
 
@@ -31,9 +31,9 @@ Steps:
         offer controller
         offer routes
 
-    view one property offer form
+    BONUS: view one property offer form
 
-    view one property realtor side all offers table with accept offer button
+    BONUS: view one property realtor side all offers table with accept offer button
 
     user's profile
     all properties posted by user
@@ -59,13 +59,6 @@ Data:
     10 other users
 
 User 1: gfore@gmail.com
-
-try to create a user without inputs
-try to create unmatched passwords
-
-try to login without inputs
-try to login with the wrong email
-try to login with the wrong password
 
 Models:
     User:
