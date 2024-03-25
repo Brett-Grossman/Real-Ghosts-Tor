@@ -117,6 +117,58 @@ const ViewOneProperty = () => {
             })
     }
 
+
+
+
+    // useEffect containing a fetchOffers,
+
+    // fetchOffers not in a useEffect
+    // gets all the offers
+    // filter allOffersForThisProperty by propertyId
+    // subsequent filters myOffersForThisProperty by currentUserId
+    // sets myOffer as myOffersForThisProperty[0]
+
+    // BONUS: pending offer change handler
+
+    // BONUS: pending offer submission function
+        // pass in the property and user states
+        // post axios the offer
+        // if submission passes
+        // patch editedProperty's offer_ids with the id of the res.data
+        // check chat window 6
+        // fetchProperty
+        // fetchOffers
+        // catch display pendingOfferErrors
+
+    // const setOfferToChange(myOffer)
+
+    // BONUS: edit offer change handler
+
+    // BONUS: editOffer submit handler:
+        // pass in the editedOffer
+        // patch
+        // if submission passes,
+        // fetchOffers
+
+    // Bonus deleteOffer
+        // remove myOffer._id from property.offer_ids
+
+    // BONUS: lister's side accept offer onclick set pending offer to winning offer,
+        // axios patch the property with the winning offer info,
+        // set in state the property
+
+    // BONUS: bookmark button:
+        // filter bookmark by user_id, filter by get bookmarks matching this property
+            // if length is 1, get the id and delete by id
+            // setIsPageBookmarked to false
+            // if the length is 0:
+                // sets the user and property in the bookmark state,
+                // passes the bookmark state into an axios post to create a bookmark,
+                // set the bookmark in state
+                // setIsPageBookmarked  to true
+
+    // logout function
+
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
             .then(() => {
@@ -327,6 +379,32 @@ const ViewOneProperty = () => {
                     </div>
                 </div>
             }
+
+
+
+
+    {/* BONUS: make offer window and lists my offer, with edit and delete */}
+    {/* window to submit offer */}
+    {/* {myOffer &&
+        <div>
+            <p>{myOffer.amount}</p>
+            <button onClick={() => editOffer(myOffer)}>Edit</button>
+            <button onClick={() => deleteMyOffer(myOffer._id)}>Delete</button>
+        </div>
+        } */}
+    
+    {/* //BONUS: Table of offer if current user == lister user id*/}
+        {/* // accept button */}
+        {/* // bid */}
+        {/* // username that links to user's profile */}
+        {/* // Upon clicking accept on a bid, popup that asks for confirmation, and upon confirmation,  */}
+        {/* // sets the property owner to the bidding user and sets the property to sold,  */}
+        {/* // sets the winning bid as the bid attached to the property model */}
+
+    {/* // If property is not posted by current user, */}
+        {/* // Bid button */}
+            {/* // bid amount */}
+        {/* // Bookmark button */}
 
 
         </div>

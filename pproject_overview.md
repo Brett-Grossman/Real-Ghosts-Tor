@@ -14,14 +14,19 @@ Steps:
 
     create 14 users: 4 realtors and 10 other users for making offers
 
-    create 40-50 properties
+    create 40-50 properties 
 
-    view one property page
-    with property info
+    view one property page /
+    with property info /
 
-    edit property form
+    edit property form /
 
-    delete property button with confirmation
+    delete property button with confirmation /
+    
+    user's profile
+    all properties posted by user /
+
+    figure out how to pull and push to github
 
     view all properties page filter system
 
@@ -35,11 +40,11 @@ Steps:
 
     BONUS: view one property realtor side all offers table with accept offer button
 
-    user's profile
-    all properties posted by user
+    Test offers
 
     BONUS: all properties bookmarked by the user
 
+    BONUS: User Profile:
     BONUS: as a buyer:
     list of offers made
 
@@ -52,6 +57,12 @@ Steps:
     BONUS: as a cellar:
     list of properties soled
     CURRENT PLACE
+
+    BONUS: All properties are in tabs of 10 properties max
+
+    BONUS: List properties bought under my properties and allow for reselling
+
+    BONUS: Edit profile function
 
 Data:
     40 properties

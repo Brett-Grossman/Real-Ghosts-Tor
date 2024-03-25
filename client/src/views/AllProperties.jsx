@@ -117,7 +117,7 @@ const ViewAllProperties = () => {
     }
     
     return (
-        <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
+         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div className="row " style={{borderBottom: '2px solid black'}}>
                 <p className="fs-2">Hello, {currentUser.username}</p>
             
@@ -155,12 +155,17 @@ const ViewAllProperties = () => {
                         {property.property_photos.map((photo, index) => (
                             <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
                         ))}
+
                         <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
                         {property.property_type !== 'Apartment' ? (
                         <p>asking price: ${property.asking_price}</p>
                             ) : (
                             <p>This property has amonthly payment option of ${property.asking_price}.</p>
                         )}
+
+                        <p>asking price: {property.asking_price}</p>
+                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+
                         <p>property type: {property.property_type}</p>
                         <p>square footage: {property.square_footage}</p>
                         <p>number of beds: {property.number_of_beds}</p>
