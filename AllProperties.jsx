@@ -53,87 +53,56 @@ const ViewAllProperties = () => {
         return <div>Loading...</div>
     }
         return (
-<div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
-
-    <div>
-                {currentUser._id}
-                {currentUser.user_image_url}
-                {currentUser.username}
-                </div>
-            <button onClick={() => logout()}>Log out</button>
-            <button onClick={() => toNewProperty()}>Create New Listing</button>
-            {/* all properties displayed */}
-            {allProperties.map((property, index) =>(
-                <div style={{display: 'flex', flexDirection: 'column'}} key={property._id}>
-                    <p>Property Number: {index + 1}</p>
-                    <p>ID: {property._id}</p>
-                    <p>lister_user_id: {property.lister_user_id}</p>
-                    <p>lister_username: {property.lister_username}</p>
-                    <p>lister_user_image: {property.lister_user_image}</p>
-                    <p>property_name: {property.property_name}</p>
-                    <p>property_photo_url: {property.property_photo_url}</p>
-                    {/* map all the photos */}
-                    <p>Property photos:</p>
-                    {property.property_photos.map((photo, index) => (
-                        <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
-                    ))}
-                    <p>asking_price: {property.asking_price}</p>
-                    <p>sell_or_rent: {property.sell_or_rent}</p>
-                    <p>property_type: {property.property_type}</p>
-                    <p>square_footage: {property.square_footage}</p>
-                    <p>number_of_beds: {property.number_of_beds}</p>
-                    <p>number_of_baths: {property.number_of_baths}</p>
-                    <p>number_of_ghosts: {property.number_of_ghosts}</p>
-                    <p>address: {property.address}</p>
-                    <p>isSold: {property.isSold}</p>
-                    {/* offer ifs array */}
-                    {property.offer_ids.map((offer_id, index) => (
-                        <p key={index} >{offer_id}</p>
-                    ))}
-                    <p>winning_bid_amount: {property.winning_bid_amount}</p>
-                    <p>winning_bid_user_id: {property.winning_bid_user_id}</p>
-                    <p>winning_bid_username: {property.winning_bid_username}</p>
-                    <div style={{height: '10px', backgroundColor: 'red'}}></div>
-                </div>
-            ))}
-    <div className="row " style={{borderBottom: '2px solid black'}}>
-        <h1></h1>
-        <button onClick={() => logout()} className='col-md btn btn-primary'>Log out</button>
-        <button onClick={() => toNewProperty()} className='col-md btn offset-sm-1 btn-secondary'>Add a new Property</button>
-        <button onClick={() => logout()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
-        <h1></h1>
-    </div>
-    <div className="row">
-        <div className="col-md">
-            <div className="subcontainer">
-                <h1>Here are the current spooky listings!</h1>
-                <table className="column" style={{ border: '2px solid black' }}>
-                    <thead>
-                        <tr>
-                            <th>Asking Price</th>
-                            <th># of Bathrooms</th>
-                            <th># of Bedrooms</th>
-                            <th># of Ghosts</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>
-                
-                </p>
+        <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
+            <div className="row " style={{borderBottom: '2px solid black'}}>
+                <p className="fs-2">Hello, {currentUser.username}</p>
+            
+                <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
+                <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
+                <button onClick={() => logout()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
-        </div>
-        <div className="col-md">
+            <div className="row">
+                <div className="col-md">
+                {/* all properties displayed */}
+                {allProperties.map((property, index) =>(
+                
+                <div className="column" style={{ border: '2px solid black' }} key={property._id}>
+                        <p>Property Number: {index + 1}</p>
+                        <p>lister: {property.lister_username}</p>
+                        
+                        <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
+                        <p>property name: {property.property_name}</p>
+                        <p>property photo:</p> 
+                        <img src={property.property_photo_url} className="col-md-10"/>
+                        {/* map all the photos */}
+                        <p>Property photos:</p>
+                        {property.property_photos.map((photo, index) => (
+                            <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
+                        ))}
+                        <p>asking price: {property.asking_price}</p>
+                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+                        <p>property type: {property.property_type}</p>
+                        <p>square footage: {property.square_footage}</p>
+                        <p>number of beds: {property.number_of_beds}</p>
+                        <p>number of baths: {property.number_of_baths}</p>
+                        <p>number of ghosts: {property.number_of_ghosts}</p>
+                        <p>address: {property.address}</p>
+                        <p>isSold: {property.isSold}</p>
+                        {/* offer ifs array */}
+                        {property.offer_ids.map((offer_id, index) => (
+                            <p key={index} >{offer_id}</p>
+                        ))}
+                        <p>winning_bid_amount: {property.winning_bid_amount}</p>
+                        <p>winning_bid_user_id: {property.winning_bid_user_id}</p>
+                        <p>winning_bid_username: {property.winning_bid_username}</p>
+                </div>
+            
+            ))}
+            </div>
+            <div className="col-md">
             <div className="subcontainer position-fixed" style={{backgroundColor: '#f0f0f0', border: '2px solid black', left: '58%', transform: 'translateX(50%)'}}>
                 <div className='row justify-content-center'>
-                    <p className="fs-3">Filters:</p>
+                    <p className="fs-4">Filters:</p>
                     <div className='col-md-6'>
                         <div className="form-group">
                             <label>Asking Price</label>
@@ -169,9 +138,9 @@ const ViewAllProperties = () => {
                     </div>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
-</div>
+        </div>
     )
 }
 
