@@ -13,6 +13,12 @@ Steps:
     view all properties page just the view all not the filter /
 
     create 14 users: 4 realtors and 10 other users for making offers
+    grossmanbrettj@gmail.com, 
+    legobjg911@aol.com, 
+    sickmagic@aol.com, 
+    grossmanbj@mx.lakeforest.edu, 
+    fourtwentz@hotmail.com, 
+    sickmagic@aol.com
 
     create 40-50 properties 
 
@@ -32,24 +38,30 @@ Steps:
 
     BONUS: 
         offer system:
-        offer model
-        offer controller
-        offer routes
+        offer model /
+        offer controller /
+        offer routes /
 
-    BONUS: view one property offer form
+    BONUS: view one property offer form on the view property form, when the current user is not the lister
 
-    BONUS: view one property realtor side all offers table with accept offer button
+    BONUS: create 1 offer
 
-    Test offers
+    BONUS: edit and delete one offer
+
+    BONUS: create 6 offers
+
+    BONUS: view one property realtor side all offers table with accept offer button and links to the bidder
+
+    accept one offer
 
     BONUS: all properties bookmarked by the user
 
     BONUS: User Profile:
     BONUS: as a buyer:
-    list of offers made
+    list of offers made with links to the properties
 
     BONUS: as a cellar:
-    list of offers recieved
+    list of offers recieved with links to the properties
 
     BONUS: as a buyer:
     list of properties closed on
@@ -108,7 +120,7 @@ Models:
         seller_id String required
         seller_username String required
         seller_user_image required
-        bid_amount Number required
+        offer_amount Number required
         bidder_id String required
         bidder_username required
         date_added and date_updated
