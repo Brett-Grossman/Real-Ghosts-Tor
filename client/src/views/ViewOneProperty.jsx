@@ -239,14 +239,17 @@ const ViewOneProperty = () => {
         // fetchproperty
         // fetchoffers
 
+    // accept offer popup
+
+    // accept offer confirm
+
+    // close offer popup
         
     // BONUS: lister's side accept offer confirm,
         // axios patch the property with the winning offer info,
         // set in state the property
 
     // CREATE MULTIPLE OFFERS
-
-    // accept offer popup
 
     // BONUS: bookmark button:
         // filter bookmark by user_id, filter by get bookmarks matching this property
