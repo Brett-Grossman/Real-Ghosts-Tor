@@ -44,7 +44,7 @@ Steps:
 
     BONUS: view one property offer form on the view property form, when the current user is not the lister /
 
-    BONUS: create 1 offer /
+    BONUS: create 1 offer
 
     BONUS: edit and delete one offer
 
