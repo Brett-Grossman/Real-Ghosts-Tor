@@ -477,7 +477,7 @@ const ViewAllProperties = () => {
                         <p>Beds: {property.number_of_beds}</p>
                         <p>Baths: {property.number_of_baths}</p>
                         <p>Number of Ghosts: {property.number_of_ghosts}</p>
-                        <p>address: {property.address}</p>
+                        <p>Address: {property.address}</p>
                         <button className='col-sm btn offset-sm-1 btn-secondary' onClick={() => toOneProperty(property._id)}>View Listing</button>
                 </div>
             
