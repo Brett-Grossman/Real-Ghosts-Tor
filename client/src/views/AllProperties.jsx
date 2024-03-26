@@ -467,7 +467,7 @@ const ViewAllProperties = () => {
                                     <option value="Condo">Condo</option>
                                     <option value="Townhouse">Townhouse</option>
                                 </select>
-                            <button onClick={() => resetPropertyType()}>Reset</button>
+                            <button style={{backgroundColor: '#C0C0C0'}} onClick={() => resetPropertyType()}>Reset</button>
                         </div>
                         <div>
                         {/* filter inputs */}
