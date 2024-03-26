@@ -19,7 +19,6 @@ const ViewOneProperty = () => {
     const [myOffer, setMyOffer] = useState(null)
     const [isOfferEditPopupOpen, setIsOfferEditPopupOpen] = useState(false)
     const [isOfferDeletePopupOpen, setIsOfferDeletePopupOpen] = useState(false)
-    const [areOfferPopupsOpen, setAreOfferPopupsOpen] = useState(true)
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
     const [winningOffer, setWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
@@ -61,7 +60,6 @@ const ViewOneProperty = () => {
                 bidder_user_id: currentUserId,
                 bidder_username: currentUser.username
             })
-            setLoading(false)
         } catch (err) {
             console.log("ViewOneProperty.jsx getOneProperty axios catch err: ", err)
         }
@@ -157,6 +155,7 @@ const ViewOneProperty = () => {
                 setPendingOffer(justMyOfferForThisProperty[0])
             }
             console.log("justMyOfferForThisProperty", justMyOfferForThisProperty)
+            setLoading(false)
         } catch (err) {
             console.log("ViewOneProperty.jsx getAllOffers axios catch err: ", err)
         }
@@ -177,7 +176,12 @@ const ViewOneProperty = () => {
         const newOffer = {
             ...pendingOffer,
             bidder_user_id: currentUser._id,
-            bidder_username: currentUser.username
+            bidder_username: currentUser.username,
+            property_id: propertyId,
+            property_name: property.property_name,
+            lister_id: property.lister_user_id,
+            lister_username: property.lister_username,
+            
         }
         console.log("currentUser.username: ", currentUser.username)
         console.log("ViewOneProperty.jsx offerSubmissionForm pendingOffer: ", newOffer)
@@ -270,13 +274,13 @@ const ViewOneProperty = () => {
 
     // accept offer popup
 
-    // accept offer confirm
 
-    // close offer popup
-        
-    // BONUS: lister's side accept offer confirm,
+    // accept offer confirm
         // axios patch the property with the winning offer info,
         // set in state the property
+        // set the isSold to sold
+
+    // close offer popup
 
     // CREATE MULTIPLE OFFERS
 
@@ -291,7 +295,6 @@ const ViewOneProperty = () => {
                 // setIsPageBookmarked  to true
 
     // logout function
-
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
             .then(() => {
@@ -329,6 +332,8 @@ const ViewOneProperty = () => {
             setCurrentImageIndex(currentImageIndex - 1)
         }
     }
+
+    const toBidderProfile = (bidder_id) => navigate(`/profiles/${currentUserId}/${bidder_id}`)
     // loading
     if(loading) {
         return <div>Loading...</div>
@@ -349,7 +354,8 @@ const ViewOneProperty = () => {
 
                 {/* Picture */}
                 <p>Property offer_ids</p>
-                {property.offer_ids.map((offerId, index) => (
+                
+                {property.offer_ids && property.offer_ids.map((offerId, index) => (
                     <p key={index}>OfferId: {offerId}</p>
                 ))}
                 <h1>{property.property_name}</h1>
@@ -493,6 +499,34 @@ const ViewOneProperty = () => {
                         }
                         {/* // Delete button */}
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Delete</button>
+                        {/* //BONUS: Table of offer if current user == lister user id*/}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Bidder</td>
+                                    <td>Offer Amount</td>
+                                    <td>Accept</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allOffersForThisProperty.map((offer, index) => (
+                                    <tr key="offer._id">
+                                        <td>
+                                            <button onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                                
+                            </tbody>
+                            
+                        </table>
+                        
+                        {/* // accept button */}
+                        {/* // bid */}
+                        {/* // username that links to user's profile */}
+                        {/* // Upon clicking accept on a bid, popup that asks for confirmation, and upon confirmation,  */}
+                        {/* // sets the property owner to the bidding user and sets the property to sold,  */}
+                        {/* // sets the winning bid as the bid attached to the property model */}
                 </div>
             }
             {pendingDelete &&
@@ -509,7 +543,7 @@ const ViewOneProperty = () => {
 
     {/* BONUS: make offer window and lists my offer, with edit and delete */}
     {/* window to submit offer */}
-    {currentUser !== property.lister_user_id && !myOffer &&
+    {currentUserId !== property.lister_user_id && !myOffer &&
         <div>
             <form onSubmit={offerSubmissionForm}>
                 <label htmlFor="offer_amount">Offer Amount:</label>
@@ -519,7 +553,7 @@ const ViewOneProperty = () => {
             </form>
         </div>
     }
-    {currentUser !== property.lister_user_id && myOffer &&
+    {currentUserId !== property.lister_user_id && myOffer &&
         <div>
                 <div>
                     <p>My Offer: </p>
@@ -546,21 +580,6 @@ const ViewOneProperty = () => {
                 }
                 </div>
             }
-    
-    {/* //BONUS: Table of offer if current user == lister user id*/}
-        {/* // accept button */}
-        {/* // bid */}
-        {/* // username that links to user's profile */}
-        {/* // Upon clicking accept on a bid, popup that asks for confirmation, and upon confirmation,  */}
-        {/* // sets the property owner to the bidding user and sets the property to sold,  */}
-        {/* // sets the winning bid as the bid attached to the property model */}
-
-    {/* // If property is not posted by current user, */}
-        {/* // Bid button */}
-            {/* // bid amount */}
-        {/* // Bookmark button */}
-
-
         </div>
     )
 }
