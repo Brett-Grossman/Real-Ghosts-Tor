@@ -239,14 +239,17 @@ const ViewOneProperty = () => {
         // fetchproperty
         // fetchoffers
 
+    // accept offer popup
+
+    // accept offer confirm
+
+    // close offer popup
         
     // BONUS: lister's side accept offer confirm,
         // axios patch the property with the winning offer info,
         // set in state the property
 
     // CREATE MULTIPLE OFFERS
-
-    // accept offer popup
 
     // BONUS: bookmark button:
         // filter bookmark by user_id, filter by get bookmarks matching this property
@@ -478,6 +481,7 @@ const ViewOneProperty = () => {
     {/* window to submit offer */}
     {currentUser !== property.lister_user_id && !myOffer &&
         <div>
+            <p className="fs-2">Would you like to make an offer on this listing?</p>
             <form onSubmit={offerSubmissionForm}>
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
