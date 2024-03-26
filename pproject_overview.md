@@ -32,9 +32,9 @@ Steps:
     user's profile
     all properties posted by user /
 
-    figure out how to pull and push to github
+    figure out how to pull and push to github /
 
-    view all properties page filter system
+    view all properties page filter system /
 
     BONUS: 
         offer system:
@@ -42,9 +42,9 @@ Steps:
         offer controller /
         offer routes /
 
-    BONUS: view one property offer form on the view property form, when the current user is not the lister
+    BONUS: view one property offer form on the view property form, when the current user is not the lister /
 
-    BONUS: create 1 offer
+    BONUS: create 1 offer /
 
     BONUS: edit and delete one offer
 

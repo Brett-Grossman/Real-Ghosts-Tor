@@ -347,6 +347,8 @@ const ViewAllProperties = () => {
     // link to individual property:
     const toOneProperty = (propertyId) => navigate(`/view_property/${currentUserId}/${propertyId}`)
 
+    const toListerProfile = (lister_user_id) => navigate(`/profiles/${currentUserId}/${lister_user_id}`)
+
     if(loading) {
         return <div>Loading...</div>
     }
@@ -441,16 +443,20 @@ const ViewAllProperties = () => {
             <div>
                 <button onClick={() => resetAllFilters()}>Reset All</button>
             </div>
+            <p>{allPropertiesFiltered.length} Results</p>
             <div className="row">
                 <div className="col-md">
                 {/* all properties displayed */}
                 {allPropertiesFiltered.map((property, index) =>(
                 
                 <div className="column" style={{ border: '2px solid black' }} key={property._id}>
-                        <p>Property Number: {index + 1}</p>
-                        <p>lister: {property.lister_username}</p>
-                        <p></p>
-                        <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
+                        <p>lister: </p>
+                        <button onClick={() => toListerProfile(property.lister_user_id)}>
+                            <p>{property.lister_username}</p>
+                            <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
+                        </button>
+
+                        {property.isSOld && <p style={{backgroundColor:'red', color: 'white'}}>SOLD</p>}
                         <p>property name: {property.property_name}</p>
                         <p>property photo:</p> 
                         <img src={property.property_photo_url} className="col-md-10"/>
@@ -460,30 +466,18 @@ const ViewAllProperties = () => {
                             <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
                         ))}
 
-                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+                        <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
                         {property.property_type !== 'Apartment' ? (
-                        <p>asking price: ${property.asking_price}</p>
+                        <p>Asking Price: ${property.asking_price}</p>
                             ) : (
                             <p>This property has amonthly payment option of ${property.asking_price}.</p>
                         )}
-                        <p>Sell or rent? </p>
-                        <p>asking price: {property.asking_price}</p>
-                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
-
-                        <p>property type: {property.property_type}</p>
-                        <p>square footage: {property.square_footage}</p>
-                        <p>number of beds: {property.number_of_beds}</p>
-                        <p>number of baths: {property.number_of_baths}</p>
-                        <p>number of ghosts: {property.number_of_ghosts}</p>
+                        <p>Property Type: {property.property_type}</p>
+                        <p>Square Footage: {property.square_footage}</p>
+                        <p>Beds: {property.number_of_beds}</p>
+                        <p>Baths: {property.number_of_baths}</p>
+                        <p>Number of Ghosts: {property.number_of_ghosts}</p>
                         <p>address: {property.address}</p>
-                        <p>isSold: {property.isSold}</p>
-                        {/* offer ifs array */}
-                        {property.offer_ids.map((offer_id, index) => (
-                            <p key={index} >{offer_id}</p>
-                        ))}
-                        <p>winning_bid_amount: {property.winning_bid_amount}</p>
-                        <p>winning_bid_user_id: {property.winning_bid_user_id}</p>
-                        <p>winning_bid_username: {property.winning_bid_username}</p>
                         <button className='col-sm btn offset-sm-1 btn-secondary' onClick={() => toOneProperty(property._id)}>View Listing</button>
                 </div>
             
