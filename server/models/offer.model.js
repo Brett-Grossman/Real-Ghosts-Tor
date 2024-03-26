@@ -42,4 +42,8 @@ const OfferSchema = new Schema({
 
 const Offer = model("Offer", OfferSchema);
 
+
 export default Offer
+
+
+
