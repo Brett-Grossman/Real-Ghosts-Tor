@@ -30,7 +30,7 @@ const ViewAllProperties = () => {
     const [maximumNumberOfBaths, setMaximumNumberOfBaths] = useState(0)
     const [potentialMinNumberOfGhosts, setPotentialMinNumberOfGhosts] = useState('')
     const [potentialMaxNumberOfGhosts, setPotentialMaxNumberOfGhosts] = useState('')
-    const [miniumNumberOfGhosts, setMinimumNumberOfGhosts] = useState(0)
+    const [minimumNumberOfGhosts, setMinimumNumberOfGhosts] = useState(0)
     const [maximumNumberOfGhosts, setMaximumNumberOfGhosts] = useState(0)
 
 
@@ -71,12 +71,36 @@ const ViewAllProperties = () => {
             if(maxSquareFootage !== 0) {
                 filteredProperties = filteredProperties.filter(property => property.square_footage <= maxSquareFootage)
             }
+            if(minimumNumberOfBeds !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.number_of_beds >= minimumNumberOfBeds)
+            }
+            if(maximumNumberOfBeds !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.number_of_beds <= maximumNumberOfBeds)
+            }
+            if(minimumNumberOfBaths !== 0){
+                filteredProperties = filteredProperties.filter(property => property.number_of_baths >= minimumNumberOfBaths)
+            }
+            if(maximumNumberOfBaths !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.number_of_baths <= maximumNumberOfBaths)
+            }
+            if(minimumNumberOfGhosts !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.number_of_ghosts >= minimumNumberOfGhosts)
+            }
+            if(maximumNumberOfGhosts !== 0) {
+                filteredProperties = filteredProperties.filter(property => property.number_of_ghosts <= maximumNumberOfGhosts)
+            }
             setAllPropertiesFiltered(filteredProperties)
             console.log("minimumAskingPrice: ", minimumAskingPrice)
             console.log("maximumAskingPrice: ", maximumAskingPrice)
             console.log("sellOrRent: ", sellOrRent)
             console.log("minSquareFootage: ", minSquareFootage)
             console.log("maxSquareFootage: ", maxSquareFootage)
+            console.log("minimumNumberOfBeds", minimumNumberOfBeds)
+            console.log("maximumNumberOfBeds", maximumNumberOfBeds)
+            console.log("minimumNumberOfBaths", minimumNumberOfBaths)
+            console.log("maximumNumberOfBaths", maximumNumberOfBaths)
+            console.log("minimumNumberOfGhosts", minimumNumberOfGhosts)
+            console.log("maximumNumberOfGhosts", maximumNumberOfGhosts)
             setLoading(false)
         })
         .catch((err) => {
@@ -87,7 +111,13 @@ const ViewAllProperties = () => {
     sellOrRent,
     propertyType,
     minSquareFootage,
-    maxSquareFootage]) //states go in the dependencies
+    maxSquareFootage,
+    minimumNumberOfBeds,
+    maximumNumberOfBeds,
+    minimumNumberOfBaths,
+    maximumNumberOfBaths,
+    minimumNumberOfGhosts,
+    maximumNumberOfGhosts]) //states go in the dependencies
 
     // filter
     const minimumAskingPriceChangehandler = (e) => {
@@ -187,8 +217,6 @@ const ViewAllProperties = () => {
     
     const bedFilterSubmissionHandler = (e) => {
         e.preventDefault()
-        console.log("potentialMinNumberOfBeds: ", potentialMinNumberOfBeds)
-        console.log("potentialMaxNumberOfBeds: ", potentialMaxNumberOfBeds)
         let value1 = potentialMinNumberOfBeds
         if(value1 == '' || isNaN(value1) == true) {
             value1 = 0
@@ -208,9 +236,97 @@ const ViewAllProperties = () => {
         setMaximumNumberOfBeds(0)
     }
 
-    
+    const potentialMinimumBathsChangeHandler = (e) => {
+        const value1 = parseInt(e.target.value)
+        console.log("potentialMinBaths: ", value1)
+        setPotentialMinNumberOfBaths(value1)
+    }
+
+    const potentialMaximumBathsChangeHandler = (e) => {
+        const value2 = parseInt(e.target.value)
+        console.log("potentialMaxBaths: ", value2)
+        setPotentialMaxNumberOfBaths(value2)
+    }
+
+    const bathFilterSubmissionHandler = (e) => {
+        e.preventDefault()
+        let value1 = potentialMinNumberOfBaths
+        if(value1 == '' || isNaN(value1) == true) {
+            value1 = 0
+        }
+        let value2 = potentialMaxNumberOfBaths
+        if(value2 == '' || isNaN(value2) == true) {
+            value2 = 0
+        }
+        setMinimumNumberOfBaths(value1)
+        setMaximumNumberOfBaths(value2)
+    }
+
+    const resetBathFilter = () => {
+        setPotentialMinNumberOfBaths('')
+        setPotentialMaxNumberOfBaths('')
+        setMinimumNumberOfBaths(0)
+        setMaximumNumberOfBaths(0)
+    }
+
+    const potentialMinimumGhostsChangeHandler = (e) => {
+        const value1 = parseInt(e.target.value)
+        console.log("potentialMinBaths: ", value1)
+        setPotentialMinNumberOfGhosts(value1)
+    }
+
+    const potentialMaximumGhostsChangeHandler = (e) => {
+        const value2 = parseInt(e.target.value)
+        console.log("potentialMaxGhosts: ", value2)
+        setPotentialMaxNumberOfGhosts(value2)
+    }
+
+    const ghostFilterSubmissionHandler = (e) => {
+        e.preventDefault()
+        let value1 = potentialMinNumberOfGhosts
+        if(value1 == '' || isNaN(value1) == true) {
+            value1 = 0
+        }
+        let value2 = potentialMaxNumberOfGhosts
+        if(value2 == '' || isNaN(value2) == true) {
+            value2 = 0
+        }
+        setMinimumNumberOfGhosts(value1)
+        setMaximumNumberOfGhosts(value2)
+    }
+
+    const resetGhostFilter = () => {
+        setPotentialMinNumberOfGhosts('')
+        setPotentialMaxNumberOfGhosts('')
+        setMinimumNumberOfGhosts(0)
+        setMaximumNumberOfGhosts(0)
+    }
 
     // reset all function
+    const resetAllFilters = () => {
+        setPotentialMinimumAskingPrice('')
+        setPotentialMaximumAskingPrice('')
+        setMinimumAskingPrice(0)
+        setMaximumAskingPrice(0)
+        setSellOrRent(null)
+        setPropertyType('')
+        setPotentialMinSquareFootage('')
+        setPotentialMaxSquareFootage('')
+        setMinSquareFootage(0)
+        setMaxSquareFootage(0)
+        setPotentialMinNumberOfBeds('')
+        setPotentialMaxNumberOfBeds('')
+        setMinimumNumberOfBeds(0)
+        setMaximumNumberOfBeds(0)
+        setPotentialMinNumberOfBaths('')
+        setPotentialMaxNumberOfBaths('')
+        setMinimumNumberOfBaths(0)
+        setMaximumNumberOfBaths(0)
+        setPotentialMinNumberOfGhosts('')
+        setPotentialMaxNumberOfGhosts('')
+        setMinimumNumberOfGhosts(0)
+        setMaximumNumberOfGhosts(0)
+    }
 
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
@@ -249,7 +365,7 @@ const ViewAllProperties = () => {
             </div>
             <div>
                 {/* filter inputs */}
-                <h1>Zeros are not filtered</h1>
+                <p>Zeros are not filtered</p>
                 <p>Asking Price</p>
                 <form onSubmit={functionToSetAskingPrice}>
                     <label htmlFor="minium_asking_price">Min:</label>
@@ -299,6 +415,31 @@ const ViewAllProperties = () => {
                     <button>Submit</button>
                 </form>
                 <button onClick={() => resetBedFilter()}>Reset</button>
+            </div>
+            <div>
+                <p>Baths</p>
+                <form onSubmit={bathFilterSubmissionHandler}>
+                    <label htmlFor="minimum_baths">Min</label>
+                    <input id="minimum_baths" type="number" name="minimum_baths" value={potentialMinNumberOfBaths} onChange={potentialMinimumBathsChangeHandler}/>
+                    <label htmlFor="maximum_baths">Max</label>
+                    <input id="maximum_baths" type="number" name="minimum_baths" value={potentialMaxNumberOfBaths} onChange={potentialMaximumBathsChangeHandler}/>
+                    <button>Submit</button>
+                </form>
+                <button onClick={resetBathFilter}>Reset</button>
+            </div>
+            <div>
+                <p>Ghosts</p>
+                <form onSubmit={ghostFilterSubmissionHandler}>
+                    <label htmlFor="minimum_ghosts">Min</label>
+                    <input id="minimum_ghosts" type="number" name="minimum_ghosts" value={potentialMinNumberOfGhosts} onChange={potentialMinimumGhostsChangeHandler}/>
+                    <label htmlFor="maximum_ghosts">Max</label>
+                    <input id="maximum_ghosts" type="number" name="maximum_ghosts" value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
+                    <button>Submit</button>
+                </form>
+                <button onSubmit={() => resetGhostFilter()}>Reset</button>
+            </div>
+            <div>
+                <button onClick={() => resetAllFilters()}>Reset All</button>
             </div>
             <div className="row">
                 <div className="col-md">
