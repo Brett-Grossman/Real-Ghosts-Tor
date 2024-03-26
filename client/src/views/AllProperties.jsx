@@ -438,7 +438,7 @@ const ViewAllProperties = () => {
                     <input id="maximum_ghosts" type="number" name="maximum_ghosts" value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
                     <button>Submit</button>
                 </form>
-                <button onSubmit={() => resetGhostFilter()}>Reset</button>
+                <button onClick={() => resetGhostFilter()}>Reset</button>
             </div>
             <div>
                 <button onClick={() => resetAllFilters()}>Reset All</button>

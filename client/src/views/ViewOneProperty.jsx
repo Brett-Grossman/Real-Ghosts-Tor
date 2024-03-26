@@ -186,12 +186,10 @@ const ViewOneProperty = () => {
                 console.log("ViewOneProperty.jsx")
                 const newOfferId = res.data._id
                 console.log("res.data._id", res.data._id)
-                setEditedProperty(prevProperty => ({
-                    ...prevProperty,
-                    offer_ids: [...prevProperty.offer_ids, newOfferId]
-                }))
-                axios.patch(`http://localhost:8000/api/properties/${propertyId}`, editedProperty)
-                console.log("editedProperty", editedProperty)
+                const newIdArray = [...property.offer_ids, newOfferId]
+                const propertyCopy = {...property, offer_ids: newIdArray}
+                axios.patch(`http://localhost:8000/api/properties/${propertyId}`, propertyCopy)
+                console.log("propertyCopy", propertyCopy)
                 fetchUser()
                 fetchProperty()
                 fetchOffers()
@@ -240,8 +238,10 @@ const ViewOneProperty = () => {
     // Bonus deleteOffer
     const deleteOfferForReal = () => {
         if(myOffer){
+            console.log("myOffer", myOffer)
         const allOffersMinusMine = property.offer_ids.filter(offerId => offerId !== myOffer._id)
         const propertyCopy = {...property, offer_ids: allOffersMinusMine}
+        console.log("propertyCopy", propertyCopy)
         axios.patch(`http://localhost:8000/api/properties/${property._id}`, propertyCopy)
         .then((res) => {
             console.log("ViewOneProperty.jsx deleteOfferForReal propertyCopy then res.data: ", res.data)
