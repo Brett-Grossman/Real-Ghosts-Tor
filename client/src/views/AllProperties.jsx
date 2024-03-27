@@ -360,7 +360,6 @@ const ViewAllProperties = () => {
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
-
             <div>
                 {/* filter inputs */}
                 <p>Zeros are not filtered</p>
