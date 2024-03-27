@@ -361,7 +361,7 @@ const ViewAllProperties = () => {
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
 
-
+            {/*add more offers and accept 2 of them*/}
 
             <div className="row">
                 <div className="col-md">
@@ -374,12 +374,22 @@ const ViewAllProperties = () => {
                         <p></p>
                         <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
                         <p>property name: {property.property_name}</p>
-                        <p>property photo:</p> 
-                        <img src={property.property_photo_url} className="col-md-10"/>
+                        <p style={{
+                            height: '',
+                            width: '400px',
+                            backgroundColor: property.isSold ? 'red' : '#f0f0f0',
+                            border: property.isSold ? '2px solid black': 'none',
+                            transform: property.isSold ? 'translateY(50%)' : 'none'
+                        }}>
+                            {property.isSold ? "Listing is Sold" : ""}
+                        </p>
+                        <p>property photo:</p>
+                        <img src={property.property_photo_url} className="col-md-10" style={{height: '300px', width: '400px'}}/>
                         {/* map all the photos */}
+                        
                         <p>Property photos:</p>
                         {property.property_photos.map((photo, index) => (
-                            <img style={{height: '15px', width: '15px'}} key={index} src={photo}/>
+                            <img style={{height: '100px', width: '100px'}} key={index} src={photo}/>
                         ))}
 
                         <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
@@ -397,11 +407,10 @@ const ViewAllProperties = () => {
                         <p>address: {property.address}</p>
                         {property.isSold ? <p>Sold!</p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                            {property.isSold ? <p>Accepted offer: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
                         </div>
                         {/* offer ifs array */}
                         
-                        <p>winning bid amount: ${property.winning_bid_amount}</p>
                         {/* Offer Array Ends */}
                         <button className='col-sm btn offset-sm-1 btn-secondary'
                             onClick={() => toOneProperty(property._id)}>View Listing

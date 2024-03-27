@@ -379,8 +379,8 @@ const ViewOneProperty = () => {
                 {/* seller image */}
 
                 {/* Picture */}
-                <h1>{property.property_name}</h1>
-                <img style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
+                <h1 className="offset-sm-1">{property.property_name}</h1>
+                <img className='shadow-lg'style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
                 <div></div>
                 {/* // BONUS: Pictures array that has arrow buttons to go forward and back to the different picture */}
                 
@@ -393,7 +393,7 @@ const ViewOneProperty = () => {
 
                 {property.isSold ? <p>Sold!</p> : ""}
                 <div style={{height: '60px', width: '180px'}}>
-                    {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                    {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
                 </div>  
                 <div style={{height: '60px', width: '180px'}}>
                     {property.isSold ? "" : (property.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
@@ -401,15 +401,15 @@ const ViewOneProperty = () => {
                 <div style={{height: '60px', width: '180px'}}>
                     <p>Property Type: {property.property_type}</p>
                 </div>
-                    <div style={{height: '60px', width: '180px'}}>
-                <p>Square Footage: {property.square_footage} sq/ft</p>
-                    </div>
+                <div style={{height: '60px', width: '180px'}}>
+                    <p>Square Footage: {property.square_footage} sq/ft</p>
+                </div>
                 <div style={{height: '60px', width: '180px'}}>
                     <p>Number of Bedrooms: {property.number_of_beds}</p>
                 </div>
-                    <div style={{height: '60px', width: '180px'}}>
-                <p>Number of Bathrooms: {property.number_of_baths}</p>
-                    </div>
+                <div style={{height: '60px', width: '180px'}}>
+                    <p>Number of Bathrooms: {property.number_of_baths}</p>
+                </div>
                 <div style={{height: '60px', width: '180px'}}>
                     <p>Number of Ghosts: {property.number_of_ghosts}</p>
                 </div>
@@ -522,29 +522,32 @@ const ViewOneProperty = () => {
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
                         {!property.isSold &&
-                        <div>
-                            <table className="row">
-                                <thead>
-                                    <tr>
-                                        <td>Bidder</td>
-                                        <td>Offer Amount</td>
-                                        <td>Accept</td>
-                                    </tr>
-                                </thead>
-                                <tbody className="" style={{borderBottom: '2px solid black'}}>
-                                    {allOffersForThisProperty.map((offer, index) => (
-                                        <tr key={offer._id} style={{borderBottom: '1px solid black'}}>
-                                            <td >
-                                                <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
-                                            </td>
-                                            <td>${offer.offer_amount}</td>
-                                            <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
-                                        </tr>
-                                    ))}
-                                    
-                                </tbody>
-                            </table>
-                        </div>
+                            <div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Bidder</th>
+                                                    <th>Offer Amount</th>
+                                                    <th>Accept Offer?</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style={{ borderBottom: '2px solid black' }}>
+                                                {allOffersForThisProperty.map((offer, index) => (
+                                                    <tr key={offer._id} style={{ borderBottom: '1px solid black' }}>
+                                                        <td>
+                                                            <button className="btn" onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
+                                                        </td>
+                                                        <td>${offer.offer_amount}</td>
+                                                        <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         }
                         {isAcceptOfferPopupOpen &&
                             <div>
@@ -583,17 +586,17 @@ const ViewOneProperty = () => {
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
                 {pendingOfferErrors.offer_amount && <p>Error: Offer amount must be at least 1.</p>}
-                <button>Make Offer</button>
+                <button style={{marginBottom: '50px'}}>Make Offer</button>
             </form>
         </div>
     }
     {currentUserId !== property.lister_user_id && myOffer &&
         <div>
-                <div>
+                <div >
                     <p>My Offer: </p>
                     <p>${myOffer.offer_amount}.00</p>
-                    <button onClick={() => openOfferEditPopup()}>Edit</button>
-                    <button onClick={() => openDeletOfferPopup()}>Delete</button>
+                    <button style={{marginBottom: '50px'}} onClick={() => openOfferEditPopup()}>Edit Offer</button>
+                    <button onClick={() => openDeletOfferPopup()}>Delete Offer</button>
                 </div>
                 {isOfferEditPopupOpen && myOffer &&
                     <div>edit popup form
@@ -603,11 +606,11 @@ const ViewOneProperty = () => {
                             {pendingEditOfferErrors.offer_amount && <p>{pendingEditOfferErrors.offer_amount?.message}</p>}
                             <button>Make Offer</button>
                         </form>
-                        <button onClick={() => closeOfferEditPopup()}>Cancel</button>
+                        <button style={{marginBottom: '50px'}} onClick={() => closeOfferEditPopup()}>Cancel</button>
                     </div>
                 }
                 {isOfferDeletePopupOpen && myOffer &&
-                    <div>
+                    <div style={{marginBottom: '50px'}}>
                         <button onClick={() => closeDeleteOfferPopup()}>Cancel</button>
                         <button onClick={() => deleteOfferForReal()}>Delete</button>
                     </div>
