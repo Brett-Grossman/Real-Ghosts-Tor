@@ -10,20 +10,24 @@ Presentation:
 
     register
     log in to an account
+    go to your profile
+    go to someone else's profile
     filter search
         enter and then delete inputs and submit empty inputs
         clear inputs
         clear all inputs
+        search with all inputs, minimum and maximum
     create one property
     edit the property
     delete the property
     make an offer on a property
     edit and delete the offer
-    log in to an account with a property with three offers
+    log in to an account with a property with multiple offers
     accept an offer
-    bookmark a prooperty
-    go to your profile
-    go to someone else's profile
+    view your sold properties
+    bookmark 2 properties on one account
+    bookmark one of the same properties on another account
+    view the bookmarks
     play the rhythm game
 
 Steps:

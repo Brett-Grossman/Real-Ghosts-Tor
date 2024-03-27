@@ -5,7 +5,8 @@ import cookieParser from 'cookie-parser';
 import dbConnect from './config/mongoose.config.js'
 import userRouter from './routes/user.routes.js';
 import propertyRouter from './routes/property.routes.js';
-import offerRouter from './routes/offer.routes.js'
+import offerRouter from './routes/offer.routes.js';
+import bookmarkRouter from './routes/bookmark.routes.js';
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
 app.use('/api', userRouter);
 app.use('/api', propertyRouter);
 app.use('/api', offerRouter);
+app.use('/api', bookmarkRouter);
 
 dotenv.config()
 

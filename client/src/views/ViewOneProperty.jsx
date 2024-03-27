@@ -22,7 +22,7 @@ const ViewOneProperty = () => {
     const [isAcceptOfferPopupOpen, setIsAcceptOfferPopupOpen] = useState(false)
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
-    const [myBookmark, setMyBookmark] = useState({})
+    const [myBookmark, setMyBookmark] = useState(null)
     let [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -63,6 +63,7 @@ const ViewOneProperty = () => {
                 creator_user_id: currentUserId,
                 lister_username: response.data.lister_username,
                 lister_user_image: response.data.lister_user_image,
+                property_id: response.data._id,
                 property_name: response.data.property_name,
                 property_photo_url: response.data.property_photo_url,
                 asking_price: response.data.asking_price,
@@ -75,29 +76,27 @@ const ViewOneProperty = () => {
                 address: response.data.address,
                 isSold: response.data.isSold
             })
+            console.log("myBookmark: ", myBookmark)
         } catch (err) {
             console.log("ViewOneProperty.jsx getOneProperty axios catch err: ", err)
         }
     }
 
-    const fetchBookmarks =  async () => {
-        console.log("ViewOneProperty.jsx fetchBookmarks")
+    const fetchBookmark =  async () => {
+        console.log("ViewOneProperty.jsx fetchBookmark")
         try {
-            // axios fetch all bookmarks
-            // console.log("ViewOneProperty.jsx fetchBookmarks")
-            // const doesMyBookmarkExist = response.data
-            // .filter(bookmark => bookmark.property_id == propertyId)
-            // .filter(bookmark => bookmark_maker_id == currentUserId)
-            // if(doesMyBookmarkExist[0]) {
-                // const actualMyBookmark = doesMyBookmarkExist[0]
-                // setMyBookmark(actualMyBookmark)
-            // }
-            // else
-                // setMyBookmark({})
-                // setPendingBookmark({}) to include all the property's data minus the bids
+            const allBookmarks = await axios.get('http://localhost:8000/api/bookmarks')
+            console.log("ViewOneProperty.jsx fetchBookmark allBookmarks: ", allBookmarks)
+            const doesMyBookmarkExist = allBookmarks.data.filter(bookmark => bookmark.property_id == propertyId).filter(bookmark => bookmark.creator_user_id == currentUserId)
+            if(doesMyBookmarkExist[0]) {
+                setMyBookmark(doesMyBookmarkExist[0])
+            }
+            else {
+                setMyBookmark(null)
+            }
             // CURRENT PLACE
         } catch (err) {
-            console.log("ViewOneProperty.jsx fetchBookmarks catch err: ", err)
+            console.log("ViewOneProperty.jsx fetchBookmark catch err: ", err)
         }
     }
 
@@ -105,7 +104,7 @@ const ViewOneProperty = () => {
         fetchUser()
         fetchProperty()
         fetchOffers()
-        fetchBookmarks()
+        fetchBookmark()
     },[pendingEditOfferErrors])
 
     // edited property change handler
@@ -347,11 +346,18 @@ const ViewOneProperty = () => {
 
     const toggleBookmark = () => {
         console.log("pendingBookmark: ", pendingBookmark)
+        if(myBookmark) {
+            axios.delete(`http://localhost:8000/api/bookmarks/${myBookmark._id}`)
+            fetchBookmark()
+        } else {
+            console.log("pendingBookmark", pendingBookmark)
+            fetchBookmark()
+        }
     }
     // BONUS: bookmark button:
         // if(myBookmark){
             // deleteById the myBookmark._id
-            // fetchBookmarks()
+            // fetchBookmark()
         // } else {
                 // console.log(pendingBookmark)
                 // passes pendingBookmark
@@ -361,7 +367,7 @@ const ViewOneProperty = () => {
                 // sets an object with the user and property data and
                 // then
                 // passes the object (either pendingBookmark or other) into an axios post to create a bookmark
-                // fetchBookmarks()
+                // fetchBookmark()
                 // CURRENT PLACE
             // }
 
@@ -429,6 +435,7 @@ const ViewOneProperty = () => {
                     <p>creator_user_id: {pendingBookmark.creator_user_id}</p>
                     <p>lister_usernamE: {pendingBookmark.lister_username}</p>
                     <p>lister_user_image: {pendingBookmark.lister_user_image}</p>
+                    <p>Property_id: {pendingBookmark.property_id}</p>
                     <p>property_name: {pendingBookmark.property_name}</p>
                     <p>property_photo_url: {pendingBookmark.property_photo_url}</p>
                     <p>asking_price: {pendingBookmark.asking_price}</p>

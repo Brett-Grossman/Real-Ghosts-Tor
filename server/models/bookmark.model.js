@@ -13,6 +13,10 @@ const BookmarkSchema = new Schema({
         type: String,
         required: [true,  "Property in bookmark must have a lister's picture"]
     },
+    property_id: {
+        type: String,
+        required: [true, "Property in bookmark must have an id to visit"]
+    },
     property_name: {
         type: String,
         required: [true, "Property in bookmark must have a name"]
