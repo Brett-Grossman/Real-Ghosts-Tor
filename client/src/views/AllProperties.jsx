@@ -361,7 +361,7 @@ const ViewAllProperties = () => {
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
             <div className="fs-1 offset-sm-2">
-                All Offers
+                All Listings
             </div>
 
             <div className="row">
@@ -369,7 +369,7 @@ const ViewAllProperties = () => {
                 {/* all properties displayed */}
                 {allPropertiesFiltered.map((property, index) =>(
                 
-                <div className="column" style={{ border: '2px solid black' }} key={property._id}>
+                <div className="column" style={{marginBottom:'50px' ,border: '2px solid black' }} key={property._id}>
                         <p>Property Number: {index + 1}</p>
                         <p>lister: {property.lister_username}</p>
                         <p></p>
