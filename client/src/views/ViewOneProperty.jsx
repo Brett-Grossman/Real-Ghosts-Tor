@@ -19,6 +19,7 @@ const ViewOneProperty = () => {
     const [myOffer, setMyOffer] = useState(null)
     const [isOfferEditPopupOpen, setIsOfferEditPopupOpen] = useState(false)
     const [isOfferDeletePopupOpen, setIsOfferDeletePopupOpen] = useState(false)
+    const [isAcceptOfferPopupOpen, setIsAcceptOfferPopupOpen] = useState(false)
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
     const [winningOffer, setWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
@@ -273,7 +274,10 @@ const ViewOneProperty = () => {
     }
 
     // accept offer popup
-
+    const openAcceptOfferPopup = (offer) => {
+        setPendingWinningOffer(offer)
+        setIsAcceptOfferPopupOpen(true)
+    }
 
     // accept offer confirm
         // axios patch the property with the winning offer info,
@@ -500,7 +504,7 @@ const ViewOneProperty = () => {
                         {/* // Delete button */}
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
-                        <table>
+                        <table className="row">
                             <thead>
                                 <tr>
                                     <td>Bidder</td>
@@ -508,24 +512,32 @@ const ViewOneProperty = () => {
                                     <td>Accept</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="" style={{borderBottom: '2px solid black'}}>
                                 {allOffersForThisProperty.map((offer, index) => (
-                                    <tr key="offer._id">
-                                        <td>
-                                            <button onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
+                                    <tr key={offer._id} style={{borderBottom: '1px solid black'}}>
+                                        <td >
+                                            <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
                                         </td>
+                                        <td>${offer.offer_amount}</td>
+                                        <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
+                                        {/* set as selectedOffer the offer, then set isAcceptOfferPopupOpen to true CURRENT_PLACE*/}
                                     </tr>
                                 ))}
                                 
                             </tbody>
-                            
                         </table>
-                        
+                        {isAcceptOfferPopupOpen &&
+                            <div>
+                                <p>All Offers Are Final</p>
+                                <button onClick={() => closeAcceptOfferPopup()}>Cancel</button>
+                                <button onClick={() => acceptOfferForReal()}>Finalize Offer</button>
+                            </div>
+                        }
                         {/* // accept button */}
                         {/* // bid */}
                         {/* // username that links to user's profile */}
                         {/* // Upon clicking accept on a bid, popup that asks for confirmation, and upon confirmation,  */}
-                        {/* // sets the property owner to the bidding user and sets the property to sold,  */}
+                        {/* // sets the property's winning bidder information to the bidding user and sets the property to sold,  */}
                         {/* // sets the winning bid as the bid attached to the property model */}
                 </div>
             }
