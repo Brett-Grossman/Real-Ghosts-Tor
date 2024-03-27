@@ -410,14 +410,13 @@ const ViewAllProperties = () => {
                         <p>number of baths: {property.number_of_baths}</p>
                         <p>number of ghosts: {property.number_of_ghosts}</p>
                         <p>address: {property.address}</p>
-                        <p>isSold: {property.isSold}</p>
+                        {property.isSold ? <p>Sold!</p> : ""}
+                        <div style={{height: '60px', width: '180px'}}>
+                            {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                        </div>
                         {/* offer ifs array */}
-                        {property.offer_ids.map((offer_id, index) => (
-                            <p key={index} >{offer_id}</p>
-                        ))}
-                        <p>winning_bid_amount: {property.winning_bid_amount}</p>
-                        <p>winning_bid_user_id: {property.winning_bid_user_id}</p>
-                        <p>winning_bid_username: {property.winning_bid_username}</p>
+                        
+                        <p>winning bid amount: ${property.winning_bid_amount}</p>
                         {/* Offer Array Ends */}
                         <button className='col-sm btn offset-sm-1 btn-secondary'
                             onClick={() => toOneProperty(property._id)}>View Listing
