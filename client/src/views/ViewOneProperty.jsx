@@ -514,7 +514,7 @@ const ViewOneProperty = () => {
                             </thead>
                             <tbody>
                                 {allOffersForThisProperty.map((offer, index) => (
-                                    <tr key="offer._id">
+                                    <tr key={offer._id}>
                                         <td>
                                             <button onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
                                         </td>
@@ -530,7 +530,7 @@ const ViewOneProperty = () => {
                             <div>
                                 <p>All Offers Are Final</p>
                                 <button onClick={() => closeAcceptOfferPopup()}>Cancel</button>
-                                <button onClick={() => acceptOfferForReal()}>Finalize</button>
+                                <button onClick={() => acceptOfferForReal()}>Finalize Offer</button>
                             </div>
                         }
                         {/* // accept button */}
