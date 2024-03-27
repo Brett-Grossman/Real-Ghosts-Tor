@@ -545,6 +545,7 @@ const ViewOneProperty = () => {
     {/* window to submit offer */}
     {currentUserId !== property.lister_user_id && !myOffer &&
         <div>
+            <p className="fs-2">Would you like to make an offer on this listing?</p>
             <form onSubmit={offerSubmissionForm}>
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
