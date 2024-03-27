@@ -347,8 +347,6 @@ const ViewAllProperties = () => {
     // link to individual property:
     const toOneProperty = (propertyId) => navigate(`/view_property/${currentUserId}/${propertyId}`)
 
-    const toListerProfile = (lister_user_id) => navigate(`/profiles/${currentUserId}/${lister_user_id}`)
-
     if(loading) {
         return <div>Loading...</div>
     }
@@ -362,9 +360,10 @@ const ViewAllProperties = () => {
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
-            <div>
+            <div className="fs-1 offset-sm-2">
                 All Offers
             </div>
+
             <div>
                 {/* filter inputs */}
                 <p>Zeros are not filtered</p>
@@ -444,19 +443,17 @@ const ViewAllProperties = () => {
                 <button onClick={() => resetAllFilters()}>Reset All</button>
             </div>
             <p>{allPropertiesFiltered.length} Results</p>
+
             <div className="row">
                 <div className="col-md">
                 {/* all properties displayed */}
                 {allPropertiesFiltered.map((property, index) =>(
                 
                 <div className="column" style={{ border: '2px solid black' }} key={property._id}>
-                        <p>lister: </p>
-                        <button onClick={() => toListerProfile(property.lister_user_id)}>
-                            <p>{property.lister_username}</p>
-                            <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
-                        </button>
-
-                        {property.isSOld && <p style={{backgroundColor:'red', color: 'white'}}>SOLD</p>}
+                        <p>Property Number: {index + 1}</p>
+                        <p>lister: {property.lister_username}</p>
+                        <p></p>
+                        <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
                         <p>property name: {property.property_name}</p>
                         <p>property photo:</p> 
                         <img src={property.property_photo_url} className="col-md-10"/>
@@ -466,61 +463,163 @@ const ViewAllProperties = () => {
                             <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
                         ))}
 
-                        <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+
                         {property.property_type !== 'Apartment' ? (
-                        <p>Asking Price: ${property.asking_price}</p>
+                        <p>asking price: ${property.asking_price}</p>
                             ) : (
                             <p>This property has amonthly payment option of ${property.asking_price}.</p>
                         )}
-                        <p>Property Type: {property.property_type}</p>
-                        <p>Square Footage: {property.square_footage}</p>
-                        <p>Beds: {property.number_of_beds}</p>
-                        <p>Baths: {property.number_of_baths}</p>
-                        <p>Number of Ghosts: {property.number_of_ghosts}</p>
-                        <p>Address: {property.address}</p>
-                        <button className='col-sm btn offset-sm-1 btn-secondary' onClick={() => toOneProperty(property._id)}>View Listing</button>
+                        <p>Sell or rent? </p>
+
+                        <p>
+                            {property.sell_or_rent ? `Asking price: $
+                            ${property.asking_price}` : `This property has monthly payment of $${property.asking_price}`}
+                        </p>
+
+
+                        <p>asking price: {property.asking_price}</p>
+                        <p>sell or rent: {property.sell_or_rent ? 
+                        "This property is for sale" : "This is a rental"}</p>
+
+                        <p>property type: {property.property_type}</p>
+                        <p>square footage: {property.square_footage}</p>
+                        <p>number of beds: {property.number_of_beds}</p>
+                        <p>number of baths: {property.number_of_baths}</p>
+                        <p>number of ghosts: {property.number_of_ghosts}</p>
+                        <p>address: {property.address}</p>
+                        <p>isSold: {property.isSold}</p>
+                        {/* offer ifs array */}
+                        {property.offer_ids.map((offer_id, index) => (
+                            <p key={index} >{offer_id}</p>
+                        ))}
+                        <p>winning_bid_amount: {property.winning_bid_amount}</p>
+                        <p>winning_bid_user_id: {property.winning_bid_user_id}</p>
+                        <p>winning_bid_username: {property.winning_bid_username}</p>
+                        <button className='col-sm btn offset-sm-1 btn-secondary'
+                            onClick={() => toOneProperty(property._id)}>View Listing
+                        </button>
                 </div>
             
             ))}
             </div>
             <div className="col-md">
-            <div className="subcontainer position-fixed" style={{height: '', width: '400px' ,backgroundColor: '#f0f0f0', border: '2px solid black', left: '48%', transform: 'translateX(50%)'}}>
-                <div className='row justify-content-center'>
-                    <p className="fs-4">Filters:</p>
-                    <div className='col-md-6'>
-                        <div className="form-group">
-                            <label>Asking Price</label>
-                            <input className="form-control"></input>
+                <div className="subcontainer position-fixed" style={{height: '', 
+                    width: '400px' ,backgroundColor: '#f0f0f0', border: 
+                    '2px solid black', left: '52%', transform: 'translateX(50%)'}}>
+                    <div className='row justify-content-center'>
+                        <p className="fs-4 col-sm-3">Filters:</p>
+                        <div>
+                    {/* filter inputs */}
+                            
+                    <p className="offset-sm-1">Asking Price</p>
+                        <form onSubmit={functionToSetAskingPrice}>
+                            <label className="offset-sm-1" htmlFor="minium_asking_price">Min:</label>
+                            <input className="col-sm-3" id="minimum_asking_price" 
+                                type="number" name="minimum_asking_price" 
+                                value={potentialMinimumAskingPrice} onChange={minimumAskingPriceChangehandler}/>
+                            <label htmlFor="maximum_asking_price">Max:</label>
+                            <input className="col-sm-3" id="maximum_asking_price" 
+                                type="number" name="maximum_asking_price" 
+                                value={potentialMaximumAskingPrice} onChange={maximumAskingPriceChangeHandler}/>
+                            <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                        </form>
+                        <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={() => resetAskingPrice()}>Reset</button>
                         </div>
-                        <div className="form-group">
-                            <label>minimum # of bathrooms</label>
-                            <input className="form-control"></input>
-                        </div>
-                        <div className="form-group">
-                            <label>minimum # of Bedrooms</label>
-                            <input className="form-control"></input>
-                        </div>
-                        <div className="form-group">
-                            <label>minimum # of ghosts</label>
-                            <input className="form-control"></input>
-                        </div>
-                        <div className="form-group">
-                            <label>minimum SquareFeet</label>
-                            <input className="form-control"></input>
-                        </div>
-                        <div className="form-group">
-                            <label>Rent or Own</label>
-                            <input className="form-control"></input>
-                        </div>
-                        <div className="form-group">
-                            <label>Property Type</label>
-                            <input className="form-control"></input>
+                        <div>
+                            <p className="offset-sm-1">For Sale Or For Rent</p>
+                            <button style={{backgroundColor: '#C0C0C0'}} 
+                                className="offset-sm-1" onClick={setSellOrRentToSell}>For Sale
+                            </button>
+                            <button style={{backgroundColor: '#C0C0C0'}} onClick={setSellOrRentToRent}>For Rent</button>
+                            <button style={{backgroundColor: '#C0C0C0'}} 
+                                className="offset-sm-1" onClick={() => resetSellOrRent()}>Reset
+                            </button>
                         </div>
                         <p></p>
-                        <button className="btn btn-primary">Filter</button>
-                        <p></p>
-                    </div>
+                        <div className="offset-sm-1">
+                            <label htmlFor="property_type">Property Type</label>
+                                <select id="property_type" type="string" 
+                                value={propertyType} onChange={propertyTypeChangeHandler}>
+                                    <option value=''>Select a Property Type</option>
+                                    <option value="House">House</option>
+                                    <option value="Apartment">Apartment</option>
+                                    <option value="Condo">Condo</option>
+                                    <option value="Townhouse">Townhouse</option>
+                                </select>
+                            <button style={{backgroundColor: '#C0C0C0'}} onClick={() => resetPropertyType()}>Reset</button>
+                        </div>
+                        <div>
+                        {/* filter inputs */}
+                        <p className="offset-sm-1">Square Footage</p>
+                        <form onSubmit={setSquareFootage} className="offset-sm-1">
+                            <label htmlFor="minium_square_footage">Min:</label>
+                            <input className="col-sm-2" id="minimum_square_footage" 
+                                type="number" name="minimum_square_footage" 
+                                value={potentialMinSquareFootage} onChange={minimumSquareFootageChangeHandler}/>
+                            <label htmlFor="maximum_square_footage">Max:</label>
+                            <input className="col-sm-2" id="maximum_square_footage" 
+                                type="number" name="maximum_square_footage" 
+                                value={potentialMaxSquareFootage} onChange={maximumSquareFootageChangeHandler}/>
+                            <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                        </form>
+                        <button style={{backgroundColor: '#C0C0C0'}} onClick={() => resetSquareFootage()} className="offset-sm-1">Reset</button>
+                        </div>
+                            
+                        <div>
+                            <p className="offset-sm-1">Beds</p>
+                                <form onSubmit={bedFilterSubmissionHandler} className="offset-sm-1">
+                                    <label htmlFor="minimum_beds">Min:</label>
+                                    <input className="col-sm-1" id="minimum_beds" 
+                                        type="number" name="minimum_beds" 
+                                        value={potentialMinNumberOfBeds} onChange={minimumBedsChangeHandler}/>
+                                    <label htmlFor="maximum_beds">Max:</label>
+                                    <input className="col-sm-1" id="maximum_beds" 
+                                        type="number" name="maximum_beds" 
+                                        value={potentialMaxNumberOfBeds} onChange={maximumBedsChangeHandler}/>
+                                    <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                                </form>
+                            <button style={{backgroundColor: '#C0C0C0'}} 
+                                className="offset-sm-1" onClick={() => resetBedFilter()}>Reset
+                            </button>
                 </div>
+
+                <div>
+                    <p className="offset-sm-1">Baths</p>
+                    <form onSubmit={bathFilterSubmissionHandler}>
+                        <label className="offset-sm-1" htmlFor="minimum_baths">Min:</label>
+                        <input className="col-sm-1" id="minimum_baths" 
+                            type="number" name="minimum_baths" 
+                            value={potentialMinNumberOfBaths} onChange={potentialMinimumBathsChangeHandler}/>
+                        <label htmlFor="maximum_baths">Max:</label>
+                        <input className="col-sm-1" id="maximum_baths" 
+                            type="number" name="minimum_baths" 
+                            value={potentialMaxNumberOfBaths} onChange={potentialMaximumBathsChangeHandler}/>
+                        <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                    </form>
+                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={resetBathFilter}>Reset</button>
+                </div>
+
+                <div>
+                    <p className="offset-sm-1">Ghosts</p>
+                    <form onSubmit={ghostFilterSubmissionHandler}>
+                        <label className="offset-sm-1" htmlFor="minimum_ghosts">Min:</label>
+                        <input className="col-sm-1" id="minimum_ghosts" 
+                            type="number" name="minimum_ghosts" 
+                            value={potentialMinNumberOfGhosts} onChange={potentialMinimumGhostsChangeHandler}/>
+                        <label htmlFor="maximum_ghosts">Max:</label>
+                        <input className="col-sm-1" id="maximum_ghosts" 
+                            type="number" name="maximum_ghosts" 
+                            value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
+                        <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                    </form>
+                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onSubmit={() => resetGhostFilter()}>Reset</button>
+                </div>
+
+            <div>
+                <button style={{backgroundColor: '#C0C0C0'}} className="col-sm-4 offset-sm-4" onClick={() => resetAllFilters()}>Reset All</button>
+            </div>
+            </div>
             </div>
             </div>
         </div>
