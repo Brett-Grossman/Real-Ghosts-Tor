@@ -6,6 +6,26 @@ and the property offer system, and Brett will handle the CSS
 
 GitHub Repo: https://github.com/Griffin-Fore/Real-Ghosts-Tor.git
 
+Presentation:
+
+    register
+    log in to an account
+    filter search
+        enter and then delete inputs and submit empty inputs
+        clear inputs
+        clear all inputs
+    create one property
+    edit the property
+    delete the property
+    make an offer on a property
+    edit and delete the offer
+    log in to an account with a property with three offers
+    accept an offer
+    bookmark a prooperty
+    go to your profile
+    go to someone else's profile
+    play the rhythm game
+
 Steps:
     Create new property page just functionality /
         fix asking_price and property_type errors /
@@ -56,6 +76,14 @@ Steps:
 
     BONUS: accept one offer on two separate properties /
 
+    CURRENT PLACE
+    
+    BONUS: bookmark model, controller, routes
+
+    BONUS: make the bookmark functionality
+
+    BONUS: make 6 bookmarks with one account, 3 with another account, 3 with another account all on the same 6/3 properties
+
     BONUS: all properties bookmarked by the user
 
     BONUS: multiple photos with a forward and back buttons on the sides
@@ -74,13 +102,14 @@ Steps:
 
     BONUS: as a cellar:
     list of properties soled
-    CURRENT PLACE
 
     BONUS: All properties are in tabs of 10 properties max
 
     BONUS: List properties bought under my properties and allow for reselling
 
     BONUS: Clear losing bids
+        delete by id the bids
+        remove from offer ids
 
     BONUS: Edit profile function
     
@@ -91,6 +120,8 @@ Steps:
     BONUS: Offer cannot be less than half the asking price
 
     BONUS: property has minimum bid amount and a buy now option
+
+    BONUS: add a description for each property, change the model, and the forms
 
 Data:
     40 properties

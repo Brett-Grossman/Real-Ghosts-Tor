@@ -22,8 +22,7 @@ const ViewOneProperty = () => {
     const [isAcceptOfferPopupOpen, setIsAcceptOfferPopupOpen] = useState(false)
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
-    const [bookmark, setBookmark] = useState({})
-    const [isPageBookmarked, setIsPageBookmarked] = useState(false)
+    const [myBookmark, setMyBookmark] = useState({})
     let [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -65,10 +64,32 @@ const ViewOneProperty = () => {
         }
     }
 
+    const fetchBookmarks =  async () => {
+        console.log("ViewOneProperty.jsx fetchBookmarks")
+        try {
+            // axios fetch all bookmarks
+            // console.log("ViewOneProperty.jsx fetchBookmarks")
+            // const doesMyBookmarkExist = response.data
+            // .filter(bookmark => bookmark.property_id == propertyId)
+            // .filter(bookmark => bookmark_maker_id == currentUserId)
+            // if(doesMyBookmarkExist[0]) {
+                // const actualMyBookmark = doesMyBookmarkExist[0]
+                // setMyBookmark(actualMyBookmark)
+            // }
+            // else
+                // setMyBookmark({})
+                // set pendingBookmark to include all the property's data minus the bids
+            // CURRENT PLACE
+        } catch (err) {
+            console.log("ViewOneProperty.jsx fetchBookmarks catch err: ", err)
+        }
+    }
+
     useEffect(() => {
         fetchUser()
         fetchProperty()
         fetchOffers()
+        fetchBookmarks()
     },[pendingEditOfferErrors])
 
     // edited property change handler
@@ -133,8 +154,6 @@ const ViewOneProperty = () => {
                 console.log("ViewOneProperty.jsx deletePropertyForReal catch err: ", err)
             })
     }
-
-    // useEffect containing a fetchOffers,
 
 
     // fetchOffers not in a useEffect
@@ -311,14 +330,21 @@ const ViewOneProperty = () => {
     // CREATE MULTIPLE OFFERS
 
     // BONUS: bookmark button:
-        // filter bookmark by user_id, filter by get bookmarks matching this property
-            // if length is 1, get the id and delete by id
-            // setIsPageBookmarked to false
-            // if the length is 0:
-                // sets the user and property in the bookmark state,
-                // passes the bookmark state into an axios post to create a bookmark,
-                // set the bookmark in state
-                // setIsPageBookmarked  to true
+        // if(myBookmark){
+            // deleteById the myBookmark._id
+            // setIsPageBookmarked(false)
+            // fetchBookmarks()
+        // } else {
+                // passes pendingBookmark
+                // or
+                // sets the user and property data in the pendingBookmark state
+                // or
+                // sets an object with the user and property data and
+                // then
+                // passes the object (either pendingBookmark or other) into an axios post to create a bookmark
+                // fetchBookmarks()
+                // CURRENT PLACE
+            // }
 
     // logout function
     const logout = () => {
@@ -360,6 +386,13 @@ const ViewOneProperty = () => {
     }
 
     const toBidderProfile = (bidder_id) => navigate(`/profiles/${currentUserId}/${bidder_id}`)
+
+    const toggleBookmark = () => {
+        // check if myBookmark esists
+        // if it exits, delete
+        // if is doesn't, pass the pendingBookmark into a post
+        // CURRENT
+    }
     // loading
     if(loading) {
         return <div>Loading...</div>
@@ -367,13 +400,14 @@ const ViewOneProperty = () => {
 
     return (
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
-            <p></p>
             <div className="row " style={{borderBottom: '2px solid black'}}>
                 <button className='col-md btn btn-primary'onClick={() => logout()}>Log Out</button>
                 <button className='col-md btn offset-sm-1 btn-secondary'onClick={()=> toMyAccount()}>My Account</button>
                 <button className='col-md offset-md-2 btn btn-primary'onClick={() => toHome()}>To Home</button>
             </div>
-            {/* // display banner for bookmarked */}
+            <button onClick={() => toggleBookmark()}>Bookmark</button>
+            {/* NOTE: please make this a banner */}
+            {myBookmark && <p>Bookmarked</p>}
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
                 {/* seller image */}
