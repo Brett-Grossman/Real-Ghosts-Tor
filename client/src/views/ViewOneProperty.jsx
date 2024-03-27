@@ -59,6 +59,22 @@ const ViewOneProperty = () => {
                 bidder_user_id: currentUserId,
                 bidder_username: currentUser.username
             })
+            setPendingBookmark({
+                creator_user_id: currentUserId,
+                lister_username: response.data.lister_username,
+                lister_user_image: response.data.lister_user_image,
+                property_name: response.data.property_name,
+                property_photo_url: response.data.property_photo_url,
+                asking_price: response.data.asking_price,
+                sell_or_rent: response.data.sell_or_rent,
+                property_type: response.data.property_type,
+                square_footage: response.data.square_footage,
+                number_of_beds: response.data.number_of_beds,
+                number_of_baths: response.data.number_of_baths,
+                number_of_ghosts: response.data.number_of_ghosts,
+                address: response.data.address,
+                isSold: response.data.isSold
+            })
         } catch (err) {
             console.log("ViewOneProperty.jsx getOneProperty axios catch err: ", err)
         }
@@ -78,7 +94,7 @@ const ViewOneProperty = () => {
             // }
             // else
                 // setMyBookmark({})
-                // set pendingBookmark to include all the property's data minus the bids
+                // setPendingBookmark({}) to include all the property's data minus the bids
             // CURRENT PLACE
         } catch (err) {
             console.log("ViewOneProperty.jsx fetchBookmarks catch err: ", err)
@@ -329,12 +345,15 @@ const ViewOneProperty = () => {
     }
     // CREATE MULTIPLE OFFERS
 
+    const toggleBookmark = () => {
+        console.log("pendingBookmark: ", pendingBookmark)
+    }
     // BONUS: bookmark button:
         // if(myBookmark){
             // deleteById the myBookmark._id
-            // setIsPageBookmarked(false)
             // fetchBookmarks()
         // } else {
+                // console.log(pendingBookmark)
                 // passes pendingBookmark
                 // or
                 // sets the user and property data in the pendingBookmark state
@@ -387,12 +406,6 @@ const ViewOneProperty = () => {
 
     const toBidderProfile = (bidder_id) => navigate(`/profiles/${currentUserId}/${bidder_id}`)
 
-    const toggleBookmark = () => {
-        // check if myBookmark esists
-        // if it exits, delete
-        // if is doesn't, pass the pendingBookmark into a post
-        // CURRENT
-    }
     // loading
     if(loading) {
         return <div>Loading...</div>
@@ -405,9 +418,29 @@ const ViewOneProperty = () => {
                 <button className='col-md btn offset-sm-1 btn-secondary'onClick={()=> toMyAccount()}>My Account</button>
                 <button className='col-md offset-md-2 btn btn-primary'onClick={() => toHome()}>To Home</button>
             </div>
+            {/* NOTE: please make this a ribbon on the top of the window and to the side */}
+            {myBookmark && <h1>Bookmarked</h1>}
             <button onClick={() => toggleBookmark()}>Bookmark</button>
-            {/* NOTE: please make this a banner */}
-            {myBookmark && <p>Bookmarked</p>}
+            
+            
+            {pendingBookmark && 
+                <div>
+                    <p>Pending Bookmark</p>
+                    <p>creator_user_id: {pendingBookmark.creator_user_id}</p>
+                    <p>lister_usernamE: {pendingBookmark.lister_username}</p>
+                    <p>lister_user_image: {pendingBookmark.lister_user_image}</p>
+                    <p>property_name: {pendingBookmark.property_name}</p>
+                    <p>property_photo_url: {pendingBookmark.property_photo_url}</p>
+                    <p>asking_price: {pendingBookmark.asking_price}</p>
+                    <p>sell_or_rent: {pendingBookmark.sell_or_rent ? <p>True</p> : <p>False</p>}</p>
+                    <p>property_type: {pendingBookmark.property_type}</p>
+                    <p>square_footage: {pendingBookmark.square_footage}</p>
+                    <p>number_of_beds: {pendingBookmark.number_of_beds}</p>
+                    <p>number_of_baths: {pendingBookmark.number_of_baths}</p>
+                    <p>number_of_ghosts: {pendingBookmark.number_of_ghosts}</p>
+                    <p>address: {pendingBookmark.address}</p>
+                    <p>isSold: {pendingBookmark.isSold ? <p>True</p> : <p>False</p>}</p>
+                </div>}
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
                 {/* seller image */}
