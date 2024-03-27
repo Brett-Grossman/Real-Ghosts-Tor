@@ -50,11 +50,11 @@ Steps:
 
     BONUS: create 6 offers /
 
-    BONUS: create 3 more offers on one poperty
+    BONUS: create 3 more offers on one property /
 
-    BONUS: view one property realtor side all offers table with accept offer button and links to the bidder
+    BONUS: view one property realtor side all offers table with accept offer button and links to the bidder /
 
-    BONUS: accept one offer on two separate properties
+    BONUS: accept one offer on two separate properties /
 
     BONUS: all properties bookmarked by the user
 
@@ -76,11 +76,17 @@ Steps:
 
     BONUS: List properties bought under my properties and allow for reselling
 
+    BONUS: Clear losing bids
+
     BONUS: Edit profile function
     
     BONUS: Add user profile information
 
     BONUS: Add user image to offer
+
+    BONUS: Offer cannot be less than half the asking price
+
+    BONUS: property has minimum bid amount and a buy now option
 
 Data:
     40 properties
