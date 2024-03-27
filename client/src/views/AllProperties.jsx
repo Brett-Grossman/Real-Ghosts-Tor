@@ -361,9 +361,6 @@ const ViewAllProperties = () => {
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
 
-            <div className="fs-1 offset-sm-2">
-                All Listings
-            </div>
 
 
             <div className="row">

@@ -58,6 +58,10 @@ Steps:
 
     BONUS: all properties bookmarked by the user
 
+    BONUS: multiple photos with a forward and back buttons on the sides
+
+    BONUS: 50 properties
+
     BONUS: User Profile:
     BONUS: as a buyer:
     list of offers made with links to the properties
