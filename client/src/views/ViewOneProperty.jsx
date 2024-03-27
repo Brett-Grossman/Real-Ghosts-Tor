@@ -393,7 +393,7 @@ const ViewOneProperty = () => {
 
                 {property.isSold ? <p>Sold!</p> : ""}
                 <div style={{height: '60px', width: '180px'}}>
-                    {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                    {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
                 </div>  
                 <div style={{height: '60px', width: '180px'}}>
                     {property.isSold ? "" : (property.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
@@ -536,7 +536,7 @@ const ViewOneProperty = () => {
                                             <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
                                         </td>
                                         <td>${offer.offer_amount}</td>
-                                        <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
+                                        <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td> {/*if sold then button dissapears*/}
                                     </tr>
                                 ))}
                                 
