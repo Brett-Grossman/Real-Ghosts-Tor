@@ -13,8 +13,8 @@ Steps:
     view all properties page just the view all not the filter /
 
     create 14 users: 4 realtors and 10 other users for making offers
+    legobjg911@aol.com,
     grossmanbrettj@gmail.com, 
-    legobjg911@aol.com, 
     sickmagic@aol.com, 
     grossmanbj@mx.lakeforest.edu, 
     fourtwentz@hotmail.com, 
@@ -50,9 +50,11 @@ Steps:
 
     BONUS: create 6 offers /
 
+    BONUS: create 3 more offers on one poperty
+
     BONUS: view one property realtor side all offers table with accept offer button and links to the bidder
 
-    accept one offer
+    BONUS: accept one offer on two separate properties
 
     BONUS: all properties bookmarked by the user
 
@@ -76,7 +78,9 @@ Steps:
 
     BONUS: Edit profile function
     
-    BONUS: add user profile information
+    BONUS: Add user profile information
+
+    BONUS: Add user image to offer
 
 Data:
     40 properties
