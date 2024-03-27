@@ -37,7 +37,7 @@ Steps:
     view all properties page filter system /
 
     BONUS: 
-        offer system:
+        offer system: /
         offer model /
         offer controller /
         offer routes /
@@ -46,9 +46,9 @@ Steps:
 
     BONUS: create 1 offer /
 
-    BONUS: edit and delete one offer
+    BONUS: edit and delete one offer /
 
-    BONUS: create 6 offers
+    BONUS: create 6 offers /
 
     BONUS: view one property realtor side all offers table with accept offer button and links to the bidder
 
@@ -75,6 +75,8 @@ Steps:
     BONUS: List properties bought under my properties and allow for reselling
 
     BONUS: Edit profile function
+    
+    BONUS: add user profile information
 
 Data:
     40 properties
