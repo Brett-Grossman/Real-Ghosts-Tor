@@ -360,92 +360,15 @@ const ViewAllProperties = () => {
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
-            <div>
-                {/* filter inputs */}
-                <p>Zeros are not filtered</p>
-                <p>Asking Price</p>
-                <form onSubmit={functionToSetAskingPrice}>
-                    <label htmlFor="minium_asking_price">Min:</label>
-                    <input id="minimum_asking_price" type="number" name="minimum_asking_price" value={potentialMinimumAskingPrice} onChange={minimumAskingPriceChangehandler}/>
-                    <label htmlFor="maximum_asking_price">Max</label>
-                    <input id="maximum_asking_price" type="number" name="maximum_asking_price" value={potentialMaximumAskingPrice} onChange={maximumAskingPriceChangeHandler}/>
-                    <button>Submit</button>
-                </form>
-                <button onClick={() => resetAskingPrice()}>Reset</button>
-            </div>
-            <div>
-                <p>For Sale Or For Rent</p>
-                <button onClick={setSellOrRentToSell}>For Sale</button>
-                <button onClick={setSellOrRentToRent}>For Rent</button>
-                <button onClick={() => resetSellOrRent()}>Reset</button>
-            </div>
-            <div>
-                <label htmlFor="property_type">Property Type</label>
-                <select id="property_type" type="string" value={propertyType} onChange={propertyTypeChangeHandler}>
-                    <option value=''>Select a Property Type</option>
-                    <option value="House">House</option>
-                    <option value="Apartment">Apartment</option>
-                    <option value="Condo">Condo</option>
-                    <option value="Townhouse">Townhouse</option>
-                </select>
-                <button onClick={() => resetPropertyType()}>Reset</button>
-            </div>
-            <div>
-                {/* filter inputs */}
-                <p>Square Footage</p>
-                <form onSubmit={setSquareFootage}>
-                    <label htmlFor="minium_square_footage">Min:</label>
-                    <input id="minimum_square_footage" type="number" name="minimum_square_footage" value={potentialMinSquareFootage} onChange={minimumSquareFootageChangeHandler}/>
-                    <label htmlFor="maximum_square_footage">Max</label>
-                    <input id="maximum_square_footage" type="number" name="maximum_square_footage" value={potentialMaxSquareFootage} onChange={maximumSquareFootageChangeHandler}/>
-                    <button>Submit</button>
-                </form>
-                <button onClick={() => resetSquareFootage()}>Reset</button>
-            </div>
-            <div>
-                <p>Beds</p>
-                <form onSubmit={bedFilterSubmissionHandler}>
-                    <label htmlFor="minimum_beds">Min:</label>
-                    <input id="minimum_beds" type="number" name="minimum_beds" value={potentialMinNumberOfBeds} onChange={minimumBedsChangeHandler}/>
-                    <label htmlFor="maximum_beds">Max:</label>
-                    <input id="maximum_beds" type="number" name="maximum_beds" value={potentialMaxNumberOfBeds} onChange={maximumBedsChangeHandler}/>
-                    <button>Submit</button>
-                </form>
-                <button onClick={() => resetBedFilter()}>Reset</button>
-            </div>
-            <div>
-                <p>Baths</p>
-                <form onSubmit={bathFilterSubmissionHandler}>
-                    <label htmlFor="minimum_baths">Min</label>
-                    <input id="minimum_baths" type="number" name="minimum_baths" value={potentialMinNumberOfBaths} onChange={potentialMinimumBathsChangeHandler}/>
-                    <label htmlFor="maximum_baths">Max</label>
-                    <input id="maximum_baths" type="number" name="minimum_baths" value={potentialMaxNumberOfBaths} onChange={potentialMaximumBathsChangeHandler}/>
-                    <button>Submit</button>
-                </form>
-                <button onClick={resetBathFilter}>Reset</button>
-            </div>
-            <div>
-                <p>Ghosts</p>
-                <form onSubmit={ghostFilterSubmissionHandler}>
-                    <label htmlFor="minimum_ghosts">Min</label>
-                    <input id="minimum_ghosts" type="number" name="minimum_ghosts" value={potentialMinNumberOfGhosts} onChange={potentialMinimumGhostsChangeHandler}/>
-                    <label htmlFor="maximum_ghosts">Max</label>
-                    <input id="maximum_ghosts" type="number" name="maximum_ghosts" value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
-                    <button>Submit</button>
-                </form>
-                <button onClick={() => resetGhostFilter()}>Reset</button>
-            </div>
-            <div>
-                <button onClick={() => resetAllFilters()}>Reset All</button>
-            </div>
-            <p>{allPropertiesFiltered.length} Results</p>
+
+
 
             <div className="row">
                 <div className="col-md">
                 {/* all properties displayed */}
                 {allPropertiesFiltered.map((property, index) =>(
                 
-                <div className="column" style={{ border: '2px solid black' }} key={property._id}>
+                <div className="column" style={{marginBottom:'50px' ,border: '2px solid black' }} key={property._id}>
                         <p>Property Number: {index + 1}</p>
                         <p>lister: {property.lister_username}</p>
                         <p></p>
@@ -484,14 +407,14 @@ const ViewAllProperties = () => {
                         <p>number of baths: {property.number_of_baths}</p>
                         <p>number of ghosts: {property.number_of_ghosts}</p>
                         <p>address: {property.address}</p>
-                        <p>isSold: {property.isSold}</p>
+                        {property.isSold ? <p>Sold!</p> : ""}
+                        <div style={{height: '60px', width: '180px'}}>
+                            {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                        </div>
                         {/* offer ifs array */}
-                        {property.offer_ids.map((offer_id, index) => (
-                            <p key={index} >{offer_id}</p>
-                        ))}
-                        <p>winning_bid_amount: {property.winning_bid_amount}</p>
-                        <p>winning_bid_user_id: {property.winning_bid_user_id}</p>
-                        <p>winning_bid_username: {property.winning_bid_username}</p>
+                        
+                        <p>winning bid amount: ${property.winning_bid_amount}</p>
+                        {/* Offer Array Ends */}
                         <button className='col-sm btn offset-sm-1 btn-secondary'
                             onClick={() => toOneProperty(property._id)}>View Listing
                         </button>

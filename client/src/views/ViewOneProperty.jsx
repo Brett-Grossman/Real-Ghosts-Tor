@@ -521,7 +521,7 @@ const ViewOneProperty = () => {
                         {/* // Delete button */}
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
-                        <table>
+                        <table className="row">
                             <thead>
                                 <tr>
                                     <td>Bidder</td>
@@ -529,13 +529,13 @@ const ViewOneProperty = () => {
                                     <td>Accept</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="" style={{borderBottom: '2px solid black'}}>
                                 {allOffersForThisProperty.map((offer, index) => (
-                                    <tr key={offer._id}>
-                                        <td>
-                                            <button onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
+                                    <tr key={offer._id} style={{borderBottom: '1px solid black'}}>
+                                        <td >
+                                            <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
                                         </td>
-                                        <td>{offer.offer_amount}</td>
+                                        <td>${offer.offer_amount}</td>
                                         <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
                                     </tr>
                                 ))}
