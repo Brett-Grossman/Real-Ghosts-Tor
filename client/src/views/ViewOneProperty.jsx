@@ -21,7 +21,6 @@ const ViewOneProperty = () => {
     const [isOfferDeletePopupOpen, setIsOfferDeletePopupOpen] = useState(false)
     const [isAcceptOfferPopupOpen, setIsAcceptOfferPopupOpen] = useState(false)
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
-    const [winningOffer, setWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
     const [bookmark, setBookmark] = useState({})
     const [isPageBookmarked, setIsPageBookmarked] = useState(false)
@@ -281,11 +280,34 @@ const ViewOneProperty = () => {
 
     // accept offer confirm
         // axios patch the property with the winning offer info,
-        // set in state the property
         // set the isSold to sold
+        // fetchProperty
+    const acceptOfferForReal = () => {
+        console.log("working acceptOfferForReal")
+        const propertyCopy = {...property,
+            isSold: true,
+            winning_bid_amount: pendingWinningOffer.offer_amount,
+            winning_bidder_user_id: pendingWinningOffer.bidder_user_id,
+            winning_bidder_username: pendingWinningOffer.bidder_username
+        }
+        console.log("ViewOneProperty acceptOfferForReal propertyCopy: ", propertyCopy)
+        axios.patch(`http://localhost:8000/api/properties/${propertyId}`, propertyCopy)
+            .then((res) => {
+                console.log("ViewOneProperty.jsx acceptOfferForReal axios res.data: ", res.data)
+                fetchProperty()
+                setIsEditPropertyOpen(false)
+            })
+            .catch((err) => {
+                console.log("ViewOneProperty.jsx acceptOfferForReal catch err: ", err)
+            })
+        fetchProperty()
+        setIsAcceptOfferPopupOpen(false)
+    }
 
     // close offer popup
-
+    const closeAcceptOfferPopup = () => {
+        setIsAcceptOfferPopupOpen(false)
+    }
     // CREATE MULTIPLE OFFERS
 
     // BONUS: bookmark button:
@@ -357,11 +379,6 @@ const ViewOneProperty = () => {
                 {/* seller image */}
 
                 {/* Picture */}
-                <p>Property offer_ids</p>
-                
-                {property.offer_ids && property.offer_ids.map((offerId, index) => (
-                    <p key={index}>OfferId: {offerId}</p>
-                ))}
                 <h1>{property.property_name}</h1>
                 <img style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
                 <div></div>
@@ -520,7 +537,6 @@ const ViewOneProperty = () => {
                                         </td>
                                         <td>${offer.offer_amount}</td>
                                         <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
-                                        {/* set as selectedOffer the offer, then set isAcceptOfferPopupOpen to true CURRENT_PLACE*/}
                                     </tr>
                                 ))}
                                 
@@ -529,6 +545,7 @@ const ViewOneProperty = () => {
                         {isAcceptOfferPopupOpen &&
                             <div>
                                 <p>All Offers Are Final</p>
+                                {/* set as selectedOffer the offer, then set isAcceptOfferPopupOpen to true CURRENT_PLACE*/}
                                 <button onClick={() => closeAcceptOfferPopup()}>Cancel</button>
                                 <button onClick={() => acceptOfferForReal()}>Finalize Offer</button>
                             </div>

@@ -360,9 +360,11 @@ const ViewAllProperties = () => {
                 <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
+
             <div className="fs-1 offset-sm-2">
                 All Listings
             </div>
+
 
             <div className="row">
                 <div className="col-md">
