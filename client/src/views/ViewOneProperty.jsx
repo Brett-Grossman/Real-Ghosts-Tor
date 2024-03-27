@@ -393,7 +393,7 @@ const ViewOneProperty = () => {
 
                 {property.isSold ? <p>Sold!</p> : ""}
                 <div style={{height: '60px', width: '180px'}}>
-                    {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                    {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
                 </div>  
                 <div style={{height: '60px', width: '180px'}}>
                     {property.isSold ? "" : (property.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
@@ -521,27 +521,31 @@ const ViewOneProperty = () => {
                         {/* // Delete button */}
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
-                        <table className="row">
-                            <thead>
-                                <tr>
-                                    <td>Bidder</td>
-                                    <td>Offer Amount</td>
-                                    <td>Accept</td>
-                                </tr>
-                            </thead>
-                            <tbody className="" style={{borderBottom: '2px solid black'}}>
-                                {allOffersForThisProperty.map((offer, index) => (
-                                    <tr key={offer._id} style={{borderBottom: '1px solid black'}}>
-                                        <td >
-                                            <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
-                                        </td>
-                                        <td>${offer.offer_amount}</td>
-                                        <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td> {/*if sold then button dissapears*/}
+                        {!property.isSold &&
+                        <div>
+                            <table className="row">
+                                <thead>
+                                    <tr>
+                                        <td>Bidder</td>
+                                        <td>Offer Amount</td>
+                                        <td>Accept</td>
                                     </tr>
-                                ))}
-                                
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="" style={{borderBottom: '2px solid black'}}>
+                                    {allOffersForThisProperty.map((offer, index) => (
+                                        <tr key={offer._id} style={{borderBottom: '1px solid black'}}>
+                                            <td >
+                                                <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
+                                            </td>
+                                            <td>${offer.offer_amount}</td>
+                                            <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
+                                        </tr>
+                                    ))}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        }
                         {isAcceptOfferPopupOpen &&
                             <div>
                                 <p>All Offers Are Final</p>

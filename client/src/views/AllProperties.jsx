@@ -370,7 +370,7 @@ const ViewAllProperties = () => {
                 
                 <div className="column" style={{marginBottom:'50px' ,border: '2px solid black' }} key={property._id}>
                         <p>Property Number: {index + 1}</p>
-                        <p>lister: {property.lister_username}</p>
+                        <p>Lister: {property.lister_username}</p>
                         <p></p>
                         <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
                         <p>property name: {property.property_name}</p>
@@ -379,7 +379,7 @@ const ViewAllProperties = () => {
                         {/* map all the photos */}
                         <p>Property photos:</p>
                         {property.property_photos.map((photo, index) => (
-                            <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
+                            <img style={{height: '15px', width: '15px'}} key={index} src={photo}/>
                         ))}
 
                         <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
@@ -426,7 +426,7 @@ const ViewAllProperties = () => {
                                 type="number" name="minimum_asking_price" 
                                 value={potentialMinimumAskingPrice} onChange={minimumAskingPriceChangehandler}/>
                             <label htmlFor="maximum_asking_price">Max:</label>
-                            <input className="col-sm-3" id="maximum_asking_price" 
+                            <input className="col-sm-4" id="maximum_asking_price" 
                                 type="number" name="maximum_asking_price" 
                                 value={potentialMaximumAskingPrice} onChange={maximumAskingPriceChangeHandler}/>
                             <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
@@ -438,9 +438,9 @@ const ViewAllProperties = () => {
                             <button style={{backgroundColor: '#C0C0C0'}} 
                                 className="offset-sm-1" onClick={setSellOrRentToSell}>For Sale
                             </button>
-                            <button style={{backgroundColor: '#C0C0C0'}} onClick={setSellOrRentToRent}>For Rent</button>
+                            <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={setSellOrRentToRent}>For Rent</button>
                             <button style={{backgroundColor: '#C0C0C0'}} 
-                                className="offset-sm-1" onClick={() => resetSellOrRent()}>Reset
+                                className="offset-sm-2" onClick={() => resetSellOrRent()}>Reset
                             </button>
                         </div>
                         <p></p>
@@ -465,7 +465,7 @@ const ViewAllProperties = () => {
                                 type="number" name="minimum_square_footage" 
                                 value={potentialMinSquareFootage} onChange={minimumSquareFootageChangeHandler}/>
                             <label htmlFor="maximum_square_footage">Max:</label>
-                            <input className="col-sm-2" id="maximum_square_footage" 
+                            <input className="col-sm-3" id="maximum_square_footage" 
                                 type="number" name="maximum_square_footage" 
                                 value={potentialMaxSquareFootage} onChange={maximumSquareFootageChangeHandler}/>
                             <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
