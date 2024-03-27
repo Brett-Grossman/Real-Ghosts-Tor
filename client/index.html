@@ -11,22 +11,22 @@
     <script type="module" src="/src/main.jsx"></script>
     <div id="timeBar" style="display: none;">
         <span id="timeRemaining">5</span>
-      </div>
-      <audio id="win-sound" src="https://cdn.freesound.org/previews/341/341695_5858296-lq.mp3" preload="metadata"></audio>
-      <audio id="coin-sound" src="https://cdn.freesound.org/previews/384/384700_1067129-lq.mp3" preload="metadata"></audio>
-      <audio id="lose-sound" src="https://cdn.freesound.org/previews/350/350987_5450487-lq.mp3" preload="metadata"></audio>
-      <audio id="miss-sound" src="https://cdn.freesound.org/previews/350/350919_5450487-lq.mp3" preload="metadata"></audio>
-      <div id="points-bar"  style="display: none; position: fixed; bottom: 55px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;">
-       <div id="test" >
+    </div>
+    <audio id="win-sound" src="https://cdn.freesound.org/previews/341/341695_5858296-lq.mp3" preload="metadata"></audio>
+    <audio id="coin-sound" src="https://cdn.freesound.org/previews/384/384700_1067129-lq.mp3" preload="metadata"></audio>
+    <audio id="lose-sound" src="https://cdn.freesound.org/previews/350/350987_5450487-lq.mp3" preload="metadata"></audio>
+    <audio id="miss-sound" src="https://cdn.freesound.org/previews/350/350919_5450487-lq.mp3" preload="metadata"></audio>
+    <div id="points-bar"  style="display: none; position: fixed; bottom: 55px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;">
+    <div id="test" >
         <span id="points"></span>
-      </div> 
-      </div>
-      <div id="arrow-bar" style="display: none; position: fixed; bottom: 5px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;">
+    </div> 
+    </div>
+    <div id="arrow-bar" style="display: none; position: fixed; bottom: 5px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;">
         <div id="test" style="position:relative;bottom:20px">
         <div id="arrows">0</div>
     </div>
     <script>
-  
+
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
         const StradigimCode = ['d','e','m','o','c','r','a','c','y']
         let arrowNumber = 1;
@@ -44,169 +44,166 @@
         let addAmount = 0;
         let strikes = 0;
         const timeBar = document.getElementById("timeBar");
-      const timeRemaining = document.getElementById("timeRemaining");
-      const pointshake = document.getElementById("test");
-      const audioElement = document.getElementById('coin-sound');
-      const audioElement2 = document.getElementById('lose-sound');
-      const audioElement3 = document.getElementById('miss-sound');
-      const audioElement4 = document.getElementById('win-sound');
-      
-      
-      
+        const timeRemaining = document.getElementById("timeRemaining");
+        const pointshake = document.getElementById("test");
+        const audioElement = document.getElementById('coin-sound');
+        const audioElement2 = document.getElementById('lose-sound');
+        const audioElement3 = document.getElementById('miss-sound');
+        const audioElement4 = document.getElementById('win-sound');
+    
+    
+    
         document.addEventListener('keydown', function(event) {
-          
-          
-          
-          const tradingViewDiv = document.getElementById('tradingview-container');
-          
-          if (tradingViewDiv) { 
+        
+        
+        
+    const tradingViewDiv = document.getElementById('tradingview-container');
+        
+        if (tradingViewDiv) { 
             
             if (event.key === konamiCode[konamiCodePosition]) {
-              konamiCodePosition++;
-      
-              if (konamiCodePosition === konamiCode.length) {
+                konamiCodePosition++;
+
+            if (konamiCodePosition === konamiCode.length) {
                 if (widgetVisible) {
-                  tradingViewDiv.style.display = 'none';
+                    tradingViewDiv.style.display = 'none';
                 } else {
-                  tradingViewDiv.style.display = 'block';
+                    tradingViewDiv.style.display = 'block';
                 }
                 widgetVisible = !widgetVisible;
                 konamiCodePosition = 0; 
-              }
-            } else {
-              konamiCodePosition = 0; 
             }
-          }
-          
-          if (event.key === StradigimCode[StradigimCodePosition]) {
-          StradigimCodePosition++;
-      
-          if (StradigimCodePosition === StradigimCode.length) {
+            } else {
+                konamiCodePosition = 0; 
+            }
+        }
+
+        if (event.key === StradigimCode[StradigimCodePosition]) {
+            StradigimCodePosition++;
+
+        if (StradigimCodePosition === StradigimCode.length) {
             hasEnteredCode = true; // Set flag when code is entered
             strikes = 0
-      
+
             audioElement.play()
             startArrowGame();
-         
+        
             console.log('working');
-          }
+        }
         } else {
           StradigimCodePosition = 0; // Reset on incorrect key press
         }
-      
         // Check for arrow input only if code is entered
         if (hasEnteredCode && arrowSequence.length > 0) {
-          checkArrowInput(event.key);
-          if(strikes == 3 ){
+        checkArrowInput(event.key);
+        if(strikes == 3 ){
             document.getElementById('points-bar').style ='display: none; position: fixed; bottom: 50px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;'
-              document.getElementById('arrow-bar').style ='display: none; position: fixed; bottom: 0px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;'
-              StradigimCodePosition = 0
-              hasEnteredCode = false;
-              document.getElementById('points').innerText=0
-              points = 0
-              audioElement2.play()
-          }
-        }
-             });
-      
-           async function startArrowGame() {
-              await generateArrowSequence();
-              arrowIndex = 0;
-              document.getElementById('arrow-bar').style.display = 'block';
-              document.getElementById('points-bar').style.display = 'block';
-              //document.getElementById('timeBar').style.display = 'block';
-              displayArrowSequence();
-              if(arrowNumber==1){let arrowNumber = 0;}
+                document.getElementById('arrow-bar').style ='display: none; position: fixed; bottom: 0px; width: 100%; text-align: center; background-color: black; color: white; padding: 10px; height:50px;'
+                StradigimCodePosition = 0
+                hasEnteredCode = false;
+                document.getElementById('points').innerText=0
+                points = 0
+                audioElement2.play()
             }
-      
+        }
+            });
+
+        async function startArrowGame() {
+            await generateArrowSequence();
+                arrowIndex = 0;
+                document.getElementById('arrow-bar').style.display = 'block';
+                document.getElementById('points-bar').style.display = 'block';
+                displayArrowSequence();
+            if(arrowNumber==1){let arrowNumber = 0;}
+            }
+
             function generateArrowSequence() {
-              arrowSequence = [];
+                arrowSequence = [];
               for (let i = 0; i < Math.floor(Math.random() * 6) + 3; i++) {
                 arrowSequence.push(['w', 'a', 's', 'd'][Math.floor(Math.random() * 4)]);
-              
-              }
+                }
             }
-      
+
             function displayArrowSequence() {
-              const arrowSpan = document.getElementById('arrows');
-              arrowSpan.innerHTML = '';
-              for (let i = 0; i < arrowSequence.length; i++) {
-                const arrow = document.createElement('span');
-                arrow.textContent = getArrowSymbol(arrowSequence[i]);
-                arrow.style.fontSize='40px'
-                arrow.id="arrow-"+i
-                arrowSpan.appendChild(arrow);
-              }
+                const arrowSpan = document.getElementById('arrows');
+                arrowSpan.innerHTML = '';
+                for (let i = 0; i < arrowSequence.length; i++) {
+                    const arrow = document.createElement('span');
+                    arrow.textContent = getArrowSymbol(arrowSequence[i]);
+                    arrow.style.fontSize='40px'
+                    arrow.id="arrow-"+i
+                    arrowSpan.appendChild(arrow);
+                }
             }
-            function getArrowSymbol(arrowKey) {
-        switch (arrowKey) {
-          case 'w': return '⬆';
-          case 'a': return '⬅';
-          case 's': return '⬇';
-          case 'd': return '➡';
+        function getArrowSymbol(arrowKey) {
+            switch (arrowKey) {
+            case 'w': return '⬆';
+            case 'a': return '⬅';
+            case 's': return '⬇';
+            case 'd': return '➡';
           default: return '?'; // Handle unexpected keys
         }
-      }
-      
-      function checkArrowInput(key) {
+    }
+    
+    function checkArrowInput(key) {
         
         const pointbar = document.getElementById('points');
         const pointbarval = Number(document.getElementById('points').innerText)
         const wsadKey = key.toLowerCase(); // Convert to lowercase for consistency
         if (['w', 'a', 's', 'd'].includes(wsadKey) && wsadKey === arrowSequence[arrowIndex]) {
-          document.getElementById("arrow-"+arrowIndex).style.color='yellow !important'
-          arrowIndex++;
-      
-          if (arrowIndex === arrowSequence.length) {
+            document.getElementById("arrow-"+arrowIndex).style.color='yellow'
+            arrowIndex++;
+
+        if (arrowIndex === arrowSequence.length) {
             if(noMiss === true){
-              pointbar.innerText = pointbarval + 30
-              addAmount = addAmount + 2
-              audioElement4.play()
+                pointbar.innerText = pointbarval + 30
+                addAmount = addAmount + 2
+                audioElement4.play()
             }else{
-            pointbar.innerText = pointbarval + 10 }
-            noMiss = true
-            audioElement4.play()
-            startArrowGame();
-          }
-        } else if(['w', 'a', 's', 'd'].includes(wsadKey) && wsadKey !== arrowSequence[arrowIndex] && arrowSequence[arrowIndex]!= 0 ){
-          subAmount = subAmount  + 3
-          noMiss = false
-          audioElement3.play()
-          strikes = strikes + 1
-          for(let i=0;i<arrowSequence.length;i++){
-            document.getElementById("arrow-"+i).style='color:white;font-size:40px;'
-          }
-          if(strikes != 0){
-            pointshake.classList.add('shake');
-      
-              pointshake.addEventListener('animationend', function() {
-                pointshake.classList.remove('shake');
-              });
+                pointbar.innerText = pointbarval + 10 }
+                noMiss = true
+                audioElement4.play()
+                startArrowGame();
             }
-           
+        } else if(['w', 'a', 's', 'd'].includes(wsadKey) && wsadKey !== arrowSequence[arrowIndex] && arrowSequence[arrowIndex]!= 0 ){
+            subAmount = subAmount  + 3
+            noMiss = false
+            audioElement3.play()
+            strikes = strikes + 1
+        for(let i=0;i<arrowSequence.length;i++){
+            document.getElementById("arrow-"+i).style='color:white;font-size:40px;'
+        }
+        if(strikes != 0){
+            pointshake.classList.add('shake');
+
+            pointshake.addEventListener('animationend', function() {
+                pointshake.classList.remove('shake');
+            });
+            }
+
             if(strikes == 1){
-              document.getElementById('points-bar').style ='display: block; position: fixed; bottom: 50px; width: 100%; text-align: center; background-color: orange; color: white; padding: 10px; height:50px;'
-              document.getElementById('arrow-bar').style ='display: block; position: fixed; bottom: 0px; width: 100%; text-align: center; background-color: orange; color: white; padding: 10px; height:50px;'
-      
+                document.getElementById('points-bar').style ='display: block; position: fixed; bottom: 50px; width: 100%; text-align: center; background-color: orange; color: white; padding: 10px; height:50px;'
+                document.getElementById('arrow-bar').style ='display: block; position: fixed; bottom: 0px; width: 100%; text-align: center; background-color: orange; color: white; padding: 10px; height:50px;'
+
             }
             if(strikes == 2){
-              document.getElementById('points-bar').style ='display: block; position: fixed; bottom: 50px; width: 100%; text-align: center; background-color: red; color: white; padding: 10px; height:50px;'
-              document.getElementById('arrow-bar').style ='display: block; position: fixed; bottom: 0px; width: 100%; text-align: center; background-color: red; color: white; padding: 10px; height:50px;'
+                document.getElementById('points-bar').style ='display: block; position: fixed; bottom: 50px; width: 100%; text-align: center; background-color: red; color: white; padding: 10px; height:50px;'
+                document.getElementById('arrow-bar').style ='display: block; position: fixed; bottom: 0px; width: 100%; text-align: center; background-color: red; color: white; padding: 10px; height:50px;'
             }
             
-          
-          arrowIndex = 0;
+        
+        arrowIndex = 0;
         }else if(!['w', 'a', 's', 'd'].includes(wsadKey)){
-          alert('start game')
-          
-          startArrowGame();
+        alert('start game')
+        
+        startArrowGame();
         }
-      }
-       
-      </script>
-      <style>
+    }
+
+    </script>
+    <style>
         #timeBar {
-          display: none;
+        display: none;
         position: fixed;
         bottom: 100px;
         width: 100%;
@@ -216,23 +213,23 @@
         padding: 10px;
         height: 50px;
         transition: height 5s ease-in-out; /* Transition for smooth decrease */
-      }
-      .shake {
+    }
+    .shake {
         animation: shake 1s linear;
-      }
-      
-      @keyframes shake {
+    }
+
+    @keyframes shake {
         0% { transform: translateX(0); }
         25% { transform: translateX(-5px); }
         50% { transform: translateX(6px); }
         75% { transform: translateX(-5px); }
         100% { transform: translateX(0); }
-      }
-      #timeRemaining {
+    }
+    #timeRemaining {
         font-weight: bold;
-      }
-      </style>
-      
+    }
+    </style>
+    
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
         <script type="text/javascript" src="//unpkg.com/xlsx/dist/shim.min.js"></script>
         <script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
