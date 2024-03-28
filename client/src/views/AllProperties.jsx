@@ -532,7 +532,7 @@ const ViewAllProperties = () => {
                             value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
                         <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
                     </form>
-                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onSubmit={() => resetGhostFilter()}>Reset</button>
+                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={() => resetGhostFilter()}>Reset</button>
                 </div>
 
             <div>

@@ -82,11 +82,6 @@ const UserProfile = () => {
         })
     },[otherUserId])
 
-            // BONUS: axios get allOffers,
-        // setAllMadeOffers as allOffers.filter bidder_user_id == currentUserId
-        // setAllReceivedOffers as offers.seller_id == currentUserId
-        // setLoading(false)
-
     // logout
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
