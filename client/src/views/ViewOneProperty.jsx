@@ -440,8 +440,8 @@ const ViewOneProperty = () => {
                 <button className='col-md offset-md-2 btn btn-primary'onClick={() => toHome()}>To Home</button>
             </div>
             {/* NOTE: please make this a ribbon on the top of the window and to the side */}
-            {myBookmark && <h1>Bookmarked</h1>}
-            {currentUserId !== property.lister_user_id && <button onClick={() => toggleBookmark()}>Bookmark</button>}
+            {myBookmark && <h1 style={{color: 'white', background: 'blue',width: '18%'}}>Bookmarked</h1>}
+            {currentUserId !== property.lister_user_id && <button style={{border: '1px solid blue'}} className="btn" onClick={() => toggleBookmark()}>Bookmark</button>}
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
                 {/* seller image */}
@@ -505,7 +505,7 @@ const ViewOneProperty = () => {
                 {/* // BONUS: if sold or rented: Buyer information */}
                 {property.isSold && 
                     <div>
-                        <p>SOLD!</p>
+                        
                         {property.sell_or_rent == "sell" &&
                             <p>Closed for ${property.winning_bid_amount}.00 by {property.winning_bidder_username}</p>
                         }
