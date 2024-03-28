@@ -25,7 +25,7 @@ Presentation:
     log in to an account with a property with multiple offers
     accept an offer
     view your sold properties
-    bookmark 2 properties on one account
+    bookmark 2 properties on one account, log off and unbookmark then rebookmark
     bookmark one of the same properties on another account
     view the bookmarks
     play the rhythm game
