@@ -251,6 +251,22 @@ const UserProfile = () => {
             {/* // property name with link to property */}
             {/* // seller name */}
             {/* // offer amount */}
+                        {allMyPurchasedProperties &&
+                            allMyPurchasedProperties.map((property, index) => (
+                                <div key={index}>
+                                    <button onClick={() =>toOneProperty(property._id)}>View Property</button>
+                                    <p>{property.property_name}</p>
+                                    <img style={{height: '200px'}} src={property.property_photo_url}/>
+                                    <p>{property.sell_or_rent ? "Purchased" : "Rented"} for ${property.winning_bid_amount}</p>
+                                    <p>{property.property_type}</p>
+                                    <p>{property.square_footage} Square Feet</p>
+                                    <p>Beds: {property.number_of_beds}</p>
+                                    <p>Baths: {property.number_of_baths}</p>
+                                    <p>Ghosts: {property.number_of_ghosts}</p>
+                                    <p>Address: {property.address}</p>
+                                </div>
+                            ))
+                        }
                 </div>
             }
             {tab == "SoldProperties" &&
@@ -259,6 +275,23 @@ const UserProfile = () => {
             {/* // property name with link to property */}
             {/* // bidder name */}
             {/* // offer amount */}
+                    {allMySoldProperties &&
+                        allMySoldProperties.map((property, index) => (
+                            <div key={index}>
+                                <button onClick={() =>toOneProperty(property._id)}>View Property</button>
+                                <p>{property.property_name}</p>
+                                <img style={{height: '200px'}} src={property.property_photo_url}/>
+                                <p>{property.property_type}</p>
+                                <p>{property.square_footage} Square Feet</p>
+                                <p>Beds: {property.number_of_beds}</p>
+                                <p>Baths: {property.number_of_baths}</p>
+                                <p>Ghosts: {property.number_of_ghosts}</p>
+                                <p>Address: {property.address}</p>
+                                <p>{property.sell_or_rent ? "Sold" : "Rented"} for ${property.winning_bid_amount} to {property.winning_bidder_username}</p>
+                                <button onClick={() => toUserProfile(property.winning_bidder_user_id)}>View Profile</button>
+                            </div>
+                        ))
+                    }
                 </div>
             }
         </div>
