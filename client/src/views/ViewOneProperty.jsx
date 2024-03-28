@@ -23,6 +23,7 @@ const ViewOneProperty = () => {
     const [pendingWinningOffer, setPendingWinningOffer] = useState({})
     const [pendingBookmark, setPendingBookmark] = useState({})
     const [myBookmark, setMyBookmark] = useState(null)
+    const [allBookmarks, setAllBookmarks] = useState(null)
     let [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -86,6 +87,7 @@ const ViewOneProperty = () => {
         console.log("ViewOneProperty.jsx fetchBookmark")
         try {
             const allBookmarks = await axios.get('http://localhost:8000/api/bookmarks')
+            setAllBookmarks(allBookmarks.data)
             console.log("ViewOneProperty.jsx fetchBookmark allBookmarks: ", allBookmarks)
             const doesMyBookmarkExist = allBookmarks.data.filter(bookmark => bookmark.property_id == propertyId).filter(bookmark => bookmark.creator_user_id == currentUserId)
             if(doesMyBookmarkExist[0]) {
@@ -345,13 +347,26 @@ const ViewOneProperty = () => {
     // CREATE MULTIPLE OFFERS
 
     const toggleBookmark = () => {
-        console.log("pendingBookmark: ", pendingBookmark)
+        console.log("toggleBookmark clicked successfully")
         if(myBookmark) {
             axios.delete(`http://localhost:8000/api/bookmarks/${myBookmark._id}`)
-            fetchBookmark()
+            .then((res) => {
+                console.log("ViewOneProperty toggleBookmark deleteBookmark then res.data: ", res.data)
+                fetchBookmark()
+            })
+            .catch((err) => {
+                console.log("ViewOneProperty.jsx toggleBookmark deleteBookmark catch err: ", err)
+            })
         } else {
             console.log("pendingBookmark", pendingBookmark)
-            fetchBookmark()
+            axios.post('http://localhost:8000/api/bookmarks', pendingBookmark, {withCredentials: true})
+                .then((res) => {
+                    console.log("ViewOneProperty toggleBookmark createBookmark then res.data: ", res.data)
+                    fetchBookmark()
+                })
+                .catch((err) => {
+                    console.log("ViewOneProperty toggleBookmark createBookmark catch err: ", err)
+                })
         }
     }
     // BONUS: bookmark button:
@@ -426,28 +441,7 @@ const ViewOneProperty = () => {
             </div>
             {/* NOTE: please make this a ribbon on the top of the window and to the side */}
             {myBookmark && <h1>Bookmarked</h1>}
-            <button onClick={() => toggleBookmark()}>Bookmark</button>
-            
-            
-            {pendingBookmark && 
-                <div>
-                    <p>Pending Bookmark</p>
-                    <p>creator_user_id: {pendingBookmark.creator_user_id}</p>
-                    <p>lister_usernamE: {pendingBookmark.lister_username}</p>
-                    <p>lister_user_image: {pendingBookmark.lister_user_image}</p>
-                    <p>Property_id: {pendingBookmark.property_id}</p>
-                    <p>property_name: {pendingBookmark.property_name}</p>
-                    <p>property_photo_url: {pendingBookmark.property_photo_url}</p>
-                    <p>asking_price: {pendingBookmark.asking_price}</p>
-                    <p>sell_or_rent: {pendingBookmark.sell_or_rent ? <p>True</p> : <p>False</p>}</p>
-                    <p>property_type: {pendingBookmark.property_type}</p>
-                    <p>square_footage: {pendingBookmark.square_footage}</p>
-                    <p>number_of_beds: {pendingBookmark.number_of_beds}</p>
-                    <p>number_of_baths: {pendingBookmark.number_of_baths}</p>
-                    <p>number_of_ghosts: {pendingBookmark.number_of_ghosts}</p>
-                    <p>address: {pendingBookmark.address}</p>
-                    <p>isSold: {pendingBookmark.isSold ? <p>True</p> : <p>False</p>}</p>
-                </div>}
+            {currentUserId !== property.lister_user_id && <button onClick={() => toggleBookmark()}>Bookmark</button>}
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
                 {/* seller image */}

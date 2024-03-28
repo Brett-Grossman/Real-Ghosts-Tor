@@ -82,9 +82,9 @@ Steps:
 
     CURRENT PLACE
     
-    BONUS: bookmark model, controller, routes
+    BONUS: bookmark model, controller, routes /
 
-    BONUS: make the bookmark functionality
+    BONUS: make the bookmark functionality /
 
     BONUS: make a bookmark and unnmake a bookmark and leave a bookmark,
     logout and come back
