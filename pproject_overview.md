@@ -8,15 +8,15 @@ GitHub Repo: https://github.com/Griffin-Fore/Real-Ghosts-Tor.git
 
 Presentation:
 
-    register /
-    log in to an account /
-    go to your profile /
-    go to someone else's profile /
+    register 
+    log in to an account
+    go to your profile
+    go to someone else's profile 
     filter search
-        enter and then delete inputs and submit empty inputs /
-        clear inputs /
-        clear all inputs /
-        search with all inputs, minimum and maximum /
+        enter and then delete inputs and submit empty inputs
+        clear inputs
+        clear all inputs
+        search with all inputs, minimum and maximum
     create one property
     edit the property
     open edit window and cancel
@@ -117,10 +117,10 @@ Steps:
     list of offers recieved with links to the properties /
 
     BONUS: as a buyer:
-    list of properties closed on
+    list of properties closed on /
 
     BONUS: as a cellar:
-    list of properties soled
+    list of properties soled /
 
     BONUS: List properties bought under my properties and allow for reselling
 
@@ -143,6 +143,8 @@ Steps:
     BONUS: Tweak the wording such as changing purchased properties to closed properties
 
     BONUS: add my profile, logout and home buttons to every page except RegAndLogin
+
+    BONUS: Darkmode
 
 Data:
     40 properties
