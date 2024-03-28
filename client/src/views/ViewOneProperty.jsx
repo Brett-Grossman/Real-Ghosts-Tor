@@ -498,7 +498,7 @@ const ViewOneProperty = () => {
                 <div style={{border: '2px solid black'}}>
                     <p>Listing Agent: {property.lister_username}</p>
                     <img className="col-md-1" src={property.lister_user_image} style={{height: '75px', width: '75px'}} />
-                    <button className="btn btn-lg" onClick={() => toLister(property.lister_user_id)} style={{backgroundColor: '#9E00FF',height: '60px', width: '320px'}}>
+                    <button className="btn btn-lg btn-primary" onClick={() => toLister(property.lister_user_id)} style={{height: '60px', width: '270px', padding: '10px'}}>
                         <p>To Listing Agents Profile</p>
                     </button>
                 </div>
@@ -683,18 +683,20 @@ const ViewOneProperty = () => {
                 <div >
                     <p>My Offer: </p>
                     <p>${myOffer.offer_amount}.00</p>
-                    <button style={{marginBottom: '50px'}} onClick={() => openOfferEditPopup()}>Edit Offer</button>
-                    <button onClick={() => openDeletOfferPopup()}>Delete Offer</button>
+                    <div style={{marginBottom: '50px'}}>
+                        <button  onClick={() => openOfferEditPopup()} className="btn btn-primary">Edit Offer</button>
+                        <button onClick={() => openDeletOfferPopup()} className="btn btn-secondary">Delete Offer</button>
+                    </div>
                 </div>
                 {isOfferEditPopupOpen && myOffer &&
-                    <div>edit popup form
+                    <div>
                         <form onSubmit={editOfferSubmissionHandler}>
                             <label htmlFor="offer_amount">Offer Amount:</label>
                             <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
                             {pendingEditOfferErrors.offer_amount && <p>{pendingEditOfferErrors.offer_amount?.message}</p>}
-                            <button>Make Offer</button>
+                            <button className="btn btn-primary">Make Offer</button>
                         </form>
-                        <button style={{marginBottom: '50px'}} onClick={() => closeOfferEditPopup()}>Cancel</button>
+                        <button style={{marginBottom: '50px'}} onClick={() => closeOfferEditPopup()} className="btn btn-secondary">Cancel</button>
                     </div>
                 }
                 {isOfferDeletePopupOpen && myOffer &&
