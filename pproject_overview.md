@@ -87,8 +87,6 @@ Steps:
     BONUS: view one property realtor side all offers table with accept offer button and links to the bidder /
 
     BONUS: accept one offer on two separate properties /
-
-    CURRENT PLACE
     
     BONUS: bookmark model, controller, routes /
 
@@ -103,8 +101,8 @@ Steps:
 
     BONUS: user page: all properties bookmarked by the user /
 
-    BONUS: Buttons blue except cancel and reset and other those type of buttons
-    BONUS: Property info to the side of the property photo, margins around everything
+    BONUS: Buttons blue except cancel and reset and other those type of buttons /
+    BONUS: Property info to the side of the property photo, margins around everything /
     BONUS: multiple photos with a forward and back buttons on the sides
     BONUS: All properties are in tabs of 10 properties max
     BONUS: 50 properties
