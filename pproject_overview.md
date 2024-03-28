@@ -8,12 +8,12 @@ GitHub Repo: https://github.com/Griffin-Fore/Real-Ghosts-Tor.git
 
 Presentation:
 
-    register
-    log in to an account
-    go to your profile
-    go to someone else's profile
+    register /
+    log in to an account /
+    go to your profile /
+    go to someone else's profile /
     filter search
-        enter and then delete inputs and submit empty inputs
+        enter and then delete inputs and submit empty inputs //////
         clear inputs
         clear all inputs
         search with all inputs, minimum and maximum
