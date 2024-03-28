@@ -8,6 +8,7 @@ const UserProfile = () => {
     const [otherUser, setOtherUser] = useState({})
     const [allMyUnsoldProperties, setAllMyUnsoldProperties] = useState([])
     const [allMySoldProperties, setAllMySoldProperties] = useState([])
+    const [allMyPurchasedProperties, setAllMyPurchasedProperties] = useState([])
     const [allMadeOffers, setAllMadeOffers] = useState([])
     const [allReceivedOffers, setAllReceivedOffers] = useState([])
     const [allBookmarkedProperties, setAllBookmarkedProperties] = useState([])
@@ -24,7 +25,7 @@ const UserProfile = () => {
         .catch((err) => {
             console.log("AllProperties getOneUser catch err: ", err)
         })
-    },[])
+    },[otherUserId])
 
     // axios get all properties,
         // set allMyPropertiesPropertiesThatHaventBeenSold as filtered whose user_id matched currentUserId and filter again not sold
@@ -42,12 +43,27 @@ const UserProfile = () => {
                 let allPropertiesISold = filteredProperties.filter(property => property.isSold == true)
                 setAllMySoldProperties(allPropertiesISold)
                 console.log("allPropertiesISold", allPropertiesISold)
-
+                let allPropertiesIPurchased = res.data.filter(property => property.winning_bidder_user_id == otherUserId)
+                setAllMyPurchasedProperties(allPropertiesIPurchased)
             })
             .catch((err) => {
                 console.log("AllProperties.jsx getAllProperties catch err: ", err)
             })
-        },[])
+        },[otherUserId])
+
+        useEffect(() => {
+            axios.get('http://localhost:8000/api/offers')
+            .then((res) => {
+                console.log("UserProfile getAllOffers then res.data: ", res.data)
+                const allOffers = res.data
+                const allReceivedOffers = allOffers.filter(offer => offer.lister_id == otherUserId)
+                console.log("allReceivedOffers: ", allReceivedOffers)
+                setAllReceivedOffers(allReceivedOffers)
+                const allMyMadeOffers = allOffers.filter(offer => offer.bidder_user_id == otherUserId)
+                console.log("allMyMadeOffers: ", allMyMadeOffers)
+                setAllMadeOffers(allMyMadeOffers)
+            })
+        },[otherUserId])
 
     // BONUS: axios get all bookmarks
         // setAllBookmarkedProperties as filtered whose bookmarks contains currentUserId
@@ -64,7 +80,7 @@ const UserProfile = () => {
         .catch((err) => {
             console.log("UserProfile getAllBookmarks catch err: ", err)
         })
-    },[])
+    },[otherUserId])
 
             // BONUS: axios get allOffers,
         // setAllMadeOffers as allOffers.filter bidder_user_id == currentUserId
@@ -96,7 +112,11 @@ const UserProfile = () => {
     
     const toFinancesTab = () => setTab("Offers")
 
-    const toBoughtAndSoldTab = () => setTab("BoughtAndSold")
+    const toUserProfile = (userId) => navigate(`/profiles/${currentUserId}/${userId}`)
+
+    const toBoughtPropertiesTab = () => setTab("BoughtProperties")
+
+    const toSoldPropertiesTab = () => setTab("SoldProperties")
         
     return (
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
@@ -112,7 +132,8 @@ const UserProfile = () => {
             <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Properties</button>
             <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
             <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}>To My Offers</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtAndSoldTab()}>To Bought And Sold</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>To Bought Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>To Sold Properties</button>
         </div>
         
         {/* // Tabs with these different components */}
@@ -143,17 +164,6 @@ const UserProfile = () => {
         }
         {tab == "Bookmarks" &&
             <div>
-        {/* // BONUS: Component 2: All bookmarked properties */}
-            {/* // IsSOld banner */}
-            {/* // Asking price */}
-            {/* // Buy or rent */}
-            {/* // Property type */}
-            {/* // Square Feet */}
-            {/* // Num beds */}
-            {/* // Num baths */}
-            {/* // isHaunted */}
-            {/* // Address */}
-            {/* // BONUS: buyer info */}
             {allBookmarkedProperties && 
                 (allBookmarkedProperties.map((bookmark, index) => (
                     <div key={bookmark._id}>
@@ -186,21 +196,71 @@ const UserProfile = () => {
             {/* // property name with link by id to property */}
             {/* // seller name */}
             {/* // offer amount */}
-    
+            {allMadeOffers && 
+                <div>
+                    <p>Offers Made</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>View Property</th>
+                                <th>Property Name</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {allMadeOffers.map((offer, index) => (
+                                <tr key={index}>
+                                    <td><button onClick={() => toOneProperty(offer.property_id)}>View Property</button></td>
+                                    <td>{offer.property_name}</td>
+                                    <td>{offer.offer_amount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            }
         {/* // BONUS: List of offers recieved */}
             {/* // property name with link to property */}
             {/* // bidder name */}
             {/* // offer amount */}
+                {allReceivedOffers &&
+                    <div>
+                        <p>Offers Received</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>View Property</th>
+                                    <th>Property Name</th>
+                                    <th>Bidder</th>
+                                    <th>View Profile</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allReceivedOffers.map((offer, index) => (
+                                    <tr key={index}>
+                                        <td><button onClick={() => toOneProperty(offer.property_id)}>View</button></td>
+                                        <td>{offer.property_name}</td>
+                                        <td>{offer.bidder_username}</td>
+                                        <td><button onClick={() => toUserProfile(offer.bidder_user_id)}>View</button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
             }
-            {tab == "BoughtAndSold" &&
+            {tab == "BoughtProperties" &&
                 <div>
         {/* // BONUS: List of properties closed on (bought) */}
             {/* // property name with link to property */}
             {/* // seller name */}
             {/* // offer amount */}
-    
-        {/* // BONUS: List of properties sold */}
+                </div>
+            }
+            {tab == "SoldProperties" &&
+                <div>
+            {/* // BONUS: List of properties sold */}
             {/* // property name with link to property */}
             {/* // bidder name */}
             {/* // offer amount */}
