@@ -364,16 +364,20 @@ const ViewAllProperties = () => {
             {/*add more offers and accept 2 of them*/}
 
             <div className="row">
-                <div className="col-md">
+                <div className="col-md shadow-lg">
                 {/* all properties displayed */}
                 {allPropertiesFiltered.map((property, index) =>(
                 
-                <div className="column" style={{marginBottom:'50px' ,border: '2px solid black' }} key={property._id}>
-                        <p>Property Number: {index + 1}</p>
-                        <p>Lister: {property.lister_username}</p>
+                <div className="column" style={{marginBottom:'50px' ,border: '2px solid black', width: "600px"}} key={property._id}>
                         <p></p>
-                        <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
-                        <p>property name: {property.property_name}</p>
+                        <p className="fs-5">Property Name: {property.property_name}</p>
+                        <div className="row">
+                            <div style={{display:"flex", alignItems: "center"}}>
+                                <img src={property.lister_user_image} style={{ border: '2px solid black', height:"40px", width: "40px"}} />
+                                <p>Lister: {property.lister_username}</p>
+                            </div>
+                        </div>
+                        
                         <p style={{
                             height: '',
                             color: 'white',
@@ -384,33 +388,40 @@ const ViewAllProperties = () => {
                         }}>
                             {property.isSold ? "Listing is Sold" : ""}
                         </p>
-                        <p>property photo:</p>
-                        <img src={property.property_photo_url} className="col-md-10" style={{height: '300px', width: '400px'}}/>
+                        <div className="row">
+                            <div className="col">
+                                <img src={property.property_photo_url} className="col-md-10" style={{height: '300px', width: '400px'}}/>
+                            </div>
+                            <div className="col">
+                                <p>Property Type: {property.property_type}</p>
+                                <p>Square Footage: {property.square_footage}</p>
+                                <p>Number of Beds: {property.number_of_beds}</p>
+                                <p>Number of Baths: {property.number_of_baths}</p>
+                                <p>Number of Ghosts: {property.number_of_ghosts}</p>
+                            </div>
+                        </div>
+            
                         {/* map all the photos */}
                         
 
 
-                        <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
+                        {!property.isSold && <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>}
 
                         <p>
                             {property.sell_or_rent ? `Asking price: $
                             ${property.asking_price}` : `This property has monthly payment of $${property.asking_price}`}
                         </p>
 
-                        <p>Property Type: {property.property_type}</p>
-                        <p>Square Footage: {property.square_footage}</p>
-                        <p>Number of Beds: {property.number_of_beds}</p>
-                        <p>Number of Baths: {property.number_of_baths}</p>
-                        <p>Number of Ghosts: {property.number_of_ghosts}</p>
+
                         <p>Address: {property.address}</p>
-                        {property.isSold ? <p><strong>Sold!</strong></p> : ""}
+                        {property.isSold ? <p><strong className="text-danger">Sold!</strong></p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
                             {property.isSold ? <p>Accepted offer: ${property.winning_bid_amount}</p> : ""}
                         </div>
                         {/* offer ifs array */}
                         
                         {/* Offer Array Ends */}
-                        <button className='col-sm btn offset-sm-1 btn-secondary'
+                        <button className='col-sm btn offset-sm-1 btn-primary'
                             onClick={() => toOneProperty(property._id)}>View Listing
                         </button>
                 </div>
