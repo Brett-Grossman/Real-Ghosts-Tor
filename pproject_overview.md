@@ -91,9 +91,9 @@ Steps:
 
     BONUS: in another account, make and unmake a bookmark and leave one bookmark /
 
-    BONUS: make 6 bookmarks with one account, 3 with another account, 3 with another account all on the same 6/3 properties
+    BONUS: make 6 bookmarks with one account, 3 with another account, 3 with another account all on the same 6/3 properties /
 
-    BONUS: user page: all properties bookmarked by the user
+    BONUS: user page: all properties bookmarked by the user /
 
     BONUS: multiple photos with a forward and back buttons on the sides
 
