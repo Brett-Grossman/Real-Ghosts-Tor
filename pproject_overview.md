@@ -8,15 +8,15 @@ GitHub Repo: https://github.com/Griffin-Fore/Real-Ghosts-Tor.git
 
 Presentation:
 
-    register /
-    log in to an account /
-    go to your profile /
-    go to someone else's profile /
+    register 
+    log in to an account
+    go to your profile
+    go to someone else's profile 
     filter search
-        enter and then delete inputs and submit empty inputs /
-        clear inputs /
-        clear all inputs /
-        search with all inputs, minimum and maximum /
+        enter and then delete inputs and submit empty inputs
+        clear inputs
+        clear all inputs
+        search with all inputs, minimum and maximum
     create one property
     edit the property
     open edit window and cancel
@@ -35,7 +35,7 @@ Presentation:
     view your sold properties
     bookmark 2 properties on one account, log off and unbookmark then rebookmark
     bookmark one of the same properties on another account
-    view the bookmarks
+    view all the tabs
     play the rhythm game
 
 Steps:
@@ -109,6 +109,8 @@ Steps:
     BONUS: All properties are in tabs of 10 properties max
     BONUS: 50 properties
 
+    BONUS: Fix the user profile navigate buttons to reset the page into the myProperties tab
+
     BONUS: User Profile:
     BONUS: as a buyer:
     list of offers made with links to the properties /
@@ -117,10 +119,10 @@ Steps:
     list of offers recieved with links to the properties /
 
     BONUS: as a buyer:
-    list of properties closed on
+    list of properties closed on /
 
     BONUS: as a cellar:
-    list of properties soled
+    list of properties soled /
 
     BONUS: List properties bought under my properties and allow for reselling
 
@@ -142,7 +144,15 @@ Steps:
 
     BONUS: Tweak the wording such as changing purchased properties to closed properties
 
-    BONUS: add my profile, logout and home buttons to every page except RegAndLogin
+    BONUS: add my profile, logout and home buttons to every page except RegAndLogin /
+
+    BONUS: Darkmode
+
+    BONUS: display the numbers with commas and decimal .00
+
+    BONUS: have the current tab on the user's profile be blue
+
+    BONUS: Filter based on the us state the house is located in
 
 Data:
     40 properties
