@@ -13,16 +13,24 @@ Presentation:
     go to your profile /
     go to someone else's profile /
     filter search
-        enter and then delete inputs and submit empty inputs //////
-        clear inputs
-        clear all inputs
-        search with all inputs, minimum and maximum
+        enter and then delete inputs and submit empty inputs /
+        clear inputs /
+        clear all inputs /
+        search with all inputs, minimum and maximum /
     create one property
     edit the property
+    open edit window and cancel
+    open delete window and cancel
     delete the property
     make an offer on a property
-    edit and delete the offer
+    open, make change, cancel the edit window
+    edit the offer
+    open and cancel the edit window
+    open and cancel the delete button
+    delete the offer
+    make and leave an offer
     log in to an account with a property with multiple offers
+    open and cancel the accept
     accept an offer
     view your sold properties
     bookmark 2 properties on one account, log off and unbookmark then rebookmark
@@ -95,24 +103,24 @@ Steps:
 
     BONUS: user page: all properties bookmarked by the user /
 
+    BONUS: Buttons blue except cancel and reset and other those type of buttons
+    BONUS: Property info to the side of the property photo, margins around everything
     BONUS: multiple photos with a forward and back buttons on the sides
-
+    BONUS: All properties are in tabs of 10 properties max
     BONUS: 50 properties
 
     BONUS: User Profile:
     BONUS: as a buyer:
-    list of offers made with links to the properties
+    list of offers made with links to the properties /
 
     BONUS: as a cellar:
-    list of offers recieved with links to the properties
+    list of offers recieved with links to the properties /
 
     BONUS: as a buyer:
     list of properties closed on
 
     BONUS: as a cellar:
     list of properties soled
-
-    BONUS: All properties are in tabs of 10 properties max
 
     BONUS: List properties bought under my properties and allow for reselling
 
@@ -131,6 +139,10 @@ Steps:
     BONUS: property has minimum bid amount and a buy now option
 
     BONUS: add a description for each property, change the model, and the forms
+
+    BONUS: Tweak the wording such as changing purchased properties to closed properties
+
+    BONUS: add my profile, logout and home buttons to every page except RegAndLogin
 
 Data:
     40 properties
