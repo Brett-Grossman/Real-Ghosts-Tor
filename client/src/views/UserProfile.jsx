@@ -45,6 +45,7 @@ const UserProfile = () => {
                 console.log("allPropertiesISold", allPropertiesISold)
                 let allPropertiesIPurchased = res.data.filter(property => property.winning_bidder_user_id == otherUserId)
                 setAllMyPurchasedProperties(allPropertiesIPurchased)
+                
             })
             .catch((err) => {
                 console.log("AllProperties.jsx getAllProperties catch err: ", err)
@@ -62,6 +63,7 @@ const UserProfile = () => {
                 const allMyMadeOffers = allOffers.filter(offer => offer.bidder_user_id == otherUserId)
                 console.log("allMyMadeOffers: ", allMyMadeOffers)
                 setAllMadeOffers(allMyMadeOffers)
+                
             })
         },[otherUserId])
 
@@ -75,6 +77,7 @@ const UserProfile = () => {
             const allMyBookmarks = res.data.filter(bookmark => bookmark.creator_user_id == otherUserId)
             console.log("allMyBookmarks", allMyBookmarks)
             setAllBookmarkedProperties(allMyBookmarks)
+            
             setLoading(false)
         })
         .catch((err) => {
@@ -115,20 +118,25 @@ const UserProfile = () => {
         
     return (
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
-            <div className="row " style={{borderBottom: '2px solid black'}}>
+            <div className="row" style={{borderBottom: '2px solid black'}}>
                 
-                <button className='col-md btn btn-secondary'onClick={() => toHome()}>Home</button>
-                <button className='col-md btn btn-primary offset-sm-1 btn-secondary'onClick={() => logout()}>Log out</button>
-                <button className='col-md offset-md-2 btn btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
+                <button className='col-md-2 btn btn-secondary'onClick={() => logout()}>Log out</button>
+                <button className='col-md-2 btn btn-primary offset-sm-1 btn-primary'onClick={() => toHome()}>Homepage</button>
+                {currentUserId !== otherUserId && <button onClick={() =>toUserProfile(currentUserId)} className="col-md-2 btn btn-primary offset-sm-1 btn-primary">To my Profile</button>}
+
+                
+                <button className='col-md-2 offset-sm-1 btn btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <p className="fs-2">{otherUser.username}'s Profile</p>
                 <img src={otherUser.user_image_url} style={{height: '100px', width: '120px'}} alt="" />
             </div>
         <div>
             <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}>To My Offers</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>To Bought Properties</button>
             <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>To Sold Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>To Bought Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}>To Offers</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
+            
+            
         </div>
         
         {/* // Tabs with these different components */}
