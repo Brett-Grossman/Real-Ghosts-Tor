@@ -674,7 +674,7 @@ const ViewOneProperty = () => {
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
                 {pendingOfferErrors.offer_amount && <p>Error: Offer amount must be at least 1.</p>}
-                <button style={{marginBottom: '50px'}}>Make Offer</button>
+                <button className="btn btn-primary">Make Offer</button>
             </form>
         </div>
     }

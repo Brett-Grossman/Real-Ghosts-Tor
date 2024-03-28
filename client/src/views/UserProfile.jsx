@@ -128,16 +128,16 @@ const UserProfile = () => {
                 <button className='col-md-2 offset-sm-1 btn btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <div style={{display: "flex", alignItems: "center"}}>
                 <img src={otherUser.user_image_url} style={{height: '100px', width: '100px'}} alt="" />
-                <p className="fs-2">{otherUser.username}'s Profile - {tab=="MyProperties" && "My Properties"}{tab=="SoldProperties" && "Sold Properties"}{tab=="Bookmarks" && "Bookmarks"}{tab=="Offers" && "Offers"}{tab=="BoughtProperties" && "Bought Properties"}</p>                
+                <p className="fs-2">{otherUser.username}'s Profile - {tab=="MyProperties" && "Unsold Properties"}{tab=="SoldProperties" && "Sold Properties"}{tab=="Bookmarks" && "Bookmarks"}{tab=="Offers" && "Offers"}{tab=="BoughtProperties" && "Bought Properties"}</p>                
                 </div>
                 <p></p>
 
             </div>
         <div style={{margin: '20px'}}>
-            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>To Sold Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>To Bought Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}>To Offers</button>
+            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Unsold Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>My Sold Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>My Bought Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}> Offers</button>
             <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
             
             
