@@ -35,7 +35,7 @@ Presentation:
     view your sold properties
     bookmark 2 properties on one account, log off and unbookmark then rebookmark
     bookmark one of the same properties on another account
-    view the bookmarks
+    view all the tabs
     play the rhythm game
 
 Steps:
@@ -109,6 +109,8 @@ Steps:
     BONUS: All properties are in tabs of 10 properties max
     BONUS: 50 properties
 
+    BONUS: Fix the user profile navigate buttons to reset the page into the myProperties tab
+
     BONUS: User Profile:
     BONUS: as a buyer:
     list of offers made with links to the properties /
@@ -142,9 +144,15 @@ Steps:
 
     BONUS: Tweak the wording such as changing purchased properties to closed properties
 
-    BONUS: add my profile, logout and home buttons to every page except RegAndLogin
+    BONUS: add my profile, logout and home buttons to every page except RegAndLogin /
 
     BONUS: Darkmode
+
+    BONUS: display the numbers with commas and decimal .00
+
+    BONUS: have the current tab on the user's profile be blue
+
+    BONUS: Filter based on the us state the house is located in
 
 Data:
     40 properties
