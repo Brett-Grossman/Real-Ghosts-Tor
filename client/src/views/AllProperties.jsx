@@ -405,9 +405,9 @@ const ViewAllProperties = () => {
                         <p>number of baths: {property.number_of_baths}</p>
                         <p>number of ghosts: {property.number_of_ghosts}</p>
                         <p>address: {property.address}</p>
-                        {property.isSold ? <p>Sold!</p> : ""}
+                        {property.isSold ? <p><strong>Sold!</strong></p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Accepted offer: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                            {property.isSold ? <p>Accepted offer: ${property.winning_bid_amount}</p> : ""}
                         </div>
                         {/* offer ifs array */}
                         
@@ -529,7 +529,7 @@ const ViewAllProperties = () => {
                             value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
                         <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
                     </form>
-                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onSubmit={() => resetGhostFilter()}>Reset</button>
+                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={() => resetGhostFilter()}>Reset</button>
                 </div>
 
             <div>
