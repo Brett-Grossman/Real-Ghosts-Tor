@@ -470,7 +470,7 @@ const ViewAllProperties = () => {
                         <p className="offset-sm-1">Square Footage</p>
                         <form onSubmit={setSquareFootage} className="offset-sm-1">
                             <label htmlFor="minium_square_footage">Min:</label>
-                            <input className="col-sm-2" id="minimum_square_footage" 
+                            <input className="col-sm-3" id="minimum_square_footage" 
                                 type="number" name="minimum_square_footage" 
                                 value={potentialMinSquareFootage} onChange={minimumSquareFootageChangeHandler}/>
                             <label htmlFor="maximum_square_footage">Max:</label>
@@ -486,11 +486,11 @@ const ViewAllProperties = () => {
                             <p className="offset-sm-1">Beds</p>
                                 <form onSubmit={bedFilterSubmissionHandler} className="offset-sm-1">
                                     <label htmlFor="minimum_beds">Min:</label>
-                                    <input className="col-sm-1" id="minimum_beds" 
+                                    <input className="col-sm-2" id="minimum_beds" 
                                         type="number" name="minimum_beds" 
                                         value={potentialMinNumberOfBeds} onChange={minimumBedsChangeHandler}/>
                                     <label htmlFor="maximum_beds">Max:</label>
-                                    <input className="col-sm-1" id="maximum_beds" 
+                                    <input className="col-sm-2" id="maximum_beds" 
                                         type="number" name="maximum_beds" 
                                         value={potentialMaxNumberOfBeds} onChange={maximumBedsChangeHandler}/>
                                     <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
@@ -504,11 +504,11 @@ const ViewAllProperties = () => {
                     <p className="offset-sm-1">Baths</p>
                     <form onSubmit={bathFilterSubmissionHandler}>
                         <label className="offset-sm-1" htmlFor="minimum_baths">Min:</label>
-                        <input className="col-sm-1" id="minimum_baths" 
+                        <input className="col-sm-2" id="minimum_baths" 
                             type="number" name="minimum_baths" 
                             value={potentialMinNumberOfBaths} onChange={potentialMinimumBathsChangeHandler}/>
                         <label htmlFor="maximum_baths">Max:</label>
-                        <input className="col-sm-1" id="maximum_baths" 
+                        <input className="col-sm-2" id="maximum_baths" 
                             type="number" name="minimum_baths" 
                             value={potentialMaxNumberOfBaths} onChange={potentialMaximumBathsChangeHandler}/>
                         <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
@@ -520,16 +520,16 @@ const ViewAllProperties = () => {
                     <p className="offset-sm-1">Ghosts</p>
                     <form onSubmit={ghostFilterSubmissionHandler}>
                         <label className="offset-sm-1" htmlFor="minimum_ghosts">Min:</label>
-                        <input className="col-sm-1" id="minimum_ghosts" 
+                        <input className="col-sm-2" id="minimum_ghosts" 
                             type="number" name="minimum_ghosts" 
                             value={potentialMinNumberOfGhosts} onChange={potentialMinimumGhostsChangeHandler}/>
                         <label htmlFor="maximum_ghosts">Max:</label>
-                        <input className="col-sm-1" id="maximum_ghosts" 
+                        <input className="col-sm-2" id="maximum_ghosts" 
                             type="number" name="maximum_ghosts" 
                             value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
                         <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
                     </form>
-                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onSubmit={() => resetGhostFilter()}>Reset</button>
+                    <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={() => resetGhostFilter()}>Reset</button>
                 </div>
 
             <div>
