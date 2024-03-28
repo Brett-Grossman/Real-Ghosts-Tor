@@ -86,10 +86,10 @@ Steps:
 
     BONUS: make the bookmark functionality /
 
-    BONUS: make a bookmark and unnmake a bookmark and leave a bookmark,
-    logout and come back
+    BONUS: make a bookmark and unnmake a bookmark and leave a bookmark, /
+    logout and come back /
 
-    BONUS: in another account, make and unmake a bookmark and leave one bookmark
+    BONUS: in another account, make and unmake a bookmark and leave one bookmark /
 
     BONUS: make 6 bookmarks with one account, 3 with another account, 3 with another account all on the same 6/3 properties
 

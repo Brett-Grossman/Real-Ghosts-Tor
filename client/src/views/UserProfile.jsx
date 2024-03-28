@@ -42,20 +42,34 @@ const UserProfile = () => {
                 let allPropertiesISold = filteredProperties.filter(property => property.isSold == true)
                 setAllMySoldProperties(allPropertiesISold)
                 console.log("allPropertiesISold", allPropertiesISold)
-                setLoading(false)
+
             })
             .catch((err) => {
                 console.log("AllProperties.jsx getAllProperties catch err: ", err)
             })
         },[])
-    
-        
-    // BONUS: axios get allOffers,
-        // setAllMadeOffers as allOffers.filter bidder_user_id == currentUserId
-        // setAllReceivedOffers as offers.seller_id == currentUserId
 
     // BONUS: axios get all bookmarks
         // setAllBookmarkedProperties as filtered whose bookmarks contains currentUserId
+        // setLoading(false)
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/bookmarks')
+        .then((res) => {
+            console.log("UserProfile.jsx getAllBookmarks res.data: ", res.data)
+            const allMyBookmarks = res.data.filter(bookmark => bookmark.creator_user_id == otherUserId)
+            console.log("allMyBookmarks", allMyBookmarks)
+            setAllBookmarkedProperties(allMyBookmarks)
+            setLoading(false)
+        })
+        .catch((err) => {
+            console.log("UserProfile getAllBookmarks catch err: ", err)
+        })
+    },[])
+
+            // BONUS: axios get allOffers,
+        // setAllMadeOffers as allOffers.filter bidder_user_id == currentUserId
+        // setAllReceivedOffers as offers.seller_id == currentUserId
+        // setLoading(false)
 
     // logout
     const logout = () => {
@@ -130,10 +144,6 @@ const UserProfile = () => {
         {tab == "Bookmarks" &&
             <div>
         {/* // BONUS: Component 2: All bookmarked properties */}
-        {/* // List of all properties bookmarked by the user */}
-            {/* // View property button */}
-            {/* // Name of agent */}
-            {/* // Picture */}
             {/* // IsSOld banner */}
             {/* // Asking price */}
             {/* // Buy or rent */}
@@ -144,6 +154,30 @@ const UserProfile = () => {
             {/* // isHaunted */}
             {/* // Address */}
             {/* // BONUS: buyer info */}
+            {allBookmarkedProperties && 
+                (allBookmarkedProperties.map((bookmark, index) => (
+                    <div key={bookmark._id}>
+                        <button onClick={() => toOneProperty(bookmark.property_id)}>View Property</button>
+                        <div>
+                            <p>Seller</p>
+                            <img style={{width: '20px', height: '20px'}} src={bookmark.lister_user_image}/>
+                            <p>{bookmark.lister_username}</p>
+                        </div>
+                        {bookmark.isSold && <p>Sold!</p>}
+                        <h1>{bookmark.property_name}</h1>
+                        <img style={{height: '200px'}} src={bookmark.property_photo_url}/>
+                        <p>Asking Price: {bookmark.asking_price}</p>
+                        {!bookmark.isSold && (bookmark.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
+                        <p>Property Type: {bookmark.property_type}</p>
+                        <p>Square Footage: {bookmark.square_footage}</p>
+                        <p>Beds: {bookmark.number_of_beds}</p>
+                        <p>Baths: {bookmark.number_of_baths}</p>
+                        <p>Ghosts: {bookmark.number_of_ghosts}</p>
+                        <p>{bookmark.address}</p>
+                    </div>
+                )))
+            
+            }
             </div>
         }
         {tab == "Offers" && 
