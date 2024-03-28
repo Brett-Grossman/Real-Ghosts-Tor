@@ -391,9 +391,9 @@ const ViewOneProperty = () => {
                     <button onClick={() => pictureRight()}>&gt;</button>
                 </div>}
 
-                {property.isSold ? <p>Sold!</p> : ""}
+                {property.isSold ? <p className="col-md-1" style={{backgroundColor: 'red'}}>Sold!</p> : ""}
                 <div style={{height: '60px', width: '180px'}}>
-                    {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                    {property.isSold ? <p style={{backgroundColor: 'red'}}>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
                 </div>  
                 <div style={{height: '60px', width: '180px'}}>
                     {property.isSold ? "" : (property.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
@@ -554,7 +554,7 @@ const ViewOneProperty = () => {
                                 <p>All Offers Are Final</p>
                                 {/* set as selectedOffer the offer, then set isAcceptOfferPopupOpen to true CURRENT_PLACE*/}
                                 <button onClick={() => closeAcceptOfferPopup()}>Cancel</button>
-                                <button onClick={() => acceptOfferForReal()}>Finalize Offer</button>
+                                <button style={{marginBottom: '50px'}}onClick={() => acceptOfferForReal()}>Finalize Offer</button>
                             </div>
                         }
                         {/* // accept button */}
