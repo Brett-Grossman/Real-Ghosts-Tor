@@ -127,6 +127,7 @@ Steps:
     BONUS: Clear losing bids
         delete by id the bids
         remove from offer ids
+        Make three bids on a property and accept one
 
     BONUS: Edit profile function
     
