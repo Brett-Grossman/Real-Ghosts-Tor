@@ -152,6 +152,14 @@ Steps:
 
     BONUS: Filter based on the us state the house is located in
 
+    BONUS: All offers received grouped by property with link to the property and link to the offer maker
+
+    BONUS: Properties show newest first
+
+    BONUS: Set all error messages to red
+
+    BONUS: Set the confirms in popups
+
 Data:
     40 properties
     10 per realtor
