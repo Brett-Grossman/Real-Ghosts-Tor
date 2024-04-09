@@ -430,67 +430,77 @@ const ViewOneProperty = () => {
     return (
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div className="row " style={{borderBottom: '2px solid black'}}>
-                <button className='col-md btn btn-primary'onClick={() => logout()}>Log Out</button>
-                <button className='col-md btn offset-sm-1 btn-secondary'onClick={()=> toMyAccount()}>My Account</button>
+                <button className='col-md btn btn-secondary'onClick={() => logout()}>Log Out</button>
+                <button className='col-md btn offset-sm-1 btn-primary'onClick={()=> toMyAccount()}>My Account</button>
                 <button className='col-md offset-md-2 btn btn-primary'onClick={() => toHome()}>To Home</button>
             </div>
             {/* NOTE: please make this a ribbon on the top of the window and to the side */}
-            {myBookmark && <h1>Bookmarked</h1>}
-            {currentUserId !== property.lister_user_id && <button onClick={() => toggleBookmark()}>Bookmark</button>}
+            {myBookmark && <h1 style={{color: 'white', background: 'blue',width: '18%'}}>Bookmarked</h1>}
+            {currentUserId !== property.lister_user_id && <button style={{border: '1px solid blue'}} className="btn" onClick={() => toggleBookmark()}>Bookmark</button>}
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
                 {/* seller image */}
 
                 {/* Picture */}
-                <h1>{property.property_name}</h1>
-                <img style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
-                <div></div>
-                {/* // BONUS: Pictures array that has arrow buttons to go forward and back to the different picture */}
-                
-                {property.property_photos && property.property_photos[currentImageIndex] &&
                 <div className="row">
-                    <button onClick={() => pictureLeft()}>&lt;</button>
-                    <img className="row" style={{height: '350px', width: '500px'}} src={property.property_photos[currentImageIndex]}/>
-                    <button onClick={() => pictureRight()}>&gt;</button>
-                </div>}
+                    <h1 className="offset-sm-1">{property.property_name}</h1>
+                    <div className="col">
+                        
+                        <img className='shadow-lg'style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
+                        <div></div>
+                        {/* // BONUS: Pictures array that has arrow buttons to go forward and back to the different picture */}
 
-                {property.isSold ? <p>Sold!</p> : ""}
-                <div style={{height: '60px', width: '180px'}}>
-                    {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
-                </div>  
-                <div style={{height: '60px', width: '180px'}}>
-                    {property.isSold ? "" : (property.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
-                </div>  
-                <div style={{height: '60px', width: '180px'}}>
-                    <p>Property Type: {property.property_type}</p>
-                </div>
-                    <div style={{height: '60px', width: '180px'}}>
-                <p>Square Footage: {property.square_footage} sq/ft</p>
+                        {property.property_photos && property.property_photos[currentImageIndex] &&
+                        <div className="row">
+                            <button onClick={() => pictureLeft()}>&lt;</button>
+                            <img className="row" style={{height: '350px', width: '500px'}} src={property.property_photos[currentImageIndex]}/>
+                            <button onClick={() => pictureRight()}>&gt;</button>
+                        </div>}
+                        <div style={{height: '60px', width: '180px'}}>
+                            {property.isSold ? "" : (property.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
+                        </div> 
+                        
+                        {property.isSold ? <p className="col-md-1 fs-5" style={{color: 'red'}}>Sold!</p> : ""}
+                        <div style={{height: '60px', width: '180px'}}>
+                            {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                        </div>  
+                        <div style={{height: '60px', width: '300px'}}>
+                            <p>Address: {property.address}</p>
+                        </div>
                     </div>
-                <div style={{height: '60px', width: '180px'}}>
-                    <p>Number of Bedrooms: {property.number_of_beds}</p>
-                </div>
-                    <div style={{height: '60px', width: '180px'}}>
-                <p>Number of Bathrooms: {property.number_of_baths}</p>
+                    <div className="col">
+ 
+                        <div style={{height: '60px', width: '180px'}}>
+                            <p>Property Type: {property.property_type}</p>
+                        </div>
+                        <div style={{height: '60px', width: '180px'}}>
+                            <p>Square Footage: {property.square_footage} sq/ft</p>
+                        </div>
+                        <div style={{height: '60px', width: '180px'}}>
+                            <p>Number of Bedrooms: {property.number_of_beds}</p>
+                        </div>
+                        <div style={{height: '60px', width: '180px'}}>
+                            <p>Number of Bathrooms: {property.number_of_baths}</p>
+                        </div>
+                        <div style={{height: '60px', width: '180px'}}>
+                            <p>Number of Ghosts: {property.number_of_ghosts}</p>
+                        </div>
                     </div>
-                <div style={{height: '60px', width: '180px'}}>
-                    <p>Number of Ghosts: {property.number_of_ghosts}</p>
-                </div>
-                <div style={{height: '60px', width: '300px'}}>
-                    <p>Address: {property.address}</p>
+
+
                 </div>
 
                 <div style={{border: '2px solid black'}}>
                     <p>Listing Agent: {property.lister_username}</p>
                     <img className="col-md-1" src={property.lister_user_image} style={{height: '75px', width: '75px'}} />
-                    <button className="btn btn-lg" onClick={() => toLister(property.lister_user_id)} style={{backgroundColor: '#9E00FF',height: '60px', width: '320px'}}>
+                    <button className="btn btn-lg btn-primary" onClick={() => toLister(property.lister_user_id)} style={{height: '60px', width: '270px', padding: '10px'}}>
                         <p>To Listing Agents Profile</p>
                     </button>
                 </div>
                 {/* // BONUS: if sold or rented: Buyer information */}
                 {property.isSold && 
                     <div>
-                        <p>SOLD!</p>
+                        
                         {property.sell_or_rent == "sell" &&
                             <p>Closed for ${property.winning_bid_amount}.00 by {property.winning_bidder_username}</p>
                         }
@@ -504,68 +514,76 @@ const ViewOneProperty = () => {
             {property.lister_user_id == currentUserId &&
                 <div>
                         {/* // Edit button that opens a popup form with the same structure as the page */}
-                        <button onClick={() => openPropertyEditPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Edit</button>
+                        <button onClick={() => openPropertyEditPopup()} className="btn btn-primary">Edit</button>
                         {/* popup edit property form */}
                         {isEditPropertyPopupOpen &&
                             // edit form
                             <div className='row shadow-lg' style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' ,transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
                                 <p></p>
-                                <button onClick={() => closePropertyEditPopup()} className="col-md-2 btn btn-secondary offset-sm-9" style={{border: '2px solid black'}}>Cancel</button>
+                                <button onClick={() => closePropertyEditPopup()} className="col-md-2 btn btn-secondary offset-sm-9">Cancel</button>
                                 <form onSubmit={editedPropertyFormSubmission}>
                                     <div className="row">
                                         <p></p>
-                                        <div className="col-md-4">
-                                            <label htmlFor="property_name">Property Name:</label>
-                                            <input id="property_name" type="text" name="property_name" value={editedProperty.property_name} onChange={editPropertyChangeHandler}/>
-                                            {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.property_name?.message}</p>}
+                                        <div className="col">
+                                            <div className="col-md-3">
+                                                <label htmlFor="property_name">Property Name:</label>
+                                                <input id="property_name" type="text" name="property_name" value={editedProperty.property_name} onChange={editPropertyChangeHandler}/>
+                                                {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.property_name?.message}</p>}
+                                            </div>
+                                            
+                                            <div className="col-md-3">
+                                                <label htmlFor="property_photo_url">Property Photo URL:</label>
+                                                <input id="property_photo_url" type="text" name="property_photo_url" value={editedProperty.property_photo_url} onChange={editPropertyChangeHandler}/>
+                                                {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.property_photo_url?.message}</p>}
+                                            </div>
+                                            <div className="col-md-3">
+                                                <label htmlFor="property_photos">Photos Enter EX: &quot;urlOne&quot;,&quot;urlTwo&quot;,&quot;urlThree&quot;</label>
+                                                <input id="property_photos" type="text" name="property_photos" value={editedProperty.property_photos} onChange={editPropertyChangeHandler}/>
+                                            </div>
+                                            <p></p>
+                                            <div className="col-md-3">
+                                                <label htmlFor="asking_price">Asking Price</label>
+                                                <input id="asking_price" type="number" name="asking_price" value={editedProperty.asking_price} onChange={editPropertyChangeHandler}/>
+                                                {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.asking_price?.message}</p>}
+                                            </div>
+                                            <div className="col-md-3">
+                                                <label>Sell Or Rent?</label>
+                                                <div style={{display: "flex", alignItems: "center"}}>
+                                                    <label htmlFor="sell">Sell:</label>
+                                                    <input id="sell" type="radio" name="sell_or_rent" value="true" checked={editedProperty.sell_or_rent == true} onChange={editPropertyChangeHandler}/>
+                                                    <label htmlFor="rent">Rent:</label>
+                                                    <input id="rent" type="radio" name="sell_or_rent" value="false" checked={editedProperty.sell_or_rent == false} onChange={editPropertyChangeHandler}/>
+                                            </div>
+                                                
+                                            </div>
+                                                
+                                            <div className="col-md-3">
+                                                <label htmlFor="property_type">Property Type:</label>
+                                                <select id="property_type" name="property_type" value={editedProperty.property_type} onChange={editPropertyChangeHandler}>
+                                                    <option value="House">House</option>
+                                                    <option value="Apartment">Apartment</option>
+                                                    <option value="Condo">Condo</option>
+                                                    <option value="Townhouse">Townhouse</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div className="col-md-4">
-                                            <label htmlFor="property_photo_url">Property Photo URL:</label>
-                                            <input id="property_photo_url" type="text" name="property_photo_url" value={editedProperty.property_photo_url} onChange={editPropertyChangeHandler}/>
-                                            {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.property_photo_url?.message}</p>}
-                                        </div>
-                                        <div className="col-md-4">
-                                            <label htmlFor="property_photos">Photos Enter EX: &quot;urlOne&quot;,&quot;urlTwo&quot;,&quot;urlThree&quot;</label>
-                                            <input id="property_photos" type="text" name="property_photos" value={editedProperty.property_photos} onChange={editPropertyChangeHandler}/>
-                                        </div>
-                                        <p></p>
-                                        <div className="col-md-4">
-                                            <label htmlFor="asking_price">Asking Price</label>
-                                            <input id="asking_price" type="number" name="asking_price" value={editedProperty.asking_price} onChange={editPropertyChangeHandler}/>
-                                            {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.asking_price?.message}</p>}
-                                        </div>
-                                        <div className="col-md-4">
-                                            <label>Sell Or Rent?</label>
-                                            <label htmlFor="sell">Sell:</label>
-                                            <input id="sell" type="radio" name="sell_or_rent" value="true" checked={editedProperty.sell_or_rent == true} onChange={editPropertyChangeHandler}/>
-                                            <label htmlFor="rent">Rent:</label>
-                                            <input id="rent" type="radio" name="sell_or_rent" value="false" checked={editedProperty.sell_or_rent == false} onChange={editPropertyChangeHandler}/>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <label htmlFor="property_type">Property Type:</label>
-                                            <select id="property_type" name="property_type" value={editedProperty.property_type} onChange={editPropertyChangeHandler}>
-                                                <option value="House">House</option>
-                                                <option value="Apartment">Apartment</option>
-                                                <option value="Condo">Condo</option>
-                                                <option value="Townhouse">Townhouse</option>
-                                            </select>
-                                        </div>
-                                        <div className="col-md-4">
+                                        <div className="col">
+                                        <div className="col-md-3">
                                             <label htmlFor="square_footage">Square Footage</label>
                                             <input id="square_footage" type="number" name="square_footage" value={editedProperty.square_footage} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.square_footage?.message}</p>}
                                         </div>
-                                        <div className="col-md-4">
+                                        <div className="col-md-3">
                                             <label htmlFor="number_of_beds">Number of Beds</label>
                                             <input id="number_of_beds" type="number" name="number_of_beds" value={editedProperty.number_of_beds} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.number_of_beds?.message}</p>}
                                         </div>
-                                        <div className="col-md-4">
+                                        <div className="col-md-3">
                                             <label htmlFor="number_of_baths">Number of Bathrooms</label>
                                             <input id="number_of_baths" type="number" name="number_of_baths" value={editedProperty.number_of_baths} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.number_of_baths?.message}</p>}
                                         </div>
-                                        <div className="col-md-4">
+                                        <div className="col-md-3">
                                             <label htmlFor="number_of_ghosts">Number of Ghosts</label>
                                             <input id="number_oof_ghosts" type="number" name="number_of_ghosts" value={editedProperty.number_of_ghosts} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.number_of_ghosts?.message}</p>}
@@ -575,48 +593,51 @@ const ViewOneProperty = () => {
                                             <input id="address" type="text" name="address" value={editedProperty.address} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.address?.message}</p>}
                                         </div>
-                                        <button className="col-md-5 btn btn-primary offset-sm-3" style={{border: '2px solid black'}}>Submit New Edit</button>
+                                        
+                                        <button className="col-md-5 btn btn-primary offset-sm-3">Submit New Edit</button>
+                                        </div>
                                         <p></p>
                                     </div>
                                 </form>
                             </div>
                         }
                         {/* // Delete button */}
-                        <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary" style={{border: '2px solid black'}}>Delete</button>
+                        <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary">Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
-                        {/* {!property.isSold && CURRENT PLACE*/}
-                        <div>
-                            <table className="row">
-                                <thead>
-                                    <tr>
-                                        <td>Bidder</td>
-                                        <td>Offer Amount</td>
-                                        <td>Offer ID</td>
-                                        <td>Accept</td>
-                                    </tr>
-                                </thead>
-                                <tbody className="" style={{borderBottom: '2px solid black'}}>
-                                    {allOffersForThisProperty.map((offer, index) => (
-                                        <tr key={offer._id} style={{borderBottom: '1px solid black'}}>
-                                            <td >
-                                                <button className="btn"onClick={() => toBidderProfile(offer.bidder_user_id)} >{offer.bidder_username}</button>
-                                            </td>
-                                            <td>${offer.offer_amount}</td>
-                                            <td>{offer._id}</td>
-                                            <td><button onClick={() => openAcceptOfferPopup(offer)}>Accept</button></td>
-                                        </tr>
-                                    ))}
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                        {/* } */}
-                        {isAcceptOfferPopupOpen &&
+                        {!property.isSold && 
                             <div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Bidder</th>
+                                                    <th>Offer Amount</th>
+                                                    <th>Accept Offer?</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style={{ borderBottom: '2px solid black' }}>
+                                                {allOffersForThisProperty.map((offer, index) => (
+                                                    <tr key={offer._id} style={{ borderBottom: '1px solid black' }}>
+                                                        <td>
+                                                            <button className="btn" onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
+                                                        </td>
+                                                        <td>${offer.offer_amount}</td>
+                                                        <td><button onClick={() => openAcceptOfferPopup(offer)} className="btn btn-primary">Accept</button></td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {isAcceptOfferPopupOpen &&
+                            <div  style={{marginBottom: '50px'}}>
                                 <p>All Offers Are Final</p>
                                 {/* set as selectedOffer the offer, then set isAcceptOfferPopupOpen to true CURRENT_PLACE*/}
-                                <button onClick={() => closeAcceptOfferPopup()}>Cancel</button>
-                                <button onClick={() => acceptOfferForReal()}>Finalize Offer</button>
+                                <button onClick={() => closeAcceptOfferPopup()} className="btn btn-secondary">Cancel</button>
+                                <button onClick={() => acceptOfferForReal()} className="offset-sm-1 btn btn-primary">Finalize Offer</button>
                             </div>
                         }
                         {/* // accept button */}
@@ -648,31 +669,33 @@ const ViewOneProperty = () => {
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
                 {pendingOfferErrors.offer_amount && <p>Error: Offer amount must be at least 1.</p>}
-                <button>Make Offer</button>
+                <button className="btn btn-primary">Make Offer</button>
             </form>
         </div>
     }
     {currentUserId !== property.lister_user_id && myOffer &&
         <div>
-                <div>
+                <div >
                     <p>My Offer: </p>
                     <p>${myOffer.offer_amount}.00</p>
-                    <button onClick={() => openOfferEditPopup()}>Edit</button>
-                    <button onClick={() => openDeletOfferPopup()}>Delete</button>
+                    <div style={{marginBottom: '50px'}}>
+                        <button  onClick={() => openOfferEditPopup()} className="btn btn-primary">Edit Offer</button>
+                        <button onClick={() => openDeletOfferPopup()} className="btn btn-secondary">Delete Offer</button>
+                    </div>
                 </div>
                 {isOfferEditPopupOpen && myOffer &&
-                    <div>edit popup form
+                    <div>
                         <form onSubmit={editOfferSubmissionHandler}>
                             <label htmlFor="offer_amount">Offer Amount:</label>
                             <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
                             {pendingEditOfferErrors.offer_amount && <p>{pendingEditOfferErrors.offer_amount?.message}</p>}
-                            <button>Make Offer</button>
+                            <button className="btn btn-primary">Make Offer</button>
                         </form>
-                        <button onClick={() => closeOfferEditPopup()}>Cancel</button>
+                        <button style={{marginBottom: '50px'}} onClick={() => closeOfferEditPopup()} className="btn btn-secondary">Cancel</button>
                     </div>
                 }
                 {isOfferDeletePopupOpen && myOffer &&
-                    <div>
+                    <div style={{marginBottom: '50px'}}>
                         <button onClick={() => closeDeleteOfferPopup()}>Cancel</button>
                         <button onClick={() => deleteOfferForReal()}>Delete</button>
                     </div>

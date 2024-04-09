@@ -356,40 +356,56 @@ const ViewAllProperties = () => {
             <div className="row " style={{borderBottom: '2px solid black'}}>
                 <p className="fs-2">Hello, {currentUser.username}</p>
             
-                <button className='col-md btn btn-primary'onClick={() => logout()}>Log out</button>
-                <button className='col-md btn offset-sm-1 btn-secondary' onClick={() => toNewProperty()}>Create New Listing</button>
+                <button className='col-md btn btn-secondary'onClick={() => logout()}>Log out</button>
+                <button className='col-md btn offset-sm-1 btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
 
-
+            {/*add more offers and accept 2 of them*/}
 
             <div className="row">
-                <div className="col-md">
+                <div className="col-md shadow-lg">
                 {/* all properties displayed */}
                 {allPropertiesFiltered.map((property, index) =>(
                 
-                <div className="column" style={{marginBottom:'50px' ,border: '2px solid black' }} key={property._id}>
-                        <p>Property Number: {index + 1}</p>
-                        <p>lister: {property.lister_username}</p>
+                <div className="column" style={{marginBottom:'50px' ,border: '2px solid black', width: "600px"}} key={property._id}>
                         <p></p>
-                        <img src={property.lister_user_image} className="col-md-2" style={{ border: '2px solid black' }} />
-                        <p>property name: {property.property_name}</p>
-                        <p>property photo:</p> 
-                        <img src={property.property_photo_url} className="col-md-10"/>
+                        <p className="fs-5">Property Name: {property.property_name}</p>
+                        <div className="row">
+                            <div style={{display:"flex", alignItems: "center"}}>
+                                <img src={property.lister_user_image} style={{ border: '2px solid black', height:"40px", width: "40px"}} />
+                                <p>Lister: {property.lister_username}</p>
+                            </div>
+                        </div>
+                        
+                        <p style={{
+                            height: '',
+                            color: 'white',
+                            width: '400px',
+                            backgroundColor: property.isSold ? 'red' : '#f0f0f0',
+                            border: property.isSold ? '2px solid black': 'none',
+                            transform: property.isSold ? 'translateY(50%)' : 'none'
+                        }}>
+                            {property.isSold ? "Listing is Sold" : ""}
+                        </p>
+                        <div className="row">
+                            <div className="col">
+                                <img src={property.property_photo_url} className="col-md-10" style={{height: '300px', width: '400px'}}/>
+                            </div>
+                            <div className="col">
+                                <p>Property Type: {property.property_type}</p>
+                                <p>Square Footage: {property.square_footage}</p>
+                                <p>Number of Beds: {property.number_of_beds}</p>
+                                <p>Number of Baths: {property.number_of_baths}</p>
+                                <p>Number of Ghosts: {property.number_of_ghosts}</p>
+                            </div>
+                        </div>
+            
                         {/* map all the photos */}
-                        <p>Property photos:</p>
-                        {property.property_photos.map((photo, index) => (
-                            <img style={{height: '20px', width: '20px'}} key={index} src={photo}/>
-                        ))}
+                        
 
-                        <p>sell or rent: {property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>
 
-                        {property.property_type !== 'Apartment' ? (
-                        <p>asking price: ${property.asking_price}</p>
-                            ) : (
-                            <p>This property has amonthly payment option of ${property.asking_price}.</p>
-                        )}
-                        <p>Sell or rent? </p>
+                        {!property.isSold && <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>}
 
                         <p>
                             {property.sell_or_rent ? `Asking price: $
@@ -397,25 +413,15 @@ const ViewAllProperties = () => {
                         </p>
 
 
-                        <p>asking price: {property.asking_price}</p>
-                        <p>sell or rent: {property.sell_or_rent ? 
-                        "This property is for sale" : "This is a rental"}</p>
-
-                        <p>property type: {property.property_type}</p>
-                        <p>square footage: {property.square_footage}</p>
-                        <p>number of beds: {property.number_of_beds}</p>
-                        <p>number of baths: {property.number_of_baths}</p>
-                        <p>number of ghosts: {property.number_of_ghosts}</p>
-                        <p>address: {property.address}</p>
-                        {property.isSold ? <p>Sold!</p> : ""}
+                        <p>Address: {property.address}</p>
+                        {property.isSold ? <p><strong className="text-danger">Sold!</strong></p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Sold for: {property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                            {property.isSold ? <p>Accepted offer: ${property.winning_bid_amount}</p> : ""}
                         </div>
                         {/* offer ifs array */}
                         
-                        <p>winning bid amount: ${property.winning_bid_amount}</p>
                         {/* Offer Array Ends */}
-                        <button className='col-sm btn offset-sm-1 btn-secondary'
+                        <button className='col-sm btn offset-sm-1 btn-primary'
                             onClick={() => toOneProperty(property._id)}>View Listing
                         </button>
                 </div>
@@ -438,21 +444,21 @@ const ViewAllProperties = () => {
                                 type="number" name="minimum_asking_price" 
                                 value={potentialMinimumAskingPrice} onChange={minimumAskingPriceChangehandler}/>
                             <label htmlFor="maximum_asking_price">Max:</label>
-                            <input className="col-sm-3" id="maximum_asking_price" 
+                            <input className="col-sm-4" id="maximum_asking_price" 
                                 type="number" name="maximum_asking_price" 
                                 value={potentialMaximumAskingPrice} onChange={maximumAskingPriceChangeHandler}/>
-                            <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                            <button style={{backgroundColor: '#54BEFF'}}>Submit</button>
                         </form>
                         <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={() => resetAskingPrice()}>Reset</button>
                         </div>
                         <div>
                             <p className="offset-sm-1">For Sale Or For Rent</p>
-                            <button style={{backgroundColor: '#C0C0C0'}} 
+                            <button style={{backgroundColor: '#54BEFF'}} 
                                 className="offset-sm-1" onClick={setSellOrRentToSell}>For Sale
                             </button>
-                            <button style={{backgroundColor: '#C0C0C0'}} onClick={setSellOrRentToRent}>For Rent</button>
+                            <button style={{backgroundColor: '#54BEFF'}} className="offset-sm-1" onClick={setSellOrRentToRent}>For Rent</button>
                             <button style={{backgroundColor: '#C0C0C0'}} 
-                                className="offset-sm-1" onClick={() => resetSellOrRent()}>Reset
+                                className="offset-sm-2" onClick={() => resetSellOrRent()}>Reset
                             </button>
                         </div>
                         <p></p>
@@ -473,14 +479,14 @@ const ViewAllProperties = () => {
                         <p className="offset-sm-1">Square Footage</p>
                         <form onSubmit={setSquareFootage} className="offset-sm-1">
                             <label htmlFor="minium_square_footage">Min:</label>
-                            <input className="col-sm-2" id="minimum_square_footage" 
+                            <input className="col-sm-3" id="minimum_square_footage" 
                                 type="number" name="minimum_square_footage" 
                                 value={potentialMinSquareFootage} onChange={minimumSquareFootageChangeHandler}/>
                             <label htmlFor="maximum_square_footage">Max:</label>
-                            <input className="col-sm-2" id="maximum_square_footage" 
+                            <input className="col-sm-3" id="maximum_square_footage" 
                                 type="number" name="maximum_square_footage" 
                                 value={potentialMaxSquareFootage} onChange={maximumSquareFootageChangeHandler}/>
-                            <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                            <button style={{backgroundColor: '#54BEFF'}}>Submit</button>
                         </form>
                         <button style={{backgroundColor: '#C0C0C0'}} onClick={() => resetSquareFootage()} className="offset-sm-1">Reset</button>
                         </div>
@@ -489,14 +495,14 @@ const ViewAllProperties = () => {
                             <p className="offset-sm-1">Beds</p>
                                 <form onSubmit={bedFilterSubmissionHandler} className="offset-sm-1">
                                     <label htmlFor="minimum_beds">Min:</label>
-                                    <input className="col-sm-1" id="minimum_beds" 
+                                    <input className="col-sm-2" id="minimum_beds" 
                                         type="number" name="minimum_beds" 
                                         value={potentialMinNumberOfBeds} onChange={minimumBedsChangeHandler}/>
                                     <label htmlFor="maximum_beds">Max:</label>
-                                    <input className="col-sm-1" id="maximum_beds" 
+                                    <input className="col-sm-2" id="maximum_beds" 
                                         type="number" name="maximum_beds" 
                                         value={potentialMaxNumberOfBeds} onChange={maximumBedsChangeHandler}/>
-                                    <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                                    <button style={{backgroundColor: '#54BEFF'}}>Submit</button>
                                 </form>
                             <button style={{backgroundColor: '#C0C0C0'}} 
                                 className="offset-sm-1" onClick={() => resetBedFilter()}>Reset
@@ -507,14 +513,14 @@ const ViewAllProperties = () => {
                     <p className="offset-sm-1">Baths</p>
                     <form onSubmit={bathFilterSubmissionHandler}>
                         <label className="offset-sm-1" htmlFor="minimum_baths">Min:</label>
-                        <input className="col-sm-1" id="minimum_baths" 
+                        <input className="col-sm-2" id="minimum_baths" 
                             type="number" name="minimum_baths" 
                             value={potentialMinNumberOfBaths} onChange={potentialMinimumBathsChangeHandler}/>
                         <label htmlFor="maximum_baths">Max:</label>
-                        <input className="col-sm-1" id="maximum_baths" 
+                        <input className="col-sm-2" id="maximum_baths" 
                             type="number" name="minimum_baths" 
                             value={potentialMaxNumberOfBaths} onChange={potentialMaximumBathsChangeHandler}/>
-                        <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                        <button style={{backgroundColor: '#54BEFF'}}>Submit</button>
                     </form>
                     <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={resetBathFilter}>Reset</button>
                 </div>
@@ -523,20 +529,21 @@ const ViewAllProperties = () => {
                     <p className="offset-sm-1">Ghosts</p>
                     <form onSubmit={ghostFilterSubmissionHandler}>
                         <label className="offset-sm-1" htmlFor="minimum_ghosts">Min:</label>
-                        <input className="col-sm-1" id="minimum_ghosts" 
+                        <input className="col-sm-2" id="minimum_ghosts" 
                             type="number" name="minimum_ghosts" 
                             value={potentialMinNumberOfGhosts} onChange={potentialMinimumGhostsChangeHandler}/>
                         <label htmlFor="maximum_ghosts">Max:</label>
-                        <input className="col-sm-1" id="maximum_ghosts" 
+                        <input className="col-sm-2" id="maximum_ghosts" 
                             type="number" name="maximum_ghosts" 
                             value={potentialMaxNumberOfGhosts} onChange={potentialMaximumGhostsChangeHandler}/>
-                        <button style={{backgroundColor: '#C0C0C0'}}>Submit</button>
+                        <button style={{backgroundColor: '#54BEFF'}}>Submit</button>
                     </form>
                     <button style={{backgroundColor: '#C0C0C0'}} className="offset-sm-1" onClick={() => resetGhostFilter()}>Reset</button>
                 </div>
 
             <div>
                 <button style={{backgroundColor: '#C0C0C0'}} className="col-sm-4 offset-sm-4" onClick={() => resetAllFilters()}>Reset All</button>
+                <p className="fs-3 offset-sm-3">{allPropertiesFiltered.length} Results</p>
             </div>
             </div>
             </div>

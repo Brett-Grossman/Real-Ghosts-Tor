@@ -45,6 +45,7 @@ const UserProfile = () => {
                 console.log("allPropertiesISold", allPropertiesISold)
                 let allPropertiesIPurchased = res.data.filter(property => property.winning_bidder_user_id == otherUserId)
                 setAllMyPurchasedProperties(allPropertiesIPurchased)
+                
             })
             .catch((err) => {
                 console.log("AllProperties.jsx getAllProperties catch err: ", err)
@@ -62,6 +63,7 @@ const UserProfile = () => {
                 const allMyMadeOffers = allOffers.filter(offer => offer.bidder_user_id == otherUserId)
                 console.log("allMyMadeOffers: ", allMyMadeOffers)
                 setAllMadeOffers(allMyMadeOffers)
+                
             })
         },[otherUserId])
 
@@ -75,6 +77,7 @@ const UserProfile = () => {
             const allMyBookmarks = res.data.filter(bookmark => bookmark.creator_user_id == otherUserId)
             console.log("allMyBookmarks", allMyBookmarks)
             setAllBookmarkedProperties(allMyBookmarks)
+            
             setLoading(false)
         })
         .catch((err) => {
@@ -115,70 +118,94 @@ const UserProfile = () => {
         
     return (
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
-            <div className="row " style={{borderBottom: '2px solid black'}}>
+            <div className="row" style={{borderBottom: '2px solid black'}}>
                 
-                <button className='col-md btn btn-secondary'onClick={() => toHome()}>Home</button>
-                <button className='col-md btn btn-primary offset-sm-1 btn-secondary'onClick={() => logout()}>Log out</button>
-                <button className='col-md offset-md-2 btn btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
-                <p className="fs-2">{otherUser.username}'s Profile</p>
-                <img src={otherUser.user_image_url} style={{height: '100px', width: '120px'}} alt="" />
+                <button className='col-md-2 btn btn-secondary'onClick={() => logout()}>Log out</button>
+                <button className='col-md-2 btn btn-primary offset-sm-1 btn-primary'onClick={() => toHome()}>Homepage</button>
+                {currentUserId !== otherUserId && <button onClick={() =>toUserProfile(currentUserId)} className="col-md-2 btn btn-primary offset-sm-1 btn-primary">To my Profile</button>}
+
+                
+                <button className='col-md-2 offset-sm-1 btn btn-primary' onClick={() => toNewProperty()}>Create New Listing</button>
+                <div style={{display: "flex", alignItems: "center"}}>
+                <img src={otherUser.user_image_url} style={{height: '100px', width: '100px'}} alt="" />
+                <p className="fs-2">{otherUser.username}'s Profile - {tab=="MyProperties" && "Unsold Properties"}{tab=="SoldProperties" && "Sold Properties"}{tab=="Bookmarks" && "Bookmarks"}{tab=="Offers" && "Offers"}{tab=="BoughtProperties" && "Bought Properties"}</p>                
+                </div>
+                <p></p>
+
             </div>
-        <div>
-            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Properties</button>
+        <div style={{margin: '20px'}}>
+            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Unsold Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>My Sold Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>My Bought Properties</button>
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}> Offers</button>
             <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}>To My Offers</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>To Bought Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>To Sold Properties</button>
+            
+            
         </div>
         
         {/* // Tabs with these different components */}
         {tab == "MyProperties" &&
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
                 {allMyUnsoldProperties.map((property, index) => (
-                    <div key={property._id} className="row" style={{ width: '48%', padding: '10px', marginBottom: '20px' }}>
+                    <div key={property._id} className="row" style={{ padding: '10px', marginBottom: '20px' }}>
                         <div className="shadow-lg" style={{ border: '1px solid black' }}>
-                            <p>{index}</p>
-                            <button className='' style={{backgroundColor: '#C0C0C0'}} onClick={() => toOneProperty(property._id)}>View Property</button>
-                            <p>listing agent: {property.lister_username}</p>
-                            <img src={property.lister_user_image} style={{height: '100px', width: '100px'}} />
-                            <h1>Name {property.property_name}</h1>
-                            <p>Property Photo:</p>
-                            <img style={{height: '100px', width: '150px'}}src={property.property_photo_url}/>
-                            <p>asking price: ${property.asking_price}</p>
-                            {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
-                            <p>property type: {property.property_type}</p>
-                            <p>square footage: {property.square_footage}sq/ft</p>
-                            <p>number of beds: {property.number_of_beds}</p>
-                            <p>number of baths: {property.number_of_baths}</p>
-                            <p>number of ghosts: {property.number_of_ghosts}</p>
-                            <p>{property.address}</p>
+                            <button className="btn btn-primary" onClick={() => toOneProperty(property._id)} style={{marginTop: "15px"}}>View Property</button>
+                                    <p className="fs-5">Property Name: {property.property_name}</p>
+                            <div className="row">
+                                <div className="col">
+
+                                    
+                                    <img style={{height: '200px', width: '300px'}}src={property.property_photo_url}/>
+                                    {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
+                                    <p>Asking price: ${property.asking_price}</p>
+                                </div>
+                                <div className="col">
+                                    <p>Property Type: {property.property_type}</p>
+                                    <p>Square Footage: {property.square_footage}sq/ft</p>
+                                    <p>Number of Beds: {property.number_of_beds}</p>
+                                    <p>Number of Baths: {property.number_of_baths}</p>
+                                    <p>Number of Ghosts: {property.number_of_ghosts}</p>
+                                    
+                                </div>
+                                <p>{property.address}</p>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
         }
         {tab == "Bookmarks" &&
-            <div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
             {allBookmarkedProperties && 
                 (allBookmarkedProperties.map((bookmark, index) => (
-                    <div key={bookmark._id}>
-                        <button onClick={() => toOneProperty(bookmark.property_id)}>View Property</button>
-                        <div>
-                            <p>Seller</p>
-                            <img style={{width: '20px', height: '20px'}} src={bookmark.lister_user_image}/>
-                            <p>{bookmark.lister_username}</p>
+                    <div key={bookmark._id} className="row" style={{ width: '800px', padding: '10px', marginBottom: '20px' }}>
+                        <div className="shadow-lg" style={{ border: '1px solid black' }}>
+                            <button className="btn btn-primary" onClick={() => toOneProperty(bookmark.property_id)} style={{marginTop: '10px'}}>View Property</button>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <p>Seller:</p>
+                                
+                                <p> {bookmark.lister_username}</p>
+                                <img style={{width: '40px', height: '40px'}} src={bookmark.lister_user_image}/>
+                            </div>
+                            <p className="fs-5">{bookmark.property_name}</p>
+                            <div className="row">
+                                <div className="col">
+                                    {bookmark.isSold && <p className="fs-5">Sold!</p>}
+                                    
+                                    <img style={{height: '400px', width: '500px'}} src={bookmark.property_photo_url}/>
+                                    {!bookmark.isSold && (bookmark.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
+                                    <p>Asking Price: ${bookmark.asking_price}</p>
+                                </div>
+                                <div className="col">
+                                    <p>Property Type: {bookmark.property_type}</p>
+                                    <p>Square Footage: {bookmark.square_footage}</p>
+                                    <p>Beds: {bookmark.number_of_beds}</p>
+                                    <p>Baths: {bookmark.number_of_baths}</p>
+                                    <p>Ghosts: {bookmark.number_of_ghosts}</p>
+                            </div>
+                            </div>
+                            <p>{bookmark.address}</p>
                         </div>
-                        {bookmark.isSold && <p>Sold!</p>}
-                        <h1>{bookmark.property_name}</h1>
-                        <img style={{height: '200px'}} src={bookmark.property_photo_url}/>
-                        <p>Asking Price: {bookmark.asking_price}</p>
-                        {!bookmark.isSold && (bookmark.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
-                        <p>Property Type: {bookmark.property_type}</p>
-                        <p>Square Footage: {bookmark.square_footage}</p>
-                        <p>Beds: {bookmark.number_of_beds}</p>
-                        <p>Baths: {bookmark.number_of_baths}</p>
-                        <p>Ghosts: {bookmark.number_of_ghosts}</p>
-                        <p>{bookmark.address}</p>
                     </div>
                 )))
             
@@ -186,28 +213,28 @@ const UserProfile = () => {
             </div>
         }
         {tab == "Offers" && 
-            <div>
+            <div className="row">
         {/* // BONUS: Component 3: List of offers made */}
             {/* // property name with link by id to property */}
             {/* // seller name */}
             {/* // offer amount */}
             {allMadeOffers && 
-                <div>
+                <div className="col">
                     <p>Offers Made</p>
-                    <table>
-                        <thead>
+                    <table className="table shadow-sm" style={{width: "100%"}}>
+                        <thead style={{borderBottom: '1px solid black'}} >
                             <tr>
-                                <th>View Property</th>
-                                <th>Property Name</th>
-                                <th>Amount</th>
+                                <th className="col-md-1">View Property</th>
+                                <th className="col-md-1">Property Name</th>
+                                <th className="col-md-1">Amount</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="shadow-lg">
                             {allMadeOffers.map((offer, index) => (
-                                <tr key={index}>
-                                    <td><button onClick={() => toOneProperty(offer.property_id)}>View Property</button></td>
-                                    <td>{offer.property_name}</td>
-                                    <td>{offer.offer_amount}</td>
+                                <tr key={index} style={{border: '1px solid black'}}>
+                                    <td style={{borderBottom: '1px solid black'}}><button onClick={() => toOneProperty(offer.property_id)} className="shadow-sm btn btn-primary">View Property</button></td>
+                                    <td style={{borderBottom: '1px solid black'}}>{offer.property_name}</td>
+                                    <td style={{borderBottom: '1px solid black'}}>${offer.offer_amount}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -219,24 +246,24 @@ const UserProfile = () => {
             {/* // bidder name */}
             {/* // offer amount */}
                 {allReceivedOffers &&
-                    <div>
+                    <div className="col">
                         <p>Offers Received</p>
-                        <table>
-                            <thead>
+                        <table className="table shadow-sm" style={{width: "100%"}}>
+                            <thead style={{ borderBottom: '1px solid black' }}>
                                 <tr>
-                                    <th>View Property</th>
-                                    <th>Property Name</th>
-                                    <th>Bidder</th>
-                                    <th>View Profile</th>
+                                    <th className="col-md-1">View Property</th>
+                                    <th className="col-md-1">Property Name</th>
+                                    <th className="col-md-1">Bidder</th>
+                                    <th className="col-md-1">View Profile</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style={{ borderBottom: '1px solid black' }} className="shadow-lg">
                                 {allReceivedOffers.map((offer, index) => (
-                                    <tr key={index}>
-                                        <td><button onClick={() => toOneProperty(offer.property_id)}>View</button></td>
+                                    <tr key={index} style={{ border: '1px solid black' }}>
+                                        <td><button onClick={() => toOneProperty(offer.property_id)} className="btn btn-primary">View</button></td>
                                         <td>{offer.property_name}</td>
                                         <td>{offer.bidder_username}</td>
-                                        <td><button onClick={() => toUserProfile(offer.bidder_user_id)}>View</button></td>
+                                        <td><button onClick={() => toUserProfile(offer.bidder_user_id)} className="btn btn-primary">View</button></td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -254,44 +281,64 @@ const UserProfile = () => {
                         {allMyPurchasedProperties &&
                             allMyPurchasedProperties.map((property, index) => (
                                 <div key={index}>
-                                    <button onClick={() =>toOneProperty(property._id)}>View Property</button>
-                                    <p>{property.property_name}</p>
-                                    <img style={{height: '200px'}} src={property.property_photo_url}/>
-                                    <p>{property.sell_or_rent ? "Purchased" : "Rented"} for ${property.winning_bid_amount}</p>
-                                    <p>{property.property_type}</p>
-                                    <p>{property.square_footage} Square Feet</p>
-                                    <p>Beds: {property.number_of_beds}</p>
-                                    <p>Baths: {property.number_of_baths}</p>
-                                    <p>Ghosts: {property.number_of_ghosts}</p>
-                                    <p>Address: {property.address}</p>
+                                    <div className="column" style={{marginBottom: '50px',border: '1px solid black',padding: '10px',width: '900px'}}>
+                                        <button onClick={() =>toOneProperty(property._id)} className="btn btn-primary">View Property</button>
+                                        <p className="fs-5">{property.property_name}</p>
+                                        <div className="row">
+                                        <div className="col">
+                                        <img style={{height: '400px'}} src={property.property_photo_url}/>
+                                        <p>{property.sell_or_rent ? "Purchased" : "Rented"} for ${property.winning_bid_amount}</p>
+                                        </div>
+                                        <div className="col">
+                                        <p>{property.property_type}</p>
+                                        <p>{property.square_footage} Square Feet</p>
+                                        <p>Beds: {property.number_of_beds}</p>
+                                        <p>Baths: {property.number_of_baths}</p>
+                                        <p>Ghosts: {property.number_of_ghosts}</p>
+                                        </div>
+
+
+                                        <p>Address: {property.address}</p>
                                 </div>
+                                </div>
+                            </div>
                             ))
                         }
                 </div>
             }
             {tab == "SoldProperties" &&
-                <div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
             {/* // BONUS: List of properties sold */}
             {/* // property name with link to property */}
             {/* // bidder name */}
             {/* // offer amount */}
+                    
                     {allMySoldProperties &&
                         allMySoldProperties.map((property, index) => (
-                            <div key={index}>
-                                <button onClick={() =>toOneProperty(property._id)}>View Property</button>
-                                <p>{property.property_name}</p>
-                                <img style={{height: '200px'}} src={property.property_photo_url}/>
-                                <p>{property.property_type}</p>
-                                <p>{property.square_footage} Square Feet</p>
-                                <p>Beds: {property.number_of_beds}</p>
-                                <p>Baths: {property.number_of_baths}</p>
-                                <p>Ghosts: {property.number_of_ghosts}</p>
+                        <div className="row" style={{ width: '48%', padding: '10px', marginBottom: '20px' }}>
+                            <div key={index} className="shadow-lg" style={{ border: '1px solid black' }}>
+                                <button onClick={() =>toOneProperty(property._id)} style={{marginTop: '20px'}} className="btn btn-primary">View Property</button>
+                                <div className="row">
+                                    <div className="col">
+                                        <p className="fs-5">{property.property_name}</p>
+                                        <img style={{height: '200px'}} src={property.property_photo_url}/>
+                                    </div>
+                                    <div className="col">
+                                        <p>{property.property_type}</p>
+                                        <p>{property.square_footage} Square Feet</p>
+                                        <p>Beds: {property.number_of_beds}</p>
+                                        <p>Baths: {property.number_of_baths}</p>
+                                        <p>Ghosts: {property.number_of_ghosts}</p>
+                                        
+                                    </div>
+                                </div>
                                 <p>Address: {property.address}</p>
-                                <p>{property.sell_or_rent ? "Sold" : "Rented"} for ${property.winning_bid_amount} to {property.winning_bidder_username}</p>
-                                <button onClick={() => toUserProfile(property.winning_bidder_user_id)}>View Profile</button>
+                                        <p><strong>{property.sell_or_rent ? "Sold" : "Rented"} for ${property.winning_bid_amount} to {property.winning_bidder_username} <button className="btn btn-primary" onClick={() => toUserProfile(property.winning_bidder_user_id)} style={{marginBottom: '20px'}}>View Profile</button></strong></p>
                             </div>
+                        </div>
                         ))
                     }
+                    
                 </div>
             }
         </div>
