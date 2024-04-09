@@ -32,6 +32,7 @@ Presentation:
     log in to an account with a property with multiple offers
     open and cancel the accept
     accept an offer
+    go to offers page to demonstrate those offers are gone
     view your sold properties
     bookmark 2 properties on one account, log off and unbookmark then rebookmark
     bookmark one of the same properties on another account
@@ -124,9 +125,10 @@ Steps:
 
     BONUS: List properties bought under my properties and allow for reselling
 
-    BONUS: Clear losing bids
-        delete by id the bids
-        remove from offer ids
+    BONUS: Clear losing bids /
+        delete by id the bids /
+        remove from offer ids /
+        Make three bids on a property and accept one /
 
     BONUS: Edit profile function
     

@@ -96,7 +96,6 @@ const ViewOneProperty = () => {
             else {
                 setMyBookmark(null)
             }
-            // CURRENT PLACE
         } catch (err) {
             console.log("ViewOneProperty.jsx fetchBookmark catch err: ", err)
         }
@@ -332,6 +331,18 @@ const ViewOneProperty = () => {
                 console.log("ViewOneProperty.jsx acceptOfferForReal axios res.data: ", res.data)
                 fetchProperty()
                 setIsEditPropertyOpen(false)
+                const deleteLosingOfferPromises = [];
+                allOffersForThisProperty.forEach((offer) => {
+                    deleteLosingOfferPromises.push(axios.delete(`http://localhost:8000/api/offers/${offer._id}`))
+                })
+
+                Promise.all(deleteLosingOfferPromises)
+                    .then(() => {
+                        console.log("All losing offers deleted successfully")
+                    })
+                    .catch((err) => {
+                        console.log("Error deleting offers")
+                    })
             })
             .catch((err) => {
                 console.log("ViewOneProperty.jsx acceptOfferForReal catch err: ", err)
@@ -369,22 +380,6 @@ const ViewOneProperty = () => {
                 })
         }
     }
-    // BONUS: bookmark button:
-        // if(myBookmark){
-            // deleteById the myBookmark._id
-            // fetchBookmark()
-        // } else {
-                // console.log(pendingBookmark)
-                // passes pendingBookmark
-                // or
-                // sets the user and property data in the pendingBookmark state
-                // or
-                // sets an object with the user and property data and
-                // then
-                // passes the object (either pendingBookmark or other) into an axios post to create a bookmark
-                // fetchBookmark()
-                // CURRENT PLACE
-            // }
 
     // logout function
     const logout = () => {
@@ -609,7 +604,9 @@ const ViewOneProperty = () => {
                         {/* // Delete button */}
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary">Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
-                        {!property.isSold &&
+
+                        {!property.isSold && 
+
                             <div>
                                 <div className="row">
                                     <div className="col-md-6">
