@@ -65,6 +65,11 @@ const PropertySchema = new Schema({
         type: Boolean,
         default: false
     },
+    property_description: {
+        type: String,
+        required: [true, "Property must have a description"],
+        min: [10, "Property description must be at least 10 characters"]
+    },
     offer_ids: {
         type: [String]
     },

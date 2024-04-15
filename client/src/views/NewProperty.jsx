@@ -13,7 +13,7 @@ const NewProperty = () => {
         lister_username: '',
         lister_user_image: '',
         property_name: '',
-        property_photo_url: "https://assets.atlasobscura.com/media/W1siZiIsInVwbG9hZHMvcGxhY2VfaW1hZ2VzL3ByZGNyaWNnazZlNmlrOGcxYjNlNzFjOThiODdhYTE4YjJfSU1HXzA2NTQuSlBHIl0sWyJwIiwidGh1bWIiLCIxMjAweD4iXSxbInAiLCJjb252ZXJ0IiwiLXF1YWxpdHkgODEgLWF1dG8tb3JpZW50Il1d/IMG_0654.JPG",
+        property_photo_url: '',
         property_photos: [],
         asking_price: 0,
         sell_or_rent: true,
@@ -24,6 +24,7 @@ const NewProperty = () => {
         number_of_ghosts: 0,
         address: '',
         isSold: false,
+        property_description: '',
         offer_ids: [],
         winning_bid_amount: 0,
         winning_bidder_user_id: '',
@@ -153,6 +154,7 @@ const NewProperty = () => {
                             <option value="Condo">Condo</option>
                             <option value="Townhouse">Townhouse</option>
                         </select>
+                        {potentialPropertyErrors.property_type && <p>Must select a property type</p>}
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="square_footage">Square Footage</label>
@@ -179,7 +181,11 @@ const NewProperty = () => {
                         <input id="address" type="text" className="form-control"name="address" value={potentialProperty.address} onChange={propertyFormChangeHandler} />
                         {potentialPropertyErrors.address &&<p>{potentialPropertyErrors.address.message}</p>}
                     </div>
-                    
+                    <div>
+                        <label htmlFor="description">Property Description</label>
+                        <input id="desccription" type="text" name="property_description" value={potentialProperty.property_description} onChange={propertyFormChangeHandler} />
+                        {potentialPropertyErrors.property_description && <p>{potentialPropertyErrors.property_description.message}</p>}
+                    </div>
                 </div>
                 <button className="col-md-1 btn btn-primary offset-sm-8">Post Listing!</button>
             </form>

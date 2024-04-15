@@ -36,6 +36,8 @@ Presentation:
     view your sold properties
     bookmark 2 properties on one account, log off and unbookmark then rebookmark
     bookmark one of the same properties on another account
+    Edit the user profile info.
+    Show that made offers have changed profile information
     view all the tabs
     play the rhythm game
 
@@ -123,30 +125,32 @@ Steps:
     BONUS: as a cellar:
     list of properties soled /
 
-    BONUS: List properties bought under my properties and allow for reselling
-
     BONUS: Clear losing bids /
         delete by id the bids /
         remove from offer ids /
         Make three bids on a property and accept one /
 
-    BONUS: Edit profile function
+    BRETT BONUS: Delete all losing offers
+
+    BONUS: Edit profile function, change every property and offer to match
+
+    BRETT BONUS: Style the user edit popup
     
-    BONUS: Add user profile information
+    BRETT BONUS: Add user profile text information to each profile
 
-    BONUS: Add user image to offer
-
-    BONUS: Offer cannot be less than half the asking price
+    BONUS: tabs on profile page are ternary blue or grey depending on if tab match /
 
     BONUS: property has minimum bid amount and a buy now option
 
-    BONUS: add a description for each property, change the model, and the forms
+    BRETT BONUS: add a description for each property, change the model, and the forms CURRENT
 
     BONUS: Tweak the wording such as changing purchased properties to closed properties
 
     BONUS: add my profile, logout and home buttons to every page except RegAndLogin /
 
-    BONUS: Darkmode
+    BRETT BONUS: Darkmode
+
+    BRETT BONUS: delete all the offers on sold properties
 
     BONUS: display the numbers with commas and decimal .00
 
@@ -156,11 +160,13 @@ Steps:
 
     BONUS: All offers received grouped by property with link to the property and link to the offer maker
 
-    BONUS: Properties show newest first
+    BRETT BONUS: Properties show newest first
 
     BONUS: Set all error messages to red
 
     BONUS: Set the confirms in popups
+
+    BONUS: Allow for relist and change the listing user's information to the winning bidder user information
 
 Data:
     40 properties
