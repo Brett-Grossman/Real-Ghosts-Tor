@@ -660,6 +660,7 @@ const ViewOneProperty = () => {
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary">Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
                         {/* {!property.isSold &&  */}
+
                             <div>
                                 <div className="row">
                                     <div className="col-md-6">
