@@ -413,14 +413,14 @@ const ViewAllProperties = () => {
 
                         <p>
                             {console.log("Asking price before conversion:", property.asking_price)}
-                            {property.sell_or_rent ? `Asking price: $${priceFormat(Number(property.asking_price))}` 
-                            : `This property has monthly payment of $${priceFormat(Number(property.asking_price))}`}
+                            {property.sell_or_rent ? `Asking price: $${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}` 
+                            : `This property has monthly payment of $${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
                         </p>
 
                         <p>Address: {property.address}</p>
                         {property.isSold ? <p><strong className="text-danger">Sold!</strong></p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Accepted offer: ${priceFormat(property.winning_bid_amount)}</p> : ""}
+                            {property.isSold ? <p>Accepted offer: ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p> : ""}
                         </div>
                         {/* offer ifs array */}
                         

@@ -510,7 +510,7 @@ const ViewOneProperty = () => {
                         
                         {property.isSold ? <p className="col-md-1 fs-5" style={{color: 'red'}}>Sold!</p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                            {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>}
                         </div>  
                         <div style={{height: '60px', width: '300px'}}>
                             <p>Address: {property.address}</p>
@@ -672,7 +672,6 @@ const ViewOneProperty = () => {
                                                 <tr>
                                                     <th>Bidder</th>
                                                     <th>Offer Amount</th>
-                                                    <th>Offer ID</th>
                                                     <th>Accept Offer?</th>
                                                 </tr>
                                             </thead>
@@ -683,7 +682,6 @@ const ViewOneProperty = () => {
                                                             <button className="btn" onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
                                                         </td>
                                                         <td>${offer.offer_amount}</td>
-                                                        <td>{offer._id}</td>
                                                         <td><button onClick={() => openAcceptOfferPopup(offer)} className="btn btn-primary">Accept</button></td>
                                                     </tr>
                                                 ))}

@@ -193,38 +193,7 @@ const UserProfile = () => {
             <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>}
         </div>
         {/* edit user popup form */}
-        <button onClick={() => openEditUserPopup()}>Edit Profile</button>
-        {isEditUserPopupOpen && 
-            <div className="row" style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' , transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
-                <button onClick={() => closeEditUserPopup()} className="col">Cancel</button>
-                <div className="col-3">
-                    <label htmlFor="username">Username: </label>
-                    <input id="username" type="text" name="username"  value={editedUser.username} onChange={editUserChangeHandler}/>
-
-                </div>
-                <div className="col">
-                    <label htmlFor="user_image_url">User Image URL:</label>
-                    <input id="user_image_url" type="text" name="user_image_url"  value={editedUser.user_image_url} onChange={editUserChangeHandler}/>
-
-                </div>
-                <div className="col">
-                    <label htmlFor="email">Email Address</label>
-                    <input id="email" type="text" name="email"  value={editedUser.email} onChange={editUserChangeHandler}/>
-
-                </div>
-
-                <div className="col"> 
-                    <label htmlFor="password">Password</label>
-                    <input id="password" type="password" name="password"  value={editedUser.password} onChange={editUserChangeHandler}/>
-
-                </div>
-                <div className="col-3">
-                    <label htmlFor="profile_description" >Description</label>
-                    <textarea id="profile_description" type="text" name="profile_description" value={editedUser.profile_description} onChange={editUserChangeHandler}/>
-
-                </div>
-            </div>
-        }
+        
         {/* // Tabs with these different components */}
         {tab == "MyProperties" &&
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
@@ -239,7 +208,7 @@ const UserProfile = () => {
                                     
                                     <img style={{height: '200px', width: '300px'}}src={property.property_photo_url}/>
                                     {property.sell_or_rent ? <p>For Sale</p> : <p>To Rent</p>}
-                                    <p>Asking price: ${property.asking_price}</p>
+                                    <p>Asking price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                                 </div>
                                 <div className="col">
                                     <p>Property Type: {property.property_type}</p>
@@ -276,7 +245,7 @@ const UserProfile = () => {
                                     
                                     <img style={{height: '400px', width: '500px'}} src={bookmark.property_photo_url}/>
                                     {!bookmark.isSold && (bookmark.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
-                                    <p>Asking Price: ${bookmark.asking_price}</p>
+                                    <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                                 </div>
                                 <div className="col">
                                     <p>Property Type: {bookmark.property_type}</p>
