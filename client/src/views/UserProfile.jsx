@@ -194,32 +194,32 @@ const UserProfile = () => {
         {/* edit user popup form */}
         <button onClick={() => openEditUserPopup()}>Edit Profile</button>
         {isEditUserPopupOpen && 
-            <div style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' , transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
-                <button onClick={() => closeEditUserPopup()}>Cancel</button>
-                <div>
+            <div className="row" style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' , transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
+                <button onClick={() => closeEditUserPopup()} className="col">Cancel</button>
+                <div className="col-3">
                     <label htmlFor="username">Username: </label>
-                    <input id="username" type="text" name="username" value={editedUser.username} onChange={editUserChangeHandler}/>
+                    <input id="username" type="text" name="username"  value={editedUser.username} onChange={editUserChangeHandler}/>
 
                 </div>
-                <div>
+                <div className="col">
                     <label htmlFor="user_image_url">User Image URL:</label>
-                    <input id="user_image_url" type="text" name="user_image_url" value={editedUser.user_image_url} onChange={editUserChangeHandler}/>
+                    <input id="user_image_url" type="text" name="user_image_url"  value={editedUser.user_image_url} onChange={editUserChangeHandler}/>
 
                 </div>
-                <div>
+                <div className="col">
                     <label htmlFor="email">Email Address</label>
-                    <input id="email" type="text" name="email" value={editedUser.email} onChange={editUserChangeHandler}/>
+                    <input id="email" type="text" name="email"  value={editedUser.email} onChange={editUserChangeHandler}/>
 
                 </div>
 
-                <div>
+                <div className="col"> 
                     <label htmlFor="password">Password</label>
-                    <input id="password" type="password" name="password" value={editedUser.password} onChange={editUserChangeHandler}/>
+                    <input id="password" type="password" name="password"  value={editedUser.password} onChange={editUserChangeHandler}/>
 
                 </div>
-                <div>
-                    <label htmlFor="profile_description">Description</label>
-                    <input id="profile_description" type="text" name="profile_description" value={editedUser.profile_description} onChange={editUserChangeHandler}/>
+                <div className="col-3">
+                    <label htmlFor="profile_description" >Description</label>
+                    <textarea id="profile_description" type="text" name="profile_description" value={editedUser.profile_description} onChange={editUserChangeHandler}/>
 
                 </div>
             </div>
