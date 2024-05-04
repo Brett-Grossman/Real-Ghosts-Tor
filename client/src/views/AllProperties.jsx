@@ -33,7 +33,6 @@ const ViewAllProperties = () => {
     const [minimumNumberOfGhosts, setMinimumNumberOfGhosts] = useState(0)
     const [maximumNumberOfGhosts, setMaximumNumberOfGhosts] = useState(0)
 
-
     useEffect(() => {
         axios.get(`http://localhost:8000/api/users/${currentUserId}`)
         .then((res) => {
@@ -339,6 +338,11 @@ const ViewAllProperties = () => {
             })
     }
     
+    const priceFormat = (number) => {
+        const formattedNumber = Number(number).toFixed(2);
+        return formattedNumber.toLocaleString('en-US', {minimumFractionDigits: 2})
+    }
+
     const toNewProperty = () => navigate(`/new_property/${currentUserId}`)
 
     // link to my account
@@ -408,15 +412,15 @@ const ViewAllProperties = () => {
                         {!property.isSold && <p>{property.sell_or_rent ? "This property is for sale" : "This is a rental"}</p>}
 
                         <p>
-                            {property.sell_or_rent ? `Asking price: $
-                            ${property.asking_price}` : `This property has monthly payment of $${property.asking_price}`}
+                            {console.log("Asking price before conversion:", property.asking_price)}
+                            {property.sell_or_rent ? `Asking price: $${priceFormat(Number(property.asking_price))}` 
+                            : `This property has monthly payment of $${priceFormat(Number(property.asking_price))}`}
                         </p>
-
 
                         <p>Address: {property.address}</p>
                         {property.isSold ? <p><strong className="text-danger">Sold!</strong></p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Accepted offer: ${property.winning_bid_amount}</p> : ""}
+                            {property.isSold ? <p>Accepted offer: ${priceFormat(property.winning_bid_amount)}</p> : ""}
                         </div>
                         {/* offer ifs array */}
                         

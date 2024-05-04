@@ -24,6 +24,7 @@ const ViewOneProperty = () => {
     const [pendingBookmark, setPendingBookmark] = useState({})
     const [myBookmark, setMyBookmark] = useState(null)
     const [allBookmarks, setAllBookmarks] = useState(null)
+    const [isRelistPopupOpen, setIsRelistPopupOpen] = useState(false)
     let [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [loading, setLoading] = useState(true)
 
@@ -75,7 +76,8 @@ const ViewOneProperty = () => {
                 number_of_baths: response.data.number_of_baths,
                 number_of_ghosts: response.data.number_of_ghosts,
                 address: response.data.address,
-                isSold: response.data.isSold
+                isSold: response.data.isSold,
+                property_description: response.data.property_description
             })
             console.log("myBookmark: ", myBookmark)
         } catch (err) {
@@ -170,7 +172,6 @@ const ViewOneProperty = () => {
                 console.log("ViewOneProperty.jsx deletePropertyForReal catch err: ", err)
             })
     }
-
 
     // fetchOffers not in a useEffect
     // gets all the offers
@@ -420,6 +421,47 @@ const ViewOneProperty = () => {
         }
     }
 
+    const openRelistPopup = () => setIsRelistPopupOpen(true)
+
+    const cancelRelist = () => {
+        setEditedProperty(property)
+        console.log("Property", property)
+        setIsRelistPopupOpen(false)
+    }
+
+    const confirmRelist = () => {
+        const propertyCopy = {...property,
+            lister_user_id: currentUser._id,
+            lister_username: currentUser.username,
+            lister_user_image: currentUser.user_image_url,
+            isSold: false,
+            winning_bid_amount: 0,
+            winning_bidder_user_id: '',
+            winning_bidder_username: ''
+        }
+        console.log("confirmRelist propertyCopy to be set as property: ", propertyCopy)
+        axios.patch(`http://localhost:8000/api/properties/${propertyId}`, propertyCopy)
+        .then((res) => {
+            console.log("ViewOneProperty.jsx confirmRelist res.data: ", res.data)
+            fetchProperty()
+            setIsRelistPopupOpen(false)
+            if(myBookmark) {
+                axios.delete(`http://localhost:8000/api/bookmarks/${myBookmark._id}`)
+                .then((res) => {
+                    console.log("ViewOneProperty toggleBookmark deleteBookmark then res.data: ", res.data)
+                    fetchBookmark()
+                })
+                .catch((err) => {
+                    console.log("ViewOneProperty.jsx toggleBookmark deleteBookmark catch err: ", err)
+                })
+            }
+        })
+        .catch((err) => {
+            console.log("ViewOneProperty.jsx editedPropertyFormSubmission catch err", err)
+        })
+        // CURRENT
+    }
+    
     const toBidderProfile = (bidder_id) => navigate(`/profiles/${currentUserId}/${bidder_id}`)
 
     // loading
@@ -440,7 +482,13 @@ const ViewOneProperty = () => {
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
                 {/* seller image */}
-
+                {property.winning_bidder_user_id == currentUserId && <button onClick={() => openRelistPopup()}>Relist</button>}
+                {isRelistPopupOpen &&
+                    <div>
+                        <button onClick={() => cancelRelist()}>Cancel</button>
+                        <button onClick={() => confirmRelist()}>Confirm Relist</button>
+                    </div>
+                }
                 {/* Picture */}
                 <div className="row">
                     <h1 className="offset-sm-1">{property.property_name}</h1>
@@ -466,6 +514,9 @@ const ViewOneProperty = () => {
                         </div>  
                         <div style={{height: '60px', width: '300px'}}>
                             <p>Address: {property.address}</p>
+                        </div>
+                        <div>
+                            <p>{property.property_description}</p>
                         </div>
                     </div>
                     <div className="col">
@@ -518,7 +569,7 @@ const ViewOneProperty = () => {
                         {/* popup edit property form */}
                         {isEditPropertyPopupOpen &&
                             // edit form
-                            <div className='row shadow-lg' style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' ,transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
+                            <div className='row shadow-lg' style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' , transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
                                 <p></p>
                                 <button onClick={() => closePropertyEditPopup()} className="col-md-2 btn btn-secondary offset-sm-9">Cancel</button>
                                 <form onSubmit={editedPropertyFormSubmission}>
@@ -565,6 +616,7 @@ const ViewOneProperty = () => {
                                                     <option value="Condo">Condo</option>
                                                     <option value="Townhouse">Townhouse</option>
                                                 </select>
+                                                {editedPropertyErrors.property_type && <p style={{color: "red"}}>Property must have a type</p>}
                                             </div>
                                         </div>
                                         <div className="col">
@@ -593,10 +645,13 @@ const ViewOneProperty = () => {
                                             <input id="address" type="text" name="address" value={editedProperty.address} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.address?.message}</p>}
                                         </div>
-                                        
+                                        <div>
+                                            <label htmlFor="property_description">Property Description</label>
+                                            <input id="property_description" type="text" name="property_description" value={editedProperty.property_description} onChange={editPropertyChangeHandler}/>
+                                            {editedPropertyErrors.property_description && <p style={{color: 'red'}}>{editedPropertyErrors.property_description?.message}</p>}
+                                        </div>
                                         <button className="col-md-5 btn btn-primary offset-sm-3">Submit New Edit</button>
                                         </div>
-                                        <p></p>
                                     </div>
                                 </form>
                             </div>
@@ -604,8 +659,7 @@ const ViewOneProperty = () => {
                         {/* // Delete button */}
                         <button onClick={() => openDeletePropertyPopup()} className="btn btn-secondary">Delete</button>
                         {/* //BONUS: Table of offer if current user == lister user id*/}
-
-                        {!property.isSold && 
+                        {/* {!property.isSold &&  */}
 
                             <div>
                                 <div className="row">
@@ -615,6 +669,7 @@ const ViewOneProperty = () => {
                                                 <tr>
                                                     <th>Bidder</th>
                                                     <th>Offer Amount</th>
+                                                    <th>Offer ID</th>
                                                     <th>Accept Offer?</th>
                                                 </tr>
                                             </thead>
@@ -625,6 +680,7 @@ const ViewOneProperty = () => {
                                                             <button className="btn" onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
                                                         </td>
                                                         <td>${offer.offer_amount}</td>
+                                                        <td>{offer._id}</td>
                                                         <td><button onClick={() => openAcceptOfferPopup(offer)} className="btn btn-primary">Accept</button></td>
                                                     </tr>
                                                 ))}
@@ -633,7 +689,7 @@ const ViewOneProperty = () => {
                                     </div>
                                 </div>
                             </div>
-                        }
+                        {/* } */}
                         {isAcceptOfferPopupOpen &&
                             <div  style={{marginBottom: '50px'}}>
                                 <p>All Offers Are Final</p>
@@ -670,7 +726,7 @@ const ViewOneProperty = () => {
             <form onSubmit={offerSubmissionForm}>
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
-                {pendingOfferErrors.offer_amount && <p>Error: Offer amount must be at least 1.</p>}
+                {pendingOfferErrors.offer_amount && <p style={{color: "red"}}>Error: Offer amount must be at least 1.</p>}
                 <button className="btn btn-primary">Make Offer</button>
             </form>
         </div>

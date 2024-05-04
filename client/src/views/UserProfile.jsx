@@ -6,6 +6,9 @@ const UserProfile = () => {
     const navigate = useNavigate()
     const {currentUserId, otherUserId} = useParams()
     const [otherUser, setOtherUser] = useState({})
+    const [editedUser, setEditedUser] = useState({})
+    const [editedUserErrors, setEditedUserErrors] = useState({})
+    const [isEditUserPopupOpen, setIsEditUserPopupOpen] = useState(false)
     const [allMyUnsoldProperties, setAllMyUnsoldProperties] = useState([])
     const [allMySoldProperties, setAllMySoldProperties] = useState([])
     const [allMyPurchasedProperties, setAllMyPurchasedProperties] = useState([])
@@ -16,24 +19,27 @@ const UserProfile = () => {
     const [tab, setTab] = useState("MyProperties")
 
     // axios get current user
-    useEffect(() => {
-        axios.get(`http://localhost:8000/api/users/${otherUserId}`)
-        .then((res) => {
-            console.log("AllProperties.jsx getOneUser then res: ", res)
+    const fetchUser = async () => {
+        console.log("UserProfile.jsx fetchUser")
+        try {
+            const res = await axios.get(`http://localhost:8000/api/users/${otherUserId}`)
+            console.log("UserProfile.jsx fetchUser try res: ", res)
             setOtherUser(res.data)
-        })
-        .catch((err) => {
+            setEditedUser(res.data)
+            console.log("UserProfile.jsx fetchUser then useEffect res.data for setEditedUser: ", res.data)
+        } catch (err) {
             console.log("AllProperties getOneUser catch err: ", err)
-        })
-    },[otherUserId])
+        }
+    }
 
     // axios get all properties,
         // set allMyPropertiesPropertiesThatHaventBeenSold as filtered whose user_id matched currentUserId and filter again not sold
         // set allMySoldProperties as all
-        useEffect(() => {
-            axios.get('http://localhost:8000/api/properties')
-            .then((res) => {
-                console.log("AllProperties.jsx getAllProperties then res: ", res)
+        const fetchProperties = async () => {
+            console.log("UserProfile.jsx fetchProperties")
+            try {
+                const res = await axios.get('http://localhost:8000/api/properties')
+                console.log("AllProperties.jsx fetchProperties then res: ", res)
                 let filteredProperties = res.data
                 filteredProperties = filteredProperties.filter(property => property.lister_user_id == otherUserId)
                 console.log("filteredProperties", filteredProperties)
@@ -46,15 +52,15 @@ const UserProfile = () => {
                 let allPropertiesIPurchased = res.data.filter(property => property.winning_bidder_user_id == otherUserId)
                 setAllMyPurchasedProperties(allPropertiesIPurchased)
                 
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.log("AllProperties.jsx getAllProperties catch err: ", err)
-            })
-        },[otherUserId])
+            }
+        }
 
-        useEffect(() => {
-            axios.get('http://localhost:8000/api/offers')
-            .then((res) => {
+        const fetchOffers = async () => {
+            console.log("UserProfile.jsx fetchOffers")
+            try {
+                const res = await axios.get('http://localhost:8000/api/offers')
                 console.log("UserProfile getAllOffers then res.data: ", res.data)
                 const allOffers = res.data
                 const allReceivedOffers = allOffers.filter(offer => offer.lister_id == otherUserId)
@@ -64,27 +70,35 @@ const UserProfile = () => {
                 console.log("allMyMadeOffers: ", allMyMadeOffers)
                 setAllMadeOffers(allMyMadeOffers)
                 
-            })
-        },[otherUserId])
+            } catch (err) {
+                console.log("UserProfile fetchOffers catch err: ", err)
+            }
+        }
 
     // BONUS: axios get all bookmarks
         // setAllBookmarkedProperties as filtered whose bookmarks contains currentUserId
         // setLoading(false)
-    useEffect(() => {
-        axios.get('http://localhost:8000/api/bookmarks')
-        .then((res) => {
-            console.log("UserProfile.jsx getAllBookmarks res.data: ", res.data)
+    const fetchBookmarks = async () => {
+        console.log("UserProfile.jsx fetchBookmarks")
+        try {
+            const res = await axios.get('http://localhost:8000/api/bookmarks')
+            console.log("UserProfile.jsx fetchBookmarks res.data: ", res.data)
             const allMyBookmarks = res.data.filter(bookmark => bookmark.creator_user_id == otherUserId)
             console.log("allMyBookmarks", allMyBookmarks)
             setAllBookmarkedProperties(allMyBookmarks)
             
             setLoading(false)
-        })
-        .catch((err) => {
+        } catch (err) {
             console.log("UserProfile getAllBookmarks catch err: ", err)
-        })
-    },[otherUserId])
+        }
+    }
 
+    useEffect(() => {
+        fetchUser()
+        fetchProperties()
+        fetchOffers()
+        fetchBookmarks()
+    },[otherUserId])
     // logout
     const logout = () => {
         axios.post('http://localhost:8000/api/logout', {}, {withCredentials: true})
@@ -97,6 +111,38 @@ const UserProfile = () => {
             })
     }
         
+    const editUserChangeHandler = (e) => {
+        const {name, value} = e.target;
+
+        setEditedUser(prevUser => ({
+            ...prevUser,
+            [name]: value
+        }))
+    }
+
+    const openEditUserPopup = () => setIsEditUserPopupOpen(true)
+
+    const closeEditUserPopup = () => {
+        setEditedUser(otherUser)
+        setIsEditUserPopupOpen(false)
+    }
+
+    const editUserSubmissionHandler = (e) => {
+        e.preventDefault()
+        console.log("UserProfile editUserSubmissionHandler editedUser: ", editedUser)
+        axios.patch(`http:localhost:8000/api/users/${otherUserId}`, editedUser)
+        .then((res) => {
+            console.log("UserProfile.jsx editUserSubmissionHandler then res.data: ", res.data)
+            fetchUser()
+            setIsEditUserPopupOpen(false)
+            // change the property information to match the profile's edited information
+            // change the offer information to match the profile's edited information
+        })
+        .catch((err) => {
+            console.log("UserProfile.jsx editUserSubmissionHandler catch err: ", err)
+            // CURRENT PLACE
+        })
+    }
     // home
     const toHome = () => navigate(`/all_properties/${currentUserId}`)
 
@@ -134,15 +180,50 @@ const UserProfile = () => {
 
             </div>
         <div style={{margin: '20px'}}>
-            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Unsold Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>My Sold Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>My Bought Properties</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}> Offers</button>
-            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>
-            
-            
+            {tab == "MyProperties" ? <button style={{backgroundColor: "blue", color: "white"}} onClick={() => toMyPropertiesTab()}>My Unsold Properties</button> : 
+            <button className="btn offset-sm-1" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toMyPropertiesTab()}>My Unsold Properties</button>}
+            {tab == "SoldProperties" ? <button style={{backgroundColor: "blue", color: "white"}} onClick={() => toSoldPropertiesTab()}>My Sold Properties</button>: 
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toSoldPropertiesTab()}>My Sold Properties</button>}
+            {tab == "BoughtProperties" ? <button style={{backgroundColor: "blue", color: "white"}} onClick={() => toBoughtPropertiesTab()}>My Bought Properties</button>: 
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBoughtPropertiesTab()}>My Bought Properties</button>}
+            {tab == "Offers" ? <button style={{backgroundColor: "blue", color: "white"}} onClick={() => toFinancesTab()}> Offers</button>: 
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toFinancesTab()}> Offers</button>}
+            {tab == "Bookmarks" ? <button style={{backgroundColor: "blue", color: "white"}} onClick={() => toBookmarksTab()}>My Bookmarks</button>: 
+            <button className="btn" style={{backgroundColor: '#C0C0C0',border: '1px solid black'}} onClick={() => toBookmarksTab()}>My Bookmarks</button>}
         </div>
-        
+        {/* edit user popup form */}
+        <button onClick={() => openEditUserPopup()}>Edit Profile</button>
+        {isEditUserPopupOpen && 
+            <div style={{position: 'fixed', top: '50%', left: '50%',border: '2px solid black' , transform: 'translate(-50%, -50%)', backgroundColor: '#DFDFDF'}}>
+                <button onClick={() => closeEditUserPopup()}>Cancel</button>
+                <div>
+                    <label htmlFor="username">Username: </label>
+                    <input id="username" type="text" name="username" value={editedUser.username} onChange={editUserChangeHandler}/>
+
+                </div>
+                <div>
+                    <label htmlFor="user_image_url">User Image URL:</label>
+                    <input id="user_image_url" type="text" name="user_image_url" value={editedUser.user_image_url} onChange={editUserChangeHandler}/>
+
+                </div>
+                <div>
+                    <label htmlFor="email">Email Address</label>
+                    <input id="email" type="text" name="email" value={editedUser.email} onChange={editUserChangeHandler}/>
+
+                </div>
+
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input id="password" type="password" name="password" value={editedUser.password} onChange={editUserChangeHandler}/>
+
+                </div>
+                <div>
+                    <label htmlFor="profile_description">Description</label>
+                    <input id="profile_description" type="text" name="profile_description" value={editedUser.profile_description} onChange={editUserChangeHandler}/>
+
+                </div>
+            </div>
+        }
         {/* // Tabs with these different components */}
         {tab == "MyProperties" &&
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }}>
@@ -253,6 +334,7 @@ const UserProfile = () => {
                                 <tr>
                                     <th className="col-md-1">View Property</th>
                                     <th className="col-md-1">Property Name</th>
+                                    <th className="col-md-1">Amount</th>
                                     <th className="col-md-1">Bidder</th>
                                     <th className="col-md-1">View Profile</th>
                                 </tr>
@@ -262,6 +344,7 @@ const UserProfile = () => {
                                     <tr key={index} style={{ border: '1px solid black' }}>
                                         <td><button onClick={() => toOneProperty(offer.property_id)} className="btn btn-primary">View</button></td>
                                         <td>{offer.property_name}</td>
+                                        <td>${offer.offer_amount}</td>
                                         <td>{offer.bidder_username}</td>
                                         <td><button onClick={() => toUserProfile(offer.bidder_user_id)} className="btn btn-primary">View</button></td>
                                     </tr>
@@ -333,7 +416,7 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                                 <p>Address: {property.address}</p>
-                                        <p><strong>{property.sell_or_rent ? "Sold" : "Rented"} for ${property.winning_bid_amount} to {property.winning_bidder_username} <button className="btn btn-primary" onClick={() => toUserProfile(property.winning_bidder_user_id)} style={{marginBottom: '20px'}}>View Profile</button></strong></p>
+                                <p><strong>{property.sell_or_rent ? "Sold" : "Rented"} for ${property.winning_bid_amount} to {property.winning_bidder_username} <button className="btn btn-primary" onClick={() => toUserProfile(property.winning_bidder_user_id)} style={{marginBottom: '20px'}}>View Profile</button></strong></p>
                             </div>
                         </div>
                         ))
