@@ -98,6 +98,7 @@ const UserProfile = () => {
         fetchProperties()
         fetchOffers()
         fetchBookmarks()
+        setTab("MyProperties")
     },[otherUserId])
     // logout
     const logout = () => {
