@@ -661,7 +661,10 @@ const ViewOneProperty = () => {
                         {/* //BONUS: Table of offer if current user == lister user id*/}
                         {/* {!property.isSold &&  */}
 
-                            <div>
+                        <div>
+                            {property.isSold ? (
+                                <p>This property is sold</p>
+                            ) : (
                                 <div className="row">
                                     <div className="col-md-6">
                                         <table className="table">
@@ -688,7 +691,8 @@ const ViewOneProperty = () => {
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            )}
+                        </div>
                         {/* } */}
                         {isAcceptOfferPopupOpen &&
                             <div  style={{marginBottom: '50px'}}>
@@ -720,7 +724,7 @@ const ViewOneProperty = () => {
 
     {/* BONUS: make offer window and lists my offer, with edit and delete */}
     {/* window to submit offer */}
-    {currentUserId !== property.lister_user_id && !myOffer &&
+    {!property.isSold && currentUserId !== property.lister_user_id && !myOffer &&
         <div>
             <p className="fs-2">Would you like to make an offer on this listing?</p>
             <form onSubmit={offerSubmissionForm}>
