@@ -119,12 +119,12 @@ const NewProperty = () => {
                     <div className="col-md-3">
                         <label htmlFor="property_name">Property Name:</label>
                         <input id="property_name" type="text" className="form-control" placeholder="Name" name="property_name" value={potentialProperty.property_name} onChange={propertyFormChangeHandler}/>
-                        {potentialPropertyErrors.property_name && <p>{potentialPropertyErrors.property_name.message}</p>}
+                        {potentialPropertyErrors.property_name && <p style={{color: "red"}}>{potentialPropertyErrors.property_name.message}</p>}
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="property_photo_url">Property Photo URL:</label>
                         <input id="property_photo_url" type="text" className="form-control" placeholder="Place URL here" name="property_photo_url" value={potentialProperty.property_photo_url}  onChange={propertyFormChangeHandler}/>
-                        {potentialPropertyErrors.property_photo_url && <p>{potentialPropertyErrors.property_photo_url.message}</p>}
+                        {potentialPropertyErrors.property_photo_url && <p style={{color: "red"}}>{potentialPropertyErrors.property_photo_url.message}</p>}
                     </div>
                     <div className="col-md-3">
                         <label htmlFor="property_photos">Property Photos</label>
@@ -133,7 +133,7 @@ const NewProperty = () => {
                     <div className="col-md-2">
                         <label htmlFor="asking_price">Asking Price. If rental, How much per month?</label>
                         <input id="asking_price" type="number" className="form-control"name="asking_price" value={potentialProperty.asking_price}  onChange={propertyFormChangeHandler}/>
-                        {potentialPropertyErrors.asking_price && <p>Asking Price must be greater than 0</p>}
+                        {potentialPropertyErrors.asking_price && <p style={{color: "red"}}>Asking Price must be greater than $0</p>}
                     </div>
                     <div className="col-md-2">
                         <label>Sell or Rent?</label>
@@ -154,37 +154,37 @@ const NewProperty = () => {
                             <option value="Condo">Condo</option>
                             <option value="Townhouse">Townhouse</option>
                         </select>
-                        {potentialPropertyErrors.property_type && <p>Must select a property type</p>}
+                        {potentialPropertyErrors.property_type && <p style={{color: "red"}}>Must select a property type</p>}
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="square_footage">Square Footage</label>
                         <input id="square_footage" type="number" className="form-control"name="square_footage" value={potentialProperty.square_footage} onChange={propertyFormChangeHandler}/>
-                        {potentialPropertyErrors.square_footage && <p>Square Footage must be greater than 0</p>}
+                        {potentialPropertyErrors.square_footage && <p style={{color: "red"}}>Square Footage must be greater than 0</p>}
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="number_of_beds">Number of Bedrooms</label>
                         <input id="number_of_beds" type="number" className="form-control"name="number_of_beds" value={potentialProperty.number_of_beds} onChange={propertyFormChangeHandler} />
-                        {potentialPropertyErrors.number_of_beds && <p>{potentialPropertyErrors.number_of_beds.message}</p>}
+                        {potentialPropertyErrors.number_of_beds && <p style={{color: "red"}}>{potentialPropertyErrors.number_of_beds.message}</p>}
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="number_of_baths">Number of Bathrooms</label>
                         <input id="number_of_beds" type="number" className="form-control"name="number_of_baths" value={potentialProperty.number_of_baths} onChange={propertyFormChangeHandler} />
-                        {potentialPropertyErrors.number_of_baths &&<p>{potentialPropertyErrors.number_of_baths.message}</p>}
+                        {potentialPropertyErrors.number_of_baths &&<p style={{color: "red"}}>{potentialPropertyErrors.number_of_baths.message}</p>}
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="number_of_ghosts">Number of Ghosts</label>
                         <input id="number_of_ghosts" type="number" className="form-control"name="number_of_ghosts" value={potentialProperty.number_of_ghosts} onChange={propertyFormChangeHandler} />
-                        {potentialPropertyErrors.number_of_ghosts && <p>{potentialPropertyErrors.number_of_ghosts.message}</p>}
+                        {potentialPropertyErrors.number_of_ghosts && <p style={{color: "red"}}>{potentialPropertyErrors.number_of_ghosts.message}</p>}
                     </div>
                     <div className="col-md-4">
                         <label htmlFor="address">Address</label>
                         <input id="address" type="text" className="form-control"name="address" value={potentialProperty.address} onChange={propertyFormChangeHandler} />
-                        {potentialPropertyErrors.address &&<p>{potentialPropertyErrors.address.message}</p>}
+                        {potentialPropertyErrors.address &&<p style={{color: "red"}}>{potentialPropertyErrors.address.message}</p>}
                     </div>
                     <div>
                         <label htmlFor="description">Property Description</label>
                         <input id="desccription" type="text" name="property_description" value={potentialProperty.property_description} onChange={propertyFormChangeHandler} />
-                        {potentialPropertyErrors.property_description && <p>{potentialPropertyErrors.property_description.message}</p>}
+                        {potentialPropertyErrors.property_description && <p style={{color: "red"}}>{potentialPropertyErrors.property_description.message}</p>}
                     </div>
                 </div>
                 <button className="col-md-1 btn btn-primary offset-sm-8">Post Listing!</button>

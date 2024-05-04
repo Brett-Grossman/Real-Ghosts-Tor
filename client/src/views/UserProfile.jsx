@@ -334,6 +334,7 @@ const UserProfile = () => {
                                 <tr>
                                     <th className="col-md-1">View Property</th>
                                     <th className="col-md-1">Property Name</th>
+                                    <th className="col-md-1">Amount</th>
                                     <th className="col-md-1">Bidder</th>
                                     <th className="col-md-1">View Profile</th>
                                 </tr>
@@ -343,6 +344,7 @@ const UserProfile = () => {
                                     <tr key={index} style={{ border: '1px solid black' }}>
                                         <td><button onClick={() => toOneProperty(offer.property_id)} className="btn btn-primary">View</button></td>
                                         <td>{offer.property_name}</td>
+                                        <td>${offer.offer_amount}</td>
                                         <td>{offer.bidder_username}</td>
                                         <td><button onClick={() => toUserProfile(offer.bidder_user_id)} className="btn btn-primary">View</button></td>
                                     </tr>

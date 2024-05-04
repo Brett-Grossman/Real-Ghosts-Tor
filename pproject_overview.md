@@ -110,8 +110,6 @@ Steps:
     BONUS: All properties are in tabs of 10 properties max
     BONUS: 50 properties
 
-    BONUS: Fix the user profile navigate buttons to reset the page into the myProperties tab
-
     BONUS: User Profile:
     BONUS: as a buyer:
     list of offers made with links to the properties /
@@ -132,7 +130,15 @@ Steps:
 
     BRETT BONUS: Delete all losing offers
 
-    BONUS: Edit profile function, change every property and offer to match
+    PAIR BONUS: Fix the user profile navigate buttons to reset the page into the myProperties tab
+
+    PAIR BONUS: Edit profile function, change every property and offer to match
+
+    PAIR BONUS: property has minimum bid amount
+
+    PAIR BONUS: display the numbers with commas and decimal .00
+
+    PAIR BONUS: fix the issue with the server being deleted in six days
 
     BRETT BONUS: Style the user edit popup
     
@@ -140,11 +146,9 @@ Steps:
 
     BONUS: tabs on profile page are ternary blue or grey depending on if tab match /
 
-    BONUS: property has minimum bid amount and a buy now option
+    BONUS: Add a description for the property, change the model, and the forms /
 
-    BRETT BONUS: add a description for each property, change the model, and the forms CURRENT
-
-    BONUS: Tweak the wording such as changing purchased properties to closed properties
+    BRETT BONUS: add a description for each property
 
     BONUS: add my profile, logout and home buttons to every page except RegAndLogin /
 
@@ -152,21 +156,20 @@ Steps:
 
     BRETT BONUS: delete all the offers on sold properties
 
-    BONUS: display the numbers with commas and decimal .00
+    BONUS: have the current tab on the user's profile be blue /
 
-    BONUS: have the current tab on the user's profile be blue
+    BRETT BONUS: remove offer ids from the view property html page
 
-    BONUS: Filter based on the us state the house is located in
-
-    BONUS: All offers received grouped by property with link to the property and link to the offer maker
+    BONUS: All offers received grouped by property with link to the property and link to the offer maker TEST
 
     BRETT BONUS: Properties show newest first
 
-    BONUS: Set all error messages to red
+    BONUS: Set all error messages to red /
 
-    BONUS: Set the confirms in popups
+    BONUS: Set the confirms in popups /
 
-    BONUS: Allow for relist and change the listing user's information to the winning bidder user information
+    BONUS: Allow for relist and change the listing user's information to the winning bidder user information: 
+    if the winning bidder id == otherUserId, reset the lister info and erase the winning bidder info and set isSold to false, remove the bookmark if any /
 
 Data:
     40 properties
