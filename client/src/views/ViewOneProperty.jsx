@@ -113,20 +113,28 @@ const ViewOneProperty = () => {
     // edited property change handler
     const editPropertyChangeHandler = (e) => {
         const { name, value, type } = e.target;
-
-        if(type === 'radio') {
+    
+        if (type === 'radio') {
             setEditedProperty(prevProperty => ({
                 ...prevProperty,
                 [name]: value === "true"
             }));
-        }
-        else {
+        } else if (name === 'property_photos') {
+
+            const photosArray = value.split(',').map(photo => photo.trim());
+            
+
+            setEditedProperty(prevProperty => ({
+                ...prevProperty,
+                [name]: photosArray
+            }));
+        } else {
             setEditedProperty(prevProperty => ({
                 ...prevProperty,
                 [name]: value
             }));
         }
-    }
+    };
 
     // pass editedProperty into a patch for property
     // if successful, fetchProperty res.data and set editedProperty as res.data
@@ -419,11 +427,10 @@ const ViewOneProperty = () => {
     }
 
     const pictureLeft = () => {
-        if(currentImageIndex == 0){
-            setCurrentImageIndex(property.property_photos.length - 1)
-        }
-        if(currentImageIndex < property.property_photos.length -1){
-            setCurrentImageIndex(currentImageIndex - 1)
+        if(currentImageIndex === 0){
+            setCurrentImageIndex(property.property_photos.length - 1);
+        } else {
+            setCurrentImageIndex(currentImageIndex - 1);
         }
     }
 
@@ -499,8 +506,9 @@ const ViewOneProperty = () => {
                 <div className="row">
                     <h1 className="offset-sm-1">{property.property_name}</h1>
                     <div className="col">
-                        
-                        <img className='shadow-lg'style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
+                        {!property.property_photos || property.property_photos.length === 0 &&
+                            <img className='shadow-lg' style={{height: '350px', width: '500px'}} src={property.property_photo_url}/>
+                        }
                         <div></div>
                         {/* // BONUS: Pictures array that has arrow buttons to go forward and back to the different picture */}
 
