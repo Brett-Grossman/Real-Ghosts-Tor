@@ -209,6 +209,12 @@ const ViewOneProperty = () => {
 
     const offerSubmissionForm = (e) => {
         e.preventDefault()
+        // CURRENT PLACE 1
+        if(pendingOffer.offer_amount < property.minimum_bid) {
+            setPendingOfferErrors({offer_amount: "Offer cannot be less than property's minimum bid requirement."})
+            console.log("pendingOfferErrors for less than minimum_bid: ", pendingOfferErrors)
+            return
+        }
         const newOffer = {
             ...pendingOffer,
             bidder_user_id: currentUser._id,
@@ -510,7 +516,14 @@ const ViewOneProperty = () => {
                         
                         {property.isSold ? <p className="col-md-1 fs-5" style={{color: 'red'}}>Sold!</p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
+
                             {property.isSold ? <p>Sold for: ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p> : <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>}
+
+
+                            {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                            {!property.isSold && <p>Minimum bid allowed: ${property.minimum_bid}</p>}
+
+d7662204a47f439df9c8bc703a698ab48
                         </div>  
                         <div style={{height: '60px', width: '300px'}}>
                             <p>Address: {property.address}</p>
@@ -728,11 +741,12 @@ const ViewOneProperty = () => {
             <form onSubmit={offerSubmissionForm}>
                 <label htmlFor="offer_amount">Offer Amount:</label>
                 <input id="offer_amount" type="number" name="offer_amount" value={pendingOffer.offer_amount} onChange={offerChangeHandler}/>
-                {pendingOfferErrors.offer_amount && <p style={{color: "red"}}>Error: Offer amount must be at least 1.</p>}
+                {pendingOfferErrors.offer_amount && <p style={{color: "red"}}>{pendingOfferErrors?.offer_amount}</p>}
                 <button className="btn btn-primary">Make Offer</button>
             </form>
         </div>
     }
+    {/* CURRENT PLACE 2 */}
     {currentUserId !== property.lister_user_id && myOffer &&
         <div>
                 <div >
