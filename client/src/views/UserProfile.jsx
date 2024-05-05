@@ -340,7 +340,7 @@ const UserProfile = () => {
                                         <div className="row">
                                         <div className="col">
                                         <img style={{height: '400px'}} src={property.property_photo_url}/>
-                                        <p>{property.sell_or_rent ? "Purchased" : "Rented"} for ${property.winning_bid_amount}</p>
+                                        <p>{property.sell_or_rent ? "Purchased" : "Rented"} for ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                                         </div>
                                         <div className="col">
                                         <p>{property.property_type}</p>
@@ -386,7 +386,7 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                                 <p>Address: {property.address}</p>
-                                <p><strong>{property.sell_or_rent ? "Sold" : "Rented"} for ${property.winning_bid_amount} to {property.winning_bidder_username} <button className="btn btn-primary" onClick={() => toUserProfile(property.winning_bidder_user_id)} style={{marginBottom: '20px'}}>View Profile</button></strong></p>
+                                <p><strong>{property.sell_or_rent ? "Sold" : "Rented"} for ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} to {property.winning_bidder_username} <button className="btn btn-primary" onClick={() => toUserProfile(property.winning_bidder_user_id)} style={{marginBottom: '20px'}}>View Profile</button></strong></p>
                             </div>
                         </div>
                         ))

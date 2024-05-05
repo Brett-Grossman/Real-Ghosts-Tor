@@ -510,7 +510,7 @@ const ViewOneProperty = () => {
                         
                         {property.isSold ? <p className="col-md-1 fs-5" style={{color: 'red'}}>Sold!</p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
-                            {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>}
+                            {property.isSold ? <p>Sold for: ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p> : <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>}
                         </div>  
                         <div style={{height: '60px', width: '300px'}}>
                             <p>Address: {property.address}</p>
@@ -553,10 +553,10 @@ const ViewOneProperty = () => {
                     <div>
                         
                         {property.sell_or_rent == "sell" &&
-                            <p>Closed for ${property.winning_bid_amount}.00 by {property.winning_bidder_username}</p>
+                            <p>Closed for ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} by {property.winning_bidder_username}</p>
                         }
                         {property.sell_or_rent == "rent" && 
-                            <p>Closed for ${property.winning_bid_amount}.00 per month by {property.winning_bidder_username}</p>
+                            <p>Closed for ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} per month by {property.winning_bidder_username}</p>
                         }
                     </div>}
             </div>
