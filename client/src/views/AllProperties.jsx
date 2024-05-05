@@ -370,7 +370,9 @@ const ViewAllProperties = () => {
             <div className="row">
                 <div className="col-md shadow-lg">
                 {/* all properties displayed */}
-                {allPropertiesFiltered.map((property, index) =>(
+                {allPropertiesFiltered
+                    .sort((a, b) => new Date(a.timestamps) - new Date(b.timestamps)) // Sorting by timestamp
+                    .map((property, index) => (
                 
                 <div className="column" style={{marginBottom:'50px' ,border: '2px solid black', width: "600px"}} key={property._id}>
                         <p></p>
