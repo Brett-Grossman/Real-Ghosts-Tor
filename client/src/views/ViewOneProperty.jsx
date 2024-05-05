@@ -516,8 +516,10 @@ const ViewOneProperty = () => {
                         
                         {property.isSold ? <p className="col-md-1 fs-5" style={{color: 'red'}}>Sold!</p> : ""}
                         <div style={{height: '60px', width: '180px'}}>
+
                             {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
                             {!property.isSold && <p>Minimum bid allowed: ${property.minimum_bid}</p>}
+
                         </div>  
                         <div style={{height: '60px', width: '300px'}}>
                             <p>Address: {property.address}</p>
@@ -668,7 +670,10 @@ const ViewOneProperty = () => {
                         {/* //BONUS: Table of offer if current user == lister user id*/}
                         {/* {!property.isSold &&  */}
 
-                            <div>
+                        <div>
+                            {property.isSold ? (
+                                <p>This property is sold</p>
+                            ) : (
                                 <div className="row">
                                     <div className="col-md-6">
                                         <table className="table">
@@ -676,7 +681,6 @@ const ViewOneProperty = () => {
                                                 <tr>
                                                     <th>Bidder</th>
                                                     <th>Offer Amount</th>
-                                                    <th>Offer ID</th>
                                                     <th>Accept Offer?</th>
                                                 </tr>
                                             </thead>
@@ -687,7 +691,6 @@ const ViewOneProperty = () => {
                                                             <button className="btn" onClick={() => toBidderProfile(offer.bidder_user_id)}>{offer.bidder_username}</button>
                                                         </td>
                                                         <td>${offer.offer_amount}</td>
-                                                        <td>{offer._id}</td>
                                                         <td><button onClick={() => openAcceptOfferPopup(offer)} className="btn btn-primary">Accept</button></td>
                                                     </tr>
                                                 ))}
@@ -695,7 +698,8 @@ const ViewOneProperty = () => {
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            )}
+                        </div>
                         {/* } */}
                         {isAcceptOfferPopupOpen &&
                             <div  style={{marginBottom: '50px'}}>
@@ -727,7 +731,7 @@ const ViewOneProperty = () => {
 
     {/* BONUS: make offer window and lists my offer, with edit and delete */}
     {/* window to submit offer */}
-    {currentUserId !== property.lister_user_id && !myOffer &&
+    {!property.isSold && currentUserId !== property.lister_user_id && !myOffer &&
         <div>
             <p className="fs-2">Would you like to make an offer on this listing?</p>
             <form onSubmit={offerSubmissionForm}>
