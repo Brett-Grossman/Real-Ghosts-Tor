@@ -16,6 +16,7 @@ const NewProperty = () => {
         property_photo_url: '',
         property_photos: [],
         asking_price: 0,
+        minimum_bid: 0,
         sell_or_rent: true,
         property_type: '',
         square_footage: 0,
@@ -134,6 +135,11 @@ const NewProperty = () => {
                         <label htmlFor="asking_price">Asking Price. If rental, How much per month?</label>
                         <input id="asking_price" type="number" className="form-control"name="asking_price" value={potentialProperty.asking_price}  onChange={propertyFormChangeHandler}/>
                         {potentialPropertyErrors.asking_price && <p style={{color: "red"}}>Asking Price must be greater than $0</p>}
+                    </div>
+                    <div className="col-md-2">
+                        <label htmlFor="minimum_bid">Minimum Bid</label>
+                        <input id="minimum_bid" type="number" name="minimum_bid" value={potentialProperty.minimum_bid} onChange={propertyFormChangeHandler}/>
+                        {potentialPropertyErrors.minimum_bid && <p style={{color: "red"}}>Minimum bid must be at least $1</p>}
                     </div>
                     <div className="col-md-2">
                         <label>Sell or Rent?</label>

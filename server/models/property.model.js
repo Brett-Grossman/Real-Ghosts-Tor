@@ -29,6 +29,11 @@ const PropertySchema = new Schema({
         required: [true, "Listing must have an asking price."],
         min: [1, "Listing must be at least 1 dollar."]
     },
+    minimum_bid: {
+        type: Number,
+        required: [true, "Property must have a minimum bid amount."],
+        min: [1, "The minimum bid amount must be at least 1 dollar.."]
+    },
     sell_or_rent: {
         type: Boolean,
         default: true
