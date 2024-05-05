@@ -645,9 +645,9 @@ const ViewOneProperty = () => {
                                             <input id="address" type="text" name="address" value={editedProperty.address} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors && <p style={{color: 'red'}}>{editedPropertyErrors.address?.message}</p>}
                                         </div>
-                                        <div className="col-md-4">
+                                        <div className="col-md-12">
                                             <label htmlFor="property_description">Property Description</label>
-                                            <textarea id="property_description" type="text" style={{width: '400px',height: '100px'}} name="property_description" value={editedProperty.property_description} onChange={editPropertyChangeHandler}/>
+                                            <textarea id="property_description" className="form-control w-400 h-100" style={{maxWidth: '400px', maxHeight: '100px'}} name="property_description" value={editedProperty.property_description} onChange={editPropertyChangeHandler}/>
                                             {editedPropertyErrors.property_description && <p style={{color: 'red'}}>{editedPropertyErrors.property_description?.message}</p>}
                                         </div>
                                         <button className="col-md-5 btn btn-primary offset-sm-3">Submit New Edit</button>
