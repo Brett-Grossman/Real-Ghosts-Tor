@@ -343,6 +343,18 @@ const ViewAllProperties = () => {
         return formattedNumber.toLocaleString('en-US', {minimumFractionDigits: 2})
     }
 
+    const [startIndex, setStartIndex] = useState(0);
+
+    // Function to handle clicking the "Next" button
+    const handleNextClick = () => {
+        setStartIndex(startIndex + 10);
+    };
+
+    // Function to handle clicking the "Previous" button
+    const handlePreviousClick = () => {
+        setStartIndex(Math.max(startIndex - 10, 0));
+    };
+
     const toNewProperty = () => navigate(`/new_property/${currentUserId}`)
 
     // link to my account
@@ -365,13 +377,12 @@ const ViewAllProperties = () => {
                 <button onClick={() => toMyAccount()} className='col-md offset-md-2 btn btn-primary'>My Account</button>
             </div>
 
-            {/*add more offers and accept 2 of them*/}
-
             <div className="row">
                 <div className="col-md shadow-lg">
                 {/* all properties displayed */}
                 {allPropertiesFiltered
                     .sort((a, b) => new Date(a.timestamps) - new Date(b.timestamps)) // Sorting by timestamp
+                    .slice(startIndex, startIndex + 10)
                     .map((property, index) => (
                 
                 <div className="column" style={{marginBottom:'50px' ,border: '2px solid black', width: "600px"}} key={property._id}>
@@ -433,6 +444,10 @@ const ViewAllProperties = () => {
                 </div>
             
             ))}
+            <button className="btn btn-primary" onClick={handlePreviousClick} disabled={startIndex === 0}>Last Page</button>
+            <button className="btn btn-primary" onClick={handleNextClick} disabled={startIndex + 10 >= allPropertiesFiltered.length}>
+                    Next
+                </button>
             </div>
             <div className="col-md">
                 <div className="subcontainer position-fixed" style={{height: '', 
