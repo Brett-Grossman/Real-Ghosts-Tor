@@ -115,8 +115,8 @@ const NewProperty = () => {
         <div className='container shadow-lg' style={{backgroundColor: '#f0f0f0'}}>
             <div>
             <form onSubmit={newPropertyFormSubmission}>
+                <button className='col-md btn btn-secondary'onClick={() => toHome()}>Home</button>
                 <div className="row">
-                    <button className='col-md btn btn-secondary'onClick={() => toHome()}>Home</button>
                     <div className="col-md-3">
                         <label htmlFor="property_name">Property Name:</label>
                         <input id="property_name" type="text" className="form-control" placeholder="Name" name="property_name" value={potentialProperty.property_name} onChange={propertyFormChangeHandler}/>
@@ -138,7 +138,7 @@ const NewProperty = () => {
                     </div>
                     <div className="col-md-2">
                         <label htmlFor="minimum_bid">Minimum Bid</label>
-                        <input id="minimum_bid" type="number" name="minimum_bid" value={potentialProperty.minimum_bid} onChange={propertyFormChangeHandler}/>
+                        <input id="minimum_bid" type="number" className="form-control" name="minimum_bid" value={potentialProperty.minimum_bid} onChange={propertyFormChangeHandler}/>
                         {potentialPropertyErrors.minimum_bid && <p style={{color: "red"}}>Minimum bid must be at least $1</p>}
                     </div>
                     <div className="col-md-2">
@@ -187,13 +187,13 @@ const NewProperty = () => {
                         <input id="address" type="text" className="form-control"name="address" value={potentialProperty.address} onChange={propertyFormChangeHandler} />
                         {potentialPropertyErrors.address &&<p style={{color: "red"}}>{potentialPropertyErrors.address.message}</p>}
                     </div>
-                    <div>
+                    <div className="col-md-6">
                         <label htmlFor="description">Property Description</label>
-                        <input id="desccription" type="text" name="property_description" value={potentialProperty.property_description} onChange={propertyFormChangeHandler} />
+                        <textarea id="desccription" type="text" className="form-control" name="property_description" value={potentialProperty.property_description} onChange={propertyFormChangeHandler} />
                         {potentialPropertyErrors.property_description && <p style={{color: "red"}}>{potentialPropertyErrors.property_description.message}</p>}
                     </div>
                 </div>
-                <button className="col-md-1 btn btn-primary offset-sm-8">Post Listing!</button>
+                <button className="col-md-1 btn btn-primary offset-sm-10">Post Listing!</button>
             </form>
             
             </div>
