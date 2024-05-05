@@ -483,7 +483,7 @@ const ViewOneProperty = () => {
                 <button className='col-md offset-md-2 btn btn-primary'onClick={() => toHome()}>To Home</button>
             </div>
             {/* NOTE: please make this a ribbon on the top of the window and to the side */}
-            {myBookmark && <h1 style={{color: 'white', background: 'blue',width: '18%'}}>Bookmarked</h1>}
+            {myBookmark && <h1 style={{color: 'white', background: 'blue',width: '21%'}}>Bookmarked</h1>}
             {currentUserId !== property.lister_user_id && <button style={{border: '1px solid blue'}} className="btn" onClick={() => toggleBookmark()}>Bookmark</button>}
             <div className="row "> {/* property info*/}
                 {/* // Name of seller that links to user's profile */}
@@ -518,12 +518,12 @@ const ViewOneProperty = () => {
                         <div style={{height: '60px', width: '180px'}}>
 
                             {property.isSold ? <p>Sold for: ${Number(property.winning_bid_amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p> : <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>}
+                        
 
-
-                            {property.isSold ? <p>Sold for: ${property.winning_bid_amount}</p> : <p>Asking Price: ${property.asking_price}</p>}
+                        <div style={{height: '60px', width: '180px'}}>
                             {!property.isSold && <p>Minimum bid allowed: ${property.minimum_bid}</p>}
+                        </div>
 
-d7662204a47f439df9c8bc703a698ab48
                         </div>  
                         <div style={{height: '60px', width: '300px'}}>
                             <p>Address: {property.address}</p>
@@ -533,7 +533,7 @@ d7662204a47f439df9c8bc703a698ab48
                         </div>
                     </div>
                     <div className="col">
- 
+
                         <div style={{height: '60px', width: '180px'}}>
                             <p>Property Type: {property.property_type}</p>
                         </div>
