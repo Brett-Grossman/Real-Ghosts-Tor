@@ -245,7 +245,7 @@ const UserProfile = () => {
                                     
                                     <img style={{height: '400px', width: '500px'}} src={bookmark.property_photo_url}/>
                                     {!bookmark.isSold && (bookmark.sell_or_rent ? <p> For Sale</p> : <p>For Rent</p>)}
-                                    <p>Asking Price: ${Number(property.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+                                    <p>Asking Price: ${Number(bookmark.asking_price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                                 </div>
                                 <div className="col">
                                     <p>Property Type: {bookmark.property_type}</p>
