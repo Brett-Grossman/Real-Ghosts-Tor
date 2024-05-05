@@ -777,9 +777,10 @@ const ViewOneProperty = () => {
                     </div>
                 }
                 {isOfferDeletePopupOpen && myOffer &&
-                    <div style={{marginBottom: '50px'}}>
-                        <button onClick={() => closeDeleteOfferPopup()}>Cancel</button>
-                        <button onClick={() => deleteOfferForReal()}>Delete</button>
+                    <div className="shadow-lg" style={{position: 'fixed', top: '60%', left: '50%', transform: 'translate(-50%, -50%)', border: '2px solid black',backgroundColor: '#f0f0f0'}}>
+                    <h1>Delete Offer?</h1>
+                        <button className="btn btn-secondary" onClick={() => closeDeleteOfferPopup()}>Cancel</button>
+                        <button className="btn btn-warning" onClick={() => deleteOfferForReal()}>Delete</button>
                     </div>
                 }
                 </div>
