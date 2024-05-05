@@ -106,9 +106,6 @@ Steps:
 
     BONUS: Buttons blue except cancel and reset and other those type of buttons /
     BONUS: Property info to the side of the property photo, margins around everything /
-    BONUS: multiple photos with a forward and back buttons on the sides
-    BONUS: All properties are in tabs of 10 properties max
-    BONUS: 50 properties
 
     BONUS: User Profile:
     BONUS: as a buyer:
@@ -128,21 +125,23 @@ Steps:
         remove from offer ids /
         Make three bids on a property and accept one /
 
-    BRETT BONUS: Delete all losing offers
+    BRETT BONUS: Delete all losing offers /
 
-    PAIR BONUS: Fix the user profile navigate buttons to reset the page into the myProperties tab
+    PAIR BONUS: Fix the user profile navigate buttons to reset the page into the myProperties tab /
 
-    PAIR BONUS: Edit profile function, change every property and offer to match
+    PAIR BONUS: Edit profile function, change every property and offer to match CANCELLED
 
-    PAIR BONUS: property has minimum bid amount
+    PAIR BONUS: property has minimum bid amount /
 
     PAIR BONUS: display the numbers with commas and decimal .00
 
-    PAIR BONUS: fix the issue with the server being deleted in six days
+    PAIR BONUS: fix the issue with the server being deleted in six days /
 
-    BRETT BONUS: Style the user edit popup
-    
-    BRETT BONUS: Add user profile text information to each profile
+    BONUS: multiple photos with a forward and back buttons on the sides
+    BONUS: All properties are in tabs of 10 properties max
+    BONUS: 50 properties
+
+    BRETT BONUS: Make the delete offer a popup
 
     BONUS: tabs on profile page are ternary blue or grey depending on if tab match /
 
@@ -154,11 +153,11 @@ Steps:
 
     BRETT BONUS: Darkmode
 
-    BRETT BONUS: delete all the offers on sold properties
+    BRETT BONUS: delete all the offers on sold properties /
 
     BONUS: have the current tab on the user's profile be blue /
 
-    BRETT BONUS: remove offer ids from the view property html page
+    BRETT BONUS: remove offer ids from the view property html page /
 
     BONUS: All offers received grouped by property with link to the property and link to the offer maker TEST
 
