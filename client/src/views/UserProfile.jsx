@@ -65,6 +65,7 @@ const UserProfile = () => {
                 const allOffers = res.data
                 const allReceivedOffers = allOffers.filter(offer => offer.lister_id == otherUserId)
                 console.log("allReceivedOffers: ", allReceivedOffers)
+                allReceivedOffers.sort()
                 setAllReceivedOffers(allReceivedOffers)
                 const allMyMadeOffers = allOffers.filter(offer => offer.bidder_user_id == otherUserId)
                 console.log("allMyMadeOffers: ", allMyMadeOffers)

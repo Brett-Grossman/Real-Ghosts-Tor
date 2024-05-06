@@ -133,21 +133,25 @@ Steps:
 
     PAIR BONUS: property has minimum bid amount /
 
-    PAIR BONUS: display the numbers with commas and decimal .00
+    PAIR BONUS: display the numbers with commas and decimal .00 /
 
     PAIR BONUS: fix the issue with the server being deleted in six days /
 
-    BONUS: multiple photos with a forward and back buttons on the sides
-    BONUS: All properties are in tabs of 10 properties max
-    BONUS: 50 properties
+    BRETT BONUS: multiple photos with a forward and back buttons on the sides
+    BRETT BONUS: All properties are in tabs of 10 properties max
+    BRETT BONUS: 50 properties
 
     BRETT BONUS: Make the delete offer a popup
+
+    BRETT BONUS: add a description for each property
+
+    BRETT BONUS: Properties show newest first
+
+    BRETT BONUS: All offers received grouped by property with link to the property and link to the offer maker TEST
 
     BONUS: tabs on profile page are ternary blue or grey depending on if tab match /
 
     BONUS: Add a description for the property, change the model, and the forms /
-
-    BRETT BONUS: add a description for each property
 
     BONUS: add my profile, logout and home buttons to every page except RegAndLogin /
 
@@ -158,10 +162,6 @@ Steps:
     BONUS: have the current tab on the user's profile be blue /
 
     BRETT BONUS: remove offer ids from the view property html page /
-
-    BONUS: All offers received grouped by property with link to the property and link to the offer maker TEST
-
-    BRETT BONUS: Properties show newest first
 
     BONUS: Set all error messages to red /
 
