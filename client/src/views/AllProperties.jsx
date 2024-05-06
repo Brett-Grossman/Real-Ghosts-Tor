@@ -381,7 +381,7 @@ const ViewAllProperties = () => {
                 <div className="col-md shadow-lg">
                 {/* all properties displayed */}
                 {allPropertiesFiltered
-                    .sort((a, b) => new Date(a.timestamps) - new Date(b.timestamps)) // Sorting by timestamp
+                    .sort((a, b) => new Date(a.timestamps) - new Date(b.timestamps))
                     .slice(startIndex, startIndex + 10)
                     .reverse()
                     .map((property, index) => (
