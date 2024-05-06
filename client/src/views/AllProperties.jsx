@@ -383,6 +383,7 @@ const ViewAllProperties = () => {
                 {allPropertiesFiltered
                     .sort((a, b) => new Date(a.timestamps) - new Date(b.timestamps)) // Sorting by timestamp
                     .slice(startIndex, startIndex + 10)
+                    .reverse()
                     .map((property, index) => (
                 
                 <div className="column" style={{marginBottom:'50px' ,border: '2px solid black', width: "600px"}} key={property._id}>
