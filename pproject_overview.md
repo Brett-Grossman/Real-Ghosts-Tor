@@ -137,17 +137,13 @@ Steps:
 
     PAIR BONUS: fix the issue with the server being deleted in six days /
 
-    BRETT BONUS: multiple photos with a forward and back buttons on the sides
-    BRETT BONUS: All properties are in tabs of 10 properties max
+    BRETT BONUS: multiple photos with a forward and back buttons on the sides /
+    BRETT BONUS: All properties are in tabs of 10 properties max /
     BRETT BONUS: 50 properties
-
-    BRETT BONUS: Make the delete offer a popup
-
+    BRETT BONUS: Make the delete offer a popup /
     BRETT BONUS: add a description for each property
-
-    BRETT BONUS: Properties show newest first
-
-    BRETT BONUS: All offers received grouped by property with link to the property and link to the offer maker TEST
+    BRETT BONUS: Properties show newest first /
+    BRETT BONUS: All offers received grouped by property with link to the property and link to the offer maker TEST /
 
     BONUS: tabs on profile page are ternary blue or grey depending on if tab match /
 
