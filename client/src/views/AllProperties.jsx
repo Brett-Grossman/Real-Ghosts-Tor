@@ -451,9 +451,16 @@ const ViewAllProperties = () => {
                 </button>
             </div>
             <div className="col-md">
-                <div className="subcontainer position-fixed" style={{height: '', 
-                    width: '400px' ,backgroundColor: '#f0f0f0', border: 
-                    '2px solid black', left: '52%', transform: 'translateX(50%)'}}>
+                <div className="subcontainer position-fixed" 
+                    style={{ 
+                        width: '400px' ,
+                        height: '85vh',
+                        maxHeight: '85vh',
+                        backgroundColor: '#f0f0f0', 
+                        border: '2px solid black', 
+                        left: '52%', 
+                        transform: 'translateX(50%)'
+                }}>
                     <div className='row justify-content-center'>
                         <p className="fs-4 col-sm-3">Filters:</p>
                         <div>
