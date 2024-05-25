@@ -459,7 +459,8 @@ const ViewAllProperties = () => {
                         backgroundColor: '#f0f0f0', 
                         border: '2px solid black', 
                         left: '52%', 
-                        transform: 'translateX(50%)'
+                        transform: 'translateX(50%)',
+                        overflowY: 'auto'
                 }}>
                     <div className='row justify-content-center'>
                         <p className="fs-4 col-sm-3">Filters:</p>
