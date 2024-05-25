@@ -1,0 +1,13 @@
+.filters-label {
+    font-size: 2vh; 
+}
+
+.filters-input {
+    font-size: 2vh; 
+    height: 4vh; 
+}
+
+.filters-button {
+    font-size: 2vh;
+    padding: 1vh 2vh;
+}
